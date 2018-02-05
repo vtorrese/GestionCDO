@@ -437,6 +437,8 @@ public class Utilisateur_new extends javax.swing.JPanel {
           JOptionPane.showMessageDialog(this,"Mot de passe invalide (au moins 5 caractères!)");}
        else 
        {
+         
+           
            status = Status_user.getSelectedIndex();
            formation = Form_user.getSelectedIndex();
            promotion = Promo_user.getSelectedIndex();
@@ -455,6 +457,7 @@ public class Utilisateur_new extends javax.swing.JPanel {
           
     }//GEN-LAST:event_Btn_enregistrerActionPerformed
 
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Adresse_user;
