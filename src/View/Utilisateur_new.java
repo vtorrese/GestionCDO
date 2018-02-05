@@ -5,7 +5,7 @@
  */
 package view;
 
-import Controller.MainController;
+import Controller.UtilisateurController;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -394,67 +394,64 @@ public class Utilisateur_new extends javax.swing.JPanel {
     private void Btn_enregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_enregistrerActionPerformed
         
         // Controles
-        if(Status_user.getSelectedIndex()==0) {
-            JOptionPane.showMessageDialog(this,"Statut invalide !");
-        } else {status = Status_user.getSelectedIndex();}
-        
-        if(status==2){ // si étudiant controle des combobox promotion et formation
+     
+       if(Status_user.getSelectedIndex()==0) {
+            JOptionPane.showMessageDialog(this,"Statut invalide !");}
+       
+       else if(status==2){ // si étudiant controle des combobox promotion et formation
             if(Form_user.getSelectedIndex()==0) {
-            JOptionPane.showMessageDialog(this,"Formation invalide !");
-            } else {formation = Form_user.getSelectedIndex();}
+            JOptionPane.showMessageDialog(this,"Formation invalide !");}
+            
             if(Promo_user.getSelectedIndex()==0) {
-            JOptionPane.showMessageDialog(this,"Promotion invalide !");
-            } else {promotion = Promo_user.getSelectedIndex();}
+            JOptionPane.showMessageDialog(this,"Promotion invalide !");}
 
         }
-        
-       if(Site_user.getSelectedIndex()==0) {
-            JOptionPane.showMessageDialog(this,"Site invalide !");
-        } else {site = Site_user.getSelectedIndex();}
+       else if(Site_user.getSelectedIndex()==0) {
+            JOptionPane.showMessageDialog(this,"Site invalide !");}
        
-       if(Civil_user.getSelectedIndex()==0) {
-            JOptionPane.showMessageDialog(this,"Civilité invalide !");
-        } else {civil = Civil_user.getSelectedIndex();}
+       else if(Civil_user.getSelectedIndex()==0) {
+            JOptionPane.showMessageDialog(this,"Civilité invalide !");}
        
-       if(Nom_user.getText().equals("")) {
-          JOptionPane.showMessageDialog(this,"Nom invalide !");
-        } else {nom = Nom_user.getText();}
+       else if(Nom_user.getText().equals("")) {
+          JOptionPane.showMessageDialog(this,"Nom invalide !");}
        
-        if(Prenom_user.getText().equals("")) {
-          JOptionPane.showMessageDialog(this,"Prénom invalide !");
-        } else {prenom = Prenom_user.getText();}
+       else if(Prenom_user.getText().equals("")) {
+          JOptionPane.showMessageDialog(this,"Prénom invalide !");}
         
-        if(Adresse_user.getText().equals("")) {
-          JOptionPane.showMessageDialog(this,"Adresse invalide !");
-        } else {adresse = Adresse_user.getText();}
+       else if(Adresse_user.getText().equals("")) {
+           JOptionPane.showMessageDialog(this,"Adresse invalide !");}
         
-        if(Commune_user.getText().equals("")) {
-          JOptionPane.showMessageDialog(this,"Commune invalide !");
-        } else {ville = Commune_user.getText();}
+       else if(Commune_user.getText().equals("")) {
+          JOptionPane.showMessageDialog(this,"Commune invalide !");}
         
-        if(CP_user.getText().length()!=5) {
-          JOptionPane.showMessageDialog(this,"Code postal invalide !");
-        } else {CP = CP_user.getText();}
+       else if(CP_user.getText().length()!=5) {
+          JOptionPane.showMessageDialog(this,"Code postal invalide !");}
         
-        if(Tel_user.getText().length()!=10) {
-          JOptionPane.showMessageDialog(this,"Numéro de téléphone invalide !");
-        } else {tel = Tel_user.getText();}
+       else if(Tel_user.getText().length()!=10) {
+          JOptionPane.showMessageDialog(this,"Numéro de téléphone invalide !");}
         
-        if(Mail_user.getText().equals("")) { // Voir pour améliorer controle conformité mail
-          JOptionPane.showMessageDialog(this,"Mail invalide !");
-        } else {mail = Mail_user.getText();}
+       else if(Mail_user.getText().equals("")) { // Voir pour améliorer controle conformité mail
+          JOptionPane.showMessageDialog(this,"Mail invalide !");}
         
-        if(Commune_user.getText().equals("")) {
-          JOptionPane.showMessageDialog(this,"Commune invalide !");
-        } else {ville = Commune_user.getText();}
-        
-        if(mdp_user.getText().length()<5) {
-          JOptionPane.showMessageDialog(this,"Mot de passe invalide (au moins 5 caractères!)");
-        } else {mdp = mdp_user.getText();}
-        
-        MainController.insereUser();
-        
-        
+       else if(mdp_user.getText().length()<5) {
+          JOptionPane.showMessageDialog(this,"Mot de passe invalide (au moins 5 caractères!)");}
+       else 
+       {
+           status = Status_user.getSelectedIndex();
+           formation = Form_user.getSelectedIndex();
+           promotion = Promo_user.getSelectedIndex();
+           site = Site_user.getSelectedIndex();
+           civil = Civil_user.getSelectedIndex();
+           mdp = mdp_user.getText();
+           mail = Mail_user.getText();
+           tel = Tel_user.getText();
+           CP = CP_user.getText();
+           ville = Commune_user.getText();
+           adresse = Adresse_user.getText();
+           nom = Nom_user.getText();
+           prenom = Prenom_user.getText();
+            UtilisateurController.insereUser(status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,mdp);
+       }      
           
     }//GEN-LAST:event_Btn_enregistrerActionPerformed
 

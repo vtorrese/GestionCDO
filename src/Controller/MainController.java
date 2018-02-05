@@ -35,10 +35,7 @@ public class MainController {
         
     }
 
-    public static void insereUser() {
-        System.out.println("lkjlkj");
-        
-    }
+
 
 
    
