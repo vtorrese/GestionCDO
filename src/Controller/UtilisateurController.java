@@ -13,9 +13,7 @@ package Controller;
 import Model.*;
 import java.math.BigInteger;
 import java.security.MessageDigest;
-
-
-
+import java.util.ArrayList;
 
 public class UtilisateurController {
 
@@ -25,8 +23,16 @@ public class UtilisateurController {
     
     public static void insereUser(int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
         
-        System.out.println(UtilisateurController.SHA1(mdp));
-            
+        utilisateur newuser = new utilisateur();
+        newuser.enregistre_user(status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,UtilisateurController.SHA1(mdp));
+
+    }
+    
+    public static ArrayList chercheUser(int status,String nom,int formation,int promotion) {
+        utilisateur chercheuser = new utilisateur();
+        ArrayList resultat = new ArrayList();
+        resultat = chercheuser.cherche_user(status, nom, formation, promotion);
+        return resultat;
     }
     
 

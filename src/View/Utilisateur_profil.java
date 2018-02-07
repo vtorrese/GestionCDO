@@ -5,7 +5,9 @@
  */
 package view;
 
+import Controller.UtilisateurController;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,9 +15,12 @@ import java.util.ArrayList;
  */
 public class Utilisateur_profil extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Utilisateur_profil
-     */
+        int status =0;
+        int formation =0;
+        int promotion =0;
+        int site =0;
+        String nom = "";
+        
     public Utilisateur_profil(ArrayList donnees) {
         initComponents();
         
@@ -160,6 +165,11 @@ public class Utilisateur_profil extends javax.swing.JPanel {
 
         Btn_valid.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         Btn_valid.setText("Valider");
+        Btn_valid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_validActionPerformed(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         jLabel10.setText("Statut");
@@ -570,6 +580,26 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                         .addContainerGap())))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Btn_validActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_validActionPerformed
+        
+        //Controles saisies
+        if(Status_cherche.getSelectedIndex()==0 && Nom_cherche.getText().equals("") && Form_cherche.getSelectedIndex()==0 && Promo_cherche.getSelectedIndex()==0)  {
+            JOptionPane.showMessageDialog(this,"Filtre invalide !");}
+        else {
+            status = Status_cherche.getSelectedIndex();
+            formation = Form_cherche.getSelectedIndex();
+            promotion = Promo_cherche.getSelectedIndex();
+            nom = Nom_cherche.getText();
+            UtilisateurController.chercheUser(status,nom,formation,promotion);
+            initialiser_tableau();
+        }
+    }//GEN-LAST:event_Btn_validActionPerformed
+
+
+    public void initialiser_tableau() {
+            
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

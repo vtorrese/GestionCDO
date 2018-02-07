@@ -376,19 +376,7 @@ public class Utilisateur_new extends javax.swing.JPanel {
 
     private void Btn_initActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_initActionPerformed
         // TODO add your handling code here:
-        Status_user.setSelectedIndex(0);
-        Site_user.setSelectedIndex(0);
-        Form_user.setSelectedIndex(0);
-        Promo_user.setSelectedIndex(0);
-        Civil_user.setSelectedIndex(0);
-        Nom_user.setText("");
-        Prenom_user.setText("");
-        Adresse_user.setText("");
-        CP_user.setText("");
-        Commune_user.setText("");
-        Mail_user.setText("");
-        Tel_user.setText("");
-        mdp_user.setText("");
+        initialiser();
     }//GEN-LAST:event_Btn_initActionPerformed
 
     private void Btn_enregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_enregistrerActionPerformed
@@ -437,8 +425,7 @@ public class Utilisateur_new extends javax.swing.JPanel {
           JOptionPane.showMessageDialog(this,"Mot de passe invalide (au moins 5 caractères!)");}
        else 
        {
-         
-           
+
            status = Status_user.getSelectedIndex();
            formation = Form_user.getSelectedIndex();
            promotion = Promo_user.getSelectedIndex();
@@ -452,12 +439,29 @@ public class Utilisateur_new extends javax.swing.JPanel {
            adresse = Adresse_user.getText();
            nom = Nom_user.getText();
            prenom = Prenom_user.getText();
+
             UtilisateurController.insereUser(status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,mdp);
+            initialiser();
+            JOptionPane.showMessageDialog(this,"Nouvel utilisateur ajouté !");
        }      
           
     }//GEN-LAST:event_Btn_enregistrerActionPerformed
 
-    
+        public void initialiser() {
+        Status_user.setSelectedIndex(0);
+        Site_user.setSelectedIndex(0);
+        Form_user.setSelectedIndex(0);
+        Promo_user.setSelectedIndex(0);
+        Civil_user.setSelectedIndex(0);
+        Nom_user.setText("");
+        Prenom_user.setText("");
+        Adresse_user.setText("");
+        CP_user.setText("");
+        Commune_user.setText("");
+        Mail_user.setText("");
+        Tel_user.setText("");
+        mdp_user.setText("");
+        }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Adresse_user;
