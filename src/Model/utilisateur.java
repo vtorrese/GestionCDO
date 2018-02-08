@@ -138,7 +138,7 @@ public class utilisateur {
     public void enregistre_user(int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
         String requete = null;
         String valeur = null;
-        
+        System.out.println(status);
         if(status==2) {
         valeur = "('" + nom + "','" + prenom + "','"  + mdp + "','"  + adresse + "','" + CP + "','" + ville + "','" + tel + "','" + mail + "','"  + status + "','"  + site + "','" + civil + "','" + promotion + "','" + formation + "')"; 
         requete = "INSERT INTO `user`(`nom_user`, `prenom_user`, `mdp_user`, `adresse_user`, `CP_user`, `ville_user`, `phone_user`, `mail_user`, `status_user`, `site_user`, `civil_user`, `promo_user`, `form_user`) VALUES ";
@@ -160,14 +160,18 @@ public class utilisateur {
         String req_promo = "";
         String and = " AND ";
         boolean controle = false;
-        //System.out.println(formation);
-        //requete = "SELECT `id_user`, `nom_user`, `prenom_user`, `mdp_user`, `adresse_user`, `CP_user`, `ville_user`, `phone_user`, `mail_user`, `status_user`, `site_user`, `civil_user`, `promo_user`, `form_user` FROM `user` WHERE ";
-        requete = "SELECT * FROM `user` WHERE ";
+        if(status!=2){
+            requete = "SELECT `id_user`, `nom_user`, `prenom_user`, `mdp_user`, `adresse_user`, `CP_user`, `ville_user`, `phone_user`, `mail_user`, `status_user`, lib_stat_user, `site_user`, lib_site, `civil_user`, lib_civil FROM `user` JOIN status_user ON status_user = id_stat_user JOIN site ON site_user = id_site JOIN civilite ON civil_user = id_civil WHERE ";
+        } else {
+            requete = "SELECT `id_user`, `nom_user`, `prenom_user`, `mdp_user`, `adresse_user`, `CP_user`, `ville_user`, `phone_user`, `mail_user`, `status_user`, lib_stat_user, `site_user`, lib_site, `civil_user`, lib_civil, form_user, lib_formation, promo_user, lib_promotion FROM `user` JOIN status_user ON status_user = id_stat_user JOIN site ON site_user = id_site JOIN civilite ON civil_user = id_civil JOIN formation ON form_user = id_formation JOIN promotion ON promo_user = id_promotion WHERE ";
+        }
+        
         if(status==0){req_status = req_status;} else {req_status = "status_user = '" + status + "'";controle = true;}
         if(nom.isEmpty()){req_nom = req_nom;} else {req_nom = "nom_user LIKE ('%" + nom + "%')";if(controle==true) {req_nom = and.concat(req_nom);};controle = true;}
         if(formation==0){req_form = req_form;} else {req_form = "form_user = '" + formation + "'";if(controle==true) {req_form = and.concat(req_form);};controle = true;}
         if(promotion==0){req_promo = req_promo;} else {req_promo = "promo_user = '" + promotion + "'";if(controle==true) {req_promo = and.concat(req_promo);};controle = true;}
         requete = requete+=req_status+=req_nom+=req_form+=req_promo;
+        
         Connect donnees = new Connect(requete);
         retour = donnees.renvoi();
         return retour; 
