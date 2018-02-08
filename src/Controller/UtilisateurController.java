@@ -30,9 +30,10 @@ public class UtilisateurController {
     
     public static ArrayList chercheUser(int status,String nom,int formation,int promotion) {
         utilisateur chercheuser = new utilisateur();
-        ArrayList resultat = new ArrayList();
+        /*ArrayList resultat = new ArrayList();
         resultat = chercheuser.cherche_user(status, nom, formation, promotion);
-        return resultat;
+        return resultat;*/
+        return chercheuser.cherche_user(status, nom, formation, promotion);
     }
     
 

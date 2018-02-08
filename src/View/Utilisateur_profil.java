@@ -8,6 +8,7 @@ package view;
 import Controller.UtilisateurController;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,10 +30,10 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         status = (ArrayList) donnees.get(0);
         Status_cherche.addItem("");
         Status_profil.addItem("");
-        for(int i=1;i<status.size();i+=2) {
-            String texte = (String) status.get(i);
-            Status_cherche.addItem(texte);
-            Status_profil.addItem(texte);
+        for(int i=0;i<status.size();i++) {
+            ArrayList texte = (ArrayList) status.get(i);
+            Status_cherche.addItem(texte.get(1).toString());
+            Status_profil.addItem(texte.get(1).toString());
         }
         
         //combobox formation
@@ -40,10 +41,10 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         formation = (ArrayList) donnees.get(3);
         Form_cherche.addItem("");
         Form_profil.addItem("");
-        for(int i=1;i<formation.size();i+=2) {
-            String texte = (String) formation.get(i);
-            Form_cherche.addItem(texte);
-            Form_profil.addItem(texte);
+        for(int i=0;i<formation.size();i++) {
+            ArrayList texte = (ArrayList) formation.get(i);
+            Form_cherche.addItem(texte.get(1).toString());
+            Form_profil.addItem(texte.get(1).toString());
         }
         
         //combobox promotion
@@ -51,29 +52,33 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         promotion = (ArrayList) donnees.get(4);
         Promo_cherche.addItem("");
         Promo_profil.addItem("");
-        for(int i=1;i<promotion.size();i+=2) {
-            String texte = (String) promotion.get(i);
-            Promo_cherche.addItem(texte);
-            Promo_profil.addItem(texte);
+        for(int i=0;i<promotion.size();i++) {
+            ArrayList texte = (ArrayList) promotion.get(i);
+            Promo_cherche.addItem(texte.get(1).toString());
+            Promo_profil.addItem(texte.get(1).toString());
         }
         
          //combobox site
         ArrayList site = new ArrayList();
         site = (ArrayList) donnees.get(1);
         Site_profil.addItem("");
-        for(int i=1;i<site.size();i+=2) {
-            String texte = (String) site.get(i);
-            Site_profil.addItem(texte);
+        for(int i=0;i<site.size();i++) {
+            ArrayList texte = (ArrayList) site.get(i);
+            Site_profil.addItem(texte.get(1).toString());
         }
        
         //combobox civilite
         ArrayList civil = new ArrayList();
         civil = (ArrayList) donnees.get(2);
+        System.out.println(donnees.get(2));
         Civil_profil.addItem("");
-        for(int i=1;i<civil.size();i+=2) {
-            String texte = (String) civil.get(i);
-            Civil_profil.addItem(texte);
+        for(int i=0;i<civil.size();i++) {
+            ArrayList texte = (ArrayList) civil.get(i);
+            Civil_profil.addItem(texte.get(1).toString());
         }
+        
+        //Tableau gauche des utilisateurs filtrés
+        String  titre[] = {"Status", "Nom", "Prénom", "Site"};
         
     }
 
@@ -98,7 +103,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         Status_cherche = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tab_user = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -227,19 +232,38 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listes", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 12))); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tab_user.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        Tab_user.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Status", "Nom", "Prénom", "Site"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Tab_user.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(Tab_user);
+        if (Tab_user.getColumnModel().getColumnCount() > 0) {
+            Tab_user.getColumnModel().getColumn(0).setResizable(false);
+            Tab_user.getColumnModel().getColumn(1).setResizable(false);
+            Tab_user.getColumnModel().getColumn(2).setResizable(false);
+            Tab_user.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -591,15 +615,33 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             formation = Form_cherche.getSelectedIndex();
             promotion = Promo_cherche.getSelectedIndex();
             nom = Nom_cherche.getText();
-            UtilisateurController.chercheUser(status,nom,formation,promotion);
+            ArrayList tabresult = new ArrayList();
+            //ArrayList tabresult = UtilisateurController.chercheUser(status,nom,formation,promotion);
+            tabresult = (ArrayList) UtilisateurController.chercheUser(status,nom,formation,promotion);
             initialiser_tableau();
+            System.out.println(tabresult);
+            //DefaultTableModel model = (DefaultTableModel) Tab_user.getModel();
+            //System.out.println(tabresult.size()/2);
+               //for(int i=1;i<tabresult.size();i+=2) {
+           //model.addRow(new Object[]{tabresult.get(10), tabresult.get(1), tabresult.get(2),tabresult.get(12)});
+            //}
+            /*int j = 0;
+            while(tabresult.size()>j) {
+                System.out.println("toto");
+                 model.addRow(new Object[]{tabresult.get(10), tabresult.get(1), tabresult.get(2),tabresult.get(12)});
+                 j++;
+            }*/
+            
+               
+            
         }
     }//GEN-LAST:event_Btn_validActionPerformed
 
 
     public void initialiser_tableau() {
-            
-    }
+                  DefaultTableModel model = (DefaultTableModel) Tab_user.getModel();
+                   model.setRowCount(0);
+                }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -621,6 +663,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> Site_profil;
     private javax.swing.JComboBox<String> Status_cherche;
     private javax.swing.JComboBox<String> Status_profil;
+    private javax.swing.JTable Tab_user;
     private javax.swing.JTextField Tel_profil;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -651,7 +694,6 @@ public class Utilisateur_profil extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPasswordField mdp_profil;
     // End of variables declaration//GEN-END:variables
 }
