@@ -8,6 +8,7 @@ package view;
 import Controller.UtilisateurController;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -70,7 +71,6 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         //combobox civilite
         ArrayList civil = new ArrayList();
         civil = (ArrayList) donnees.get(2);
-        System.out.println(donnees.get(2));
         Civil_profil.addItem("");
         for(int i=0;i<civil.size();i++) {
             ArrayList texte = (ArrayList) civil.get(i);
@@ -78,8 +78,10 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         }
         
         //Tableau gauche des utilisateurs filtrés
-        String  titre[] = {"Status", "Nom", "Prénom", "Site"};
-        
+        String  titre[] = {"ID","IDStatus","Status", "Nom", "Prénom", "Site"};
+        initialiser_tableau();
+        initialiser_panneau();
+        ID_profil.setVisible(false);
     }
 
     /**
@@ -136,11 +138,12 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         Btn_supprimer = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        ListeRes_profil = new javax.swing.JList<>();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        ListePrt_profil = new javax.swing.JList<>();
         jLabel18 = new javax.swing.JLabel();
         Civil_profil = new javax.swing.JComboBox<>();
+        ID_profil = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMinimumSize(new java.awt.Dimension(900, 550));
@@ -238,14 +241,14 @@ public class Utilisateur_profil extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Status", "Nom", "Prénom", "Site"
+                "ID", "IDstatus", "Status", "Nom", "Prénom", "Site"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                true, true, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -257,12 +260,23 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             }
         });
         Tab_user.getTableHeader().setReorderingAllowed(false);
+        Tab_user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tab_userMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Tab_user);
         if (Tab_user.getColumnModel().getColumnCount() > 0) {
-            Tab_user.getColumnModel().getColumn(0).setResizable(false);
-            Tab_user.getColumnModel().getColumn(1).setResizable(false);
+            Tab_user.getColumnModel().getColumn(0).setMinWidth(0);
+            Tab_user.getColumnModel().getColumn(0).setPreferredWidth(0);
+            Tab_user.getColumnModel().getColumn(0).setMaxWidth(0);
+            Tab_user.getColumnModel().getColumn(1).setMinWidth(0);
+            Tab_user.getColumnModel().getColumn(1).setPreferredWidth(0);
+            Tab_user.getColumnModel().getColumn(1).setMaxWidth(0);
             Tab_user.getColumnModel().getColumn(2).setResizable(false);
             Tab_user.getColumnModel().getColumn(3).setResizable(false);
+            Tab_user.getColumnModel().getColumn(4).setResizable(false);
+            Tab_user.getColumnModel().getColumn(5).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -387,21 +401,21 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         jButton1.setMinimumSize(new java.awt.Dimension(60, 60));
         jButton1.setPreferredSize(new java.awt.Dimension(60, 60));
 
-        jList1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Réservations", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 10))); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        ListeRes_profil.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Réservations", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 10))); // NOI18N
+        ListeRes_profil.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "test" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane3.setViewportView(jList1);
+        jScrollPane3.setViewportView(ListeRes_profil);
 
-        jList2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historique des prêts", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 10))); // NOI18N
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        ListePrt_profil.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historique des prêts", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 10))); // NOI18N
+        ListePrt_profil.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "test" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane4.setViewportView(jList2);
+        jScrollPane4.setViewportView(ListePrt_profil);
 
         jLabel18.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         jLabel18.setText("Civilité");
@@ -463,13 +477,17 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(Prenom_profil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Nom_profil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(Status_profil, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(Status_profil, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel18))
+                                    .addComponent(Nom_profil, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Civil_profil, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Civil_profil, 0, 60, Short.MAX_VALUE)
+                                    .addComponent(ID_profil))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -533,7 +551,10 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(Civil_profil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(Civil_profil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ID_profil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
@@ -619,23 +640,32 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             //ArrayList tabresult = UtilisateurController.chercheUser(status,nom,formation,promotion);
             tabresult = (ArrayList) UtilisateurController.chercheUser(status,nom,formation,promotion);
             initialiser_tableau();
-            System.out.println(tabresult);
-            //DefaultTableModel model = (DefaultTableModel) Tab_user.getModel();
-            //System.out.println(tabresult.size()/2);
-               //for(int i=1;i<tabresult.size();i+=2) {
-           //model.addRow(new Object[]{tabresult.get(10), tabresult.get(1), tabresult.get(2),tabresult.get(12)});
-            //}
-            /*int j = 0;
-            while(tabresult.size()>j) {
-                System.out.println("toto");
-                 model.addRow(new Object[]{tabresult.get(10), tabresult.get(1), tabresult.get(2),tabresult.get(12)});
-                 j++;
-            }*/
+            //System.out.println(tabresult.size());
+            DefaultTableModel model = (DefaultTableModel) Tab_user.getModel();
+            
+              for(int i=0;i<tabresult.size();i++) {
+                    ArrayList tab = (ArrayList) tabresult.get(i);
+                  //System.out.println(tab.get(0));
+                  model.addRow(new Object[]{tab.get(0), tab.get(9), tab.get(10), tab.get(1), tab.get(2),tab.get(12)});
+            }
+           
             
                
             
         }
     }//GEN-LAST:event_Btn_validActionPerformed
+
+    private void Tab_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tab_userMouseClicked
+        JTable source = (JTable)evt.getSource();
+            int row = source.rowAtPoint( evt.getPoint() );
+            String iduser = Tab_user.getValueAt(row,0).toString();
+            String idstatus = Tab_user.getValueAt(row,1).toString();
+            ArrayList profil = (ArrayList) UtilisateurController.chercheUserById(iduser,idstatus).get(0);
+            initialiser_panneau();
+            ID_profil.setText(profil.get(0).toString());
+            Nom_profil.setText(profil.get(1).toString());
+            
+    }//GEN-LAST:event_Tab_userMouseClicked
 
 
     public void initialiser_tableau() {
@@ -643,6 +673,25 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                    model.setRowCount(0);
                 }
 
+    public void initialiser_panneau() {
+        Status_profil.setSelectedIndex(0);
+        Civil_profil.setSelectedIndex(0);
+        Site_profil.setSelectedIndex(0);
+        Form_profil.setSelectedIndex(0);
+        Promo_profil.setSelectedIndex(0);
+        Nom_profil.setText("");
+        Prenom_profil.setText("");
+        Adresse_profil.setText("");
+        Commune_profil.setText("");
+        CP_profil.setText("");
+        Tel_profil.setText("");
+        Mail_profil.setText("");
+        mdp_profil.setColumns(15);
+        mdp_profil.setText("");
+        ListePrt_profil.repaint();
+        ListeRes_profil.repaint();
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Adresse_profil;
@@ -654,6 +703,9 @@ public class Utilisateur_profil extends javax.swing.JPanel {
     private javax.swing.JTextField Commune_profil;
     private javax.swing.JComboBox<String> Form_cherche;
     private javax.swing.JComboBox<String> Form_profil;
+    private javax.swing.JTextField ID_profil;
+    private javax.swing.JList<String> ListePrt_profil;
+    private javax.swing.JList<String> ListeRes_profil;
     private javax.swing.JTextField Mail_profil;
     private javax.swing.JTextField Nom_cherche;
     private javax.swing.JTextField Nom_profil;
@@ -684,8 +736,6 @@ public class Utilisateur_profil extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group/>
+=======
+        <group>
+            <file>file:/C:/Users/vtorrese/Documents/NetBeansProjects/GestionCDO/src/Model/utilisateur.java</file>
+            <file>file:/C:/Users/vtorrese/Documents/NetBeansProjects/GestionCDO/src/View/Utilisateur_new.java</file>
+            <file>file:/C:/Users/vtorrese/Documents/NetBeansProjects/GestionCDO/src/View/Utilisateur.java</file>
+            <file>file:/C:/Users/vtorrese/Documents/NetBeansProjects/GestionCDO/src/Model/Connect.java</file>
+            <file>file:/C:/Users/vtorrese/Documents/NetBeansProjects/GestionCDO/src/View/Utilisateur_profil.java</file>
+            <file>file:/C:/Users/vtorrese/Documents/NetBeansProjects/GestionCDO/src/Controller/UtilisateurController.java</file>
+        </group>
+>>>>>>> f4b92644aefc5576f66024b0d577619d66066789
     </open-files>
 </project-private>

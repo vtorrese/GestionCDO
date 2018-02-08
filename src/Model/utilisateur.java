@@ -176,4 +176,19 @@ public class utilisateur {
         retour = donnees.renvoi();
         return retour; 
     }
+    
+    public ArrayList cherche_userById(String iduser, String idstatus) {
+        String requete = null;
+        if(idstatus.contains("2")) {  
+        requete = "SELECT `id_user`, `nom_user`, `prenom_user`, `mdp_user`, `adresse_user`, `CP_user`, `ville_user`, `phone_user`, `mail_user`, `status_user`, lib_stat_user, `site_user`, lib_site, `civil_user`, lib_civil, form_user, lib_formation, promo_user, lib_promotion FROM `user` LEFT JOIN status_user ON status_user = id_stat_user LEFT JOIN site ON site_user = id_site LEFT JOIN civilite ON civil_user = id_civil LEFT JOIN formation ON form_user = id_formation LEFT JOIN promotion ON promo_user = id_promotion WHERE id_user='" + iduser + "'";
+        }
+        else
+        {
+        requete = "SELECT `id_user`, `nom_user`, `prenom_user`, `mdp_user`, `adresse_user`, `CP_user`, `ville_user`, `phone_user`, `mail_user`, `status_user`, lib_stat_user, `site_user`, lib_site, `civil_user`, lib_civil FROM `user` LEFT JOIN status_user ON status_user = id_stat_user LEFT JOIN site ON site_user = id_site LEFT JOIN civilite ON civil_user = id_civil WHERE id_user='" + iduser + "'";
+        }
+        Connect donnees = new Connect(requete);
+        retour = donnees.renvoi();
+        
+        return retour; 
+    }
 }

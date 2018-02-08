@@ -36,6 +36,10 @@ public class UtilisateurController {
         return chercheuser.cherche_user(status, nom, formation, promotion);
     }
     
+    public static ArrayList chercheUserById(String iduser,String idstatus) {
+        utilisateur chercheuserbyid = new utilisateur();
+        return chercheuserbyid.cherche_userById(iduser,idstatus);
+    }
 
     private static String SHA1(String value) {
 		
