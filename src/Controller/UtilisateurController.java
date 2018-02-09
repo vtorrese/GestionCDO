@@ -40,6 +40,11 @@ public class UtilisateurController {
         utilisateur chercheuserbyid = new utilisateur();
         return chercheuserbyid.cherche_userById(iduser,idstatus);
     }
+    
+   public static ArrayList cherchePrtByUser(String iduser) {
+       pret chercheByUser = new pret();
+       return chercheByUser.cherche_ByUser(iduser);
+    }
 
     private static String SHA1(String value) {
 		
