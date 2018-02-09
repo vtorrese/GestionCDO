@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,6 +6,7 @@
 package view;
 
 import Controller.UtilisateurController;
+import java.awt.Color;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -762,18 +763,30 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             
          //Remplissage des tables tab_prt et tab_res
            DefaultTableModel model = (DefaultTableModel) Tab_prt.getModel();
+           
             for(int i=0;i<pret.size();i++) {
                     ArrayList tab = (ArrayList) pret.get(i);
                      
-                    if(tab.get(4).toString()=="1") {
-                        
+                    if(tab.get(4).toString().equalsIgnoreCase("1")) {
+                        tab.remove(5);
+                        tab.add(5,"En cours");
                     }
-                    else if (tab.get(4).toString()=="2") {
-                        
+                    else if (tab.get(4).toString().equalsIgnoreCase("2")) {
+                        tab.remove(5);
+                        tab.add(5,"Terminé");
                     }
-               
+                    
+                   
+                    String date = tab.get(1).toString().substring(8,10) + "/" + tab.get(1).toString().substring(5,7) + "/" + tab.get(1).toString().substring(0,4);
+                    
+                    tab.remove(1);
+                    tab.add(1,date);
                     
                     model.addRow(new Object[]{tab.get(7),tab.get(5),tab.get(1)});
+                    
+                    
+                    
+                    
                     
             }
             

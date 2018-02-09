@@ -14,7 +14,7 @@ public class Connect {
 
     private ArrayList al = new ArrayList();
  
-    String mdp = "root";
+    String mdp = "";
     
     public Connect(String data) 
     {
