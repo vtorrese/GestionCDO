@@ -48,6 +48,7 @@ public class Connect {
                     }
 
                 }
+
                 connexion.close();
                  
                 this.al = al;
@@ -55,6 +56,7 @@ public class Connect {
             catch (Exception e) 
             {
                 e.printStackTrace();
+                
             }   
         }
         else

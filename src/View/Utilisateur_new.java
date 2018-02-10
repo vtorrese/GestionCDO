@@ -412,10 +412,10 @@ public class Utilisateur_new extends javax.swing.JPanel {
        else if(Commune_user.getText().equals("")) {
           JOptionPane.showMessageDialog(this,"Commune invalide !");}
         
-       else if(CP_user.getText().length()!=5) {
+       else if(CP_user.getText().length()!=5 || estUnEntier(CP_user.getText())==false) {
           JOptionPane.showMessageDialog(this,"Code postal invalide !");}
         
-       else if(Tel_user.getText().length()!=10) {
+       else if(Tel_user.getText().length()!=10 || estUnEntier(Tel_user.getText())==false) {
           JOptionPane.showMessageDialog(this,"Numéro de téléphone invalide !");}
         
        else if(Mail_user.getText().equals("")) { // Voir pour améliorer controle conformité mail
@@ -447,6 +447,15 @@ public class Utilisateur_new extends javax.swing.JPanel {
           
     }//GEN-LAST:event_Btn_enregistrerActionPerformed
 
+ 	public boolean estUnEntier(String chaine) {
+		try {
+			Integer.parseInt(chaine);
+		} catch (NumberFormatException e){
+			return false;
+		}
+		return true;
+        }
+        
         public void initialiser() {
         Status_user.setSelectedIndex(0);
         Site_user.setSelectedIndex(0);

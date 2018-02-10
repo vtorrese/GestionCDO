@@ -138,7 +138,7 @@ public class utilisateur {
     public void enregistre_user(int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
         String requete = null;
         String valeur = null;
-        System.out.println(status);
+        //System.out.println(status);
         if(status==2) {
         valeur = "('" + nom + "','" + prenom + "','"  + mdp + "','"  + adresse + "','" + CP + "','" + ville + "','" + tel + "','" + mail + "','"  + status + "','"  + site + "','" + civil + "','" + promotion + "','" + formation + "')"; 
         requete = "INSERT INTO `user`(`nom_user`, `prenom_user`, `mdp_user`, `adresse_user`, `CP_user`, `ville_user`, `phone_user`, `mail_user`, `status_user`, `site_user`, `civil_user`, `promo_user`, `form_user`) VALUES ";
@@ -190,5 +190,11 @@ public class utilisateur {
         retour = donnees.renvoi();
         
         return retour; 
+    }
+    
+    public void supprimer_user(String iduser) {
+        String requete = null;
+        requete = "DELETE FROM user WHERE id_user ='" + iduser + "'";
+        new Connect(requete);
     }
 }

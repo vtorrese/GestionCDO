@@ -7,10 +7,15 @@ package view;
 
 import Controller.UtilisateurController;
 import java.awt.Color;
+
+import java.awt.Component;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -79,7 +84,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         }
         
         //Tableau gauche des utilisateurs filtrés
-        String  titre[] = {"ID","IDStatus","Status", "Nom", "Prénom", "Site"};
+        //String  titre[] = {"ID","IDStatus","Status", "Nom", "Prénom", "Site"};
         initialiser_tableau();
         initialiser_panneau();
         ID_profil.setVisible(false);
@@ -295,7 +300,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -391,11 +396,21 @@ public class Utilisateur_profil extends javax.swing.JPanel {
 
         Btn_modif.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         Btn_modif.setText("Modifier");
+        Btn_modif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_modifActionPerformed(evt);
+            }
+        });
 
         Btn_supprimer.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
         Btn_supprimer.setForeground(new java.awt.Color(204, 0, 51));
         Btn_supprimer.setText("Supprimer");
         Btn_supprimer.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Btn_supprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_supprimerActionPerformed(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/files/images/mail.png"))); // NOI18N
         jButton1.setBorder(null);
@@ -411,19 +426,20 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         Civil_profil.setForeground(new java.awt.Color(153, 0, 153));
         Civil_profil.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        Tab_prt.setFont(new java.awt.Font("Rockwell", 0, 11)); // NOI18N
         Tab_prt.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Titre", "Statut", "Date retour"
+                "Titre", "Statut", "Date retour", "delai"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -439,9 +455,12 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             Tab_prt.getColumnModel().getColumn(0).setResizable(false);
             Tab_prt.getColumnModel().getColumn(1).setResizable(false);
             Tab_prt.getColumnModel().getColumn(2).setResizable(false);
+            Tab_prt.getColumnModel().getColumn(3).setMinWidth(0);
+            Tab_prt.getColumnModel().getColumn(3).setPreferredWidth(0);
+            Tab_prt.getColumnModel().getColumn(3).setMaxWidth(0);
         }
 
-        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jTextField1.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         jTextField1.setText("Historique des prêts");
         jTextField1.setBorder(null);
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -450,7 +469,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             }
         });
 
-        jTextField2.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        jTextField2.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         jTextField2.setText("Réservations");
         jTextField2.setBorder(null);
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -459,19 +478,20 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             }
         });
 
+        Tab_res.setFont(new java.awt.Font("Rockwell", 0, 11)); // NOI18N
         Tab_res.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Titre", "Statut", "Date"
+                "Titre", "Réservé le, à"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -486,7 +506,6 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         if (Tab_res.getColumnModel().getColumnCount() > 0) {
             Tab_res.getColumnModel().getColumn(0).setResizable(false);
             Tab_res.getColumnModel().getColumn(1).setResizable(false);
-            Tab_res.getColumnModel().getColumn(2).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -572,14 +591,14 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1))
@@ -661,9 +680,9 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -691,13 +710,11 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -715,6 +732,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             //ArrayList tabresult = UtilisateurController.chercheUser(status,nom,formation,promotion);
             tabresult = (ArrayList) UtilisateurController.chercheUser(status,nom,formation,promotion);
             initialiser_tableau();
+            initialiser_panneau();
             //System.out.println(tabresult.size());
             DefaultTableModel model = (DefaultTableModel) Tab_user.getModel();
             
@@ -741,7 +759,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         //Récupération des données
             ArrayList profil = (ArrayList) UtilisateurController.chercheUserById(iduser,idstatus).get(0);
             ArrayList pret = (ArrayList) UtilisateurController.cherchePrtByUser(iduser);
-            
+            ArrayList reserv = (ArrayList) UtilisateurController.chercheResByUser(iduser);
             
         //Affichage des données sur le panneau profil    
             initialiser_panneau();
@@ -762,32 +780,20 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             Mail_profil.setText(profil.get(8).toString());
             
          //Remplissage des tables tab_prt et tab_res
-           DefaultTableModel model = (DefaultTableModel) Tab_prt.getModel();
+           DefaultTableModel model_prt = (DefaultTableModel) Tab_prt.getModel(); // Table pret
            
             for(int i=0;i<pret.size();i++) {
                     ArrayList tab = (ArrayList) pret.get(i);
-                     
-                    if(tab.get(4).toString().equalsIgnoreCase("1")) {
-                        tab.remove(5);
-                        tab.add(5,"En cours");
-                    }
-                    else if (tab.get(4).toString().equalsIgnoreCase("2")) {
-                        tab.remove(5);
-                        tab.add(5,"Terminé");
-                    }
+                    model_prt.addRow(new Object[]{tab.get(0),tab.get(1),tab.get(2),tab.get(3)});
                     
                    
-                    String date = tab.get(1).toString().substring(8,10) + "/" + tab.get(1).toString().substring(5,7) + "/" + tab.get(1).toString().substring(0,4);
-                    
-                    tab.remove(1);
-                    tab.add(1,date);
-                    
-                    model.addRow(new Object[]{tab.get(7),tab.get(5),tab.get(1)});
-                    
-                    
-                    
-                    
-                    
+            }
+            Tab_prt.setDefaultRenderer(Object.class, new jTableRender());
+            
+            DefaultTableModel model_res = (DefaultTableModel) Tab_res.getModel(); //Table réservation
+            for(int i=0;i<reserv.size();i++) {
+                    ArrayList tab = (ArrayList) reserv.get(i);
+                    model_res.addRow(new Object[]{tab.get(4),tab.get(1)});
             }
             
             
@@ -801,6 +807,44 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
+    private void Btn_supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_supprimerActionPerformed
+        //Controles
+        if(ID_profil.getText().isEmpty()==true) {
+            JOptionPane.showMessageDialog(this,"Sélectionnez un utilisateur !");
+        } else {
+            int choix = JOptionPane.showConfirmDialog(null, "Êtes-vous sur(e) de vouloir supprimer cet utilisateur ?", "Supprimer un utilisateur", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(choix != JOptionPane.NO_OPTION && 
+                    choix != JOptionPane.CANCEL_OPTION && 
+                    choix != JOptionPane.CLOSED_OPTION){
+                        String iduser = ID_profil.getText();
+                        int status = Status_profil.getSelectedIndex();
+                        if(status==1) {
+                            int choixadmin = JOptionPane.showConfirmDialog(null,"Vous allez supprimer un administrateur !", "Information", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                            if(choixadmin != JOptionPane.NO_OPTION && choixadmin != JOptionPane.CLOSED_OPTION) {
+                                UtilisateurController.supprimerUser(iduser);
+                            }
+                        } else {
+                            UtilisateurController.supprimerUser(iduser);
+                        }
+                        //On réinitialise les panneaux
+                        initialiser_tableau();
+                        initialiser_panneau();
+                    }
+
+        }
+        
+    }//GEN-LAST:event_Btn_supprimerActionPerformed
+
+    private void Btn_modifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_modifActionPerformed
+        // Modification des données d'un utilisateur
+         if(ID_profil.getText().isEmpty()==true) {
+            JOptionPane.showMessageDialog(this,"Sélectionnez un utilisateur !");
+        } else {
+             
+             //Effectuer tous les contrôles sur les changements
+        }
+    }//GEN-LAST:event_Btn_modifActionPerformed
+
 
     public void initialiser_tableau() {
                   DefaultTableModel model = (DefaultTableModel) Tab_user.getModel();
@@ -813,6 +857,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         Site_profil.setSelectedIndex(0);
         Form_profil.setSelectedIndex(0);
         Promo_profil.setSelectedIndex(0);
+        ID_profil.setText("");
         Nom_profil.setText("");
         Prenom_profil.setText("");
         Adresse_profil.setText("");
@@ -829,6 +874,47 @@ public class Utilisateur_profil extends javax.swing.JPanel {
  
     }
 
+    public class jTableRender extends DefaultTableCellRenderer { //Pour colorier les prets en cours
+ 
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+        /**
+         * Colorier les cellules
+         */Color clr = null;
+
+        Object etat = table.getValueAt(row, 1);
+        if (etat != null && component instanceof JLabel) {
+            JLabel label_etat = (JLabel) component;
+            if (label_etat.getText().contains("En cours")) { // les prêts en cours
+                
+                Object delai = table.getValueAt(row,3);
+                if(delai.toString().contains("OK")) { // toujours actifs
+                    clr = new Color(0,250,0); 
+                } else
+                {
+                    clr = new Color(250,0,0); // toujours actifs mais En retard
+                }
+               
+                component.setBackground(clr);
+                
+            }
+    
+            else if (label_etat.getText().contains("En attente")) {
+                clr = new Color(250,170,170);
+                component.setBackground(clr);
+            }
+            else
+            {
+                 clr = new Color(255, 255, 255);
+                component.setBackground(clr);
+            }
+        }
+        return component;
+    }
+}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Adresse_profil;
     private javax.swing.JButton Btn_modif;

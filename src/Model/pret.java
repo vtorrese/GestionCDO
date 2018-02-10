@@ -84,7 +84,7 @@ public class pret {
     
     public ArrayList cherche_ByUser(String iduser) {
         String requete = null;
-        requete = "SELECT dateS_prt, dateR_prt, site_prt, lib_site, status_prt, lib_stat_prt, doc_prt, titre_doc FROM `pret` LEFT JOIN site ON site_prt = id_site LEFT JOIN status_prt ON status_prt = id_stat_prt LEFT JOIN document ON doc_prt = id_doc WHERE `user_prt` ='" + iduser + "' ORDER BY dateR_prt DESC";
+        requete = "SELECT titre_doc, CASE status_prt WHEN 1 THEN 'En cours' WHEN 2 THEN 'Terminé' ELSE lib_stat_prt END, CONCAT(Day(`dateR_prt`),\"/\",MONTH(`dateR_prt`),\"/\",YEAR(`dateR_prt`)) as datex, CASE WHEN status_prt=1 AND dateR_prt < NOW() THEN \"en retard\" ELSE \"OK\" END FROM `pret` LEFT JOIN document ON doc_prt = id_doc LEFT JOIN status_prt ON status_prt = id_stat_prt WHERE `user_prt` ='" + iduser + "' ORDER BY dateR_prt DESC";
         Connect donnees = new Connect(requete);
         retour = donnees.renvoi();
         return retour; 

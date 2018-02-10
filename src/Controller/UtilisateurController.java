@@ -22,10 +22,16 @@ public class UtilisateurController {
     }
     
     public static void insereUser(int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
-        
+        //String message = null;
         utilisateur newuser = new utilisateur();
-        newuser.enregistre_user(status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,UtilisateurController.SHA1(mdp));
-
+        newuser.enregistre_user(status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,UtilisateurController.SHA1(mdp));            
+        
+    }
+    
+    public static void supprimerUser(String iduser) {
+        utilisateur supuser = new utilisateur();
+        supuser.supprimer_user(iduser);
+        
     }
     
     public static ArrayList chercheUser(int status,String nom,int formation,int promotion) {
@@ -43,6 +49,11 @@ public class UtilisateurController {
     
    public static ArrayList cherchePrtByUser(String iduser) {
        pret chercheByUser = new pret();
+       return chercheByUser.cherche_ByUser(iduser);
+    }
+   
+    public static ArrayList chercheResByUser(String iduser) {
+       reservation chercheByUser = new reservation();
        return chercheByUser.cherche_ByUser(iduser);
     }
 
