@@ -197,4 +197,15 @@ public class utilisateur {
         requete = "DELETE FROM user WHERE id_user ='" + iduser + "'";
         new Connect(requete);
     }
+    
+    public void modifier_user(String ID, int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
+        String requete = null;
+        if(mdp.isEmpty()) {
+            requete = "UPDATE `user` SET `nom_user`='" + nom + "',`prenom_user`='" + prenom + "',`adresse_user`='" + adresse + "',`CP_user`='" + CP + "',`ville_user`='" + ville + "',`phone_user`='" + tel + "',`mail_user`='" +  mail + "',`status_user`='" + status + "',`site_user`='" + site + "',`civil_user`='" + civil + "',`promo_user`='" +  promotion + "',`form_user`='" + formation + "' WHERE `id_user`='" + ID + "'";
+        } else
+        {
+            requete = "UPDATE `user` SET `nom_user`='" + nom + "',`prenom_user`='" + prenom + "',`adresse_user`='" + adresse + "',`CP_user`='" + CP + "',`ville_user`='" + ville + "',`phone_user`='" + tel + "',`mail_user`='" +  mail + "',`status_user`='" + status + "',`site_user`='" + site + "',`civil_user`='" + civil + "',`promo_user`='" +  promotion + "',`form_user`='" + formation + "', mdp_user ='" + mdp + "' WHERE `id_user`='" + ID + "'";
+        }
+        new Connect(requete);
+    }
 }

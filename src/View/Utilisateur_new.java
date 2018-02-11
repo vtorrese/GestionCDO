@@ -75,7 +75,7 @@ public class Utilisateur_new extends javax.swing.JPanel {
         ArrayList promotion = new ArrayList();
         promotion = (ArrayList) donnees.get(4);
         Promo_user.addItem("");
-        for(int i=0;i<promotion.size();i+=2) {
+        for(int i=0;i<promotion.size();i++) {
              ArrayList texte = (ArrayList) promotion.get(i);
             Promo_user.addItem(texte.get(1).toString());
         }
@@ -439,7 +439,7 @@ public class Utilisateur_new extends javax.swing.JPanel {
            adresse = Adresse_user.getText();
            nom = Nom_user.getText();
            prenom = Prenom_user.getText();
-
+           
             UtilisateurController.insereUser(status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,mdp);
             initialiser();
             JOptionPane.showMessageDialog(this,"Nouvel utilisateur ajouté !");

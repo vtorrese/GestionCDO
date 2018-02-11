@@ -397,6 +397,8 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <Component id="mdp_profil" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="Btn_NewMdp" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="Btn_supprimer" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -431,6 +433,7 @@
                                       <Component id="ID_profil" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
+                              <Component id="Control_mdp" alignment="1" min="-2" pref="58" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="171" max="32767" attributes="0"/>
                           <Component id="jButton1" min="-2" pref="60" max="-2" attributes="0"/>
@@ -557,6 +560,8 @@
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="jLabel17" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="mdp_profil" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Btn_NewMdp" linkSize="4" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="Control_mdp" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                           <Component id="Btn_modif" linkSize="5" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1083,6 +1088,19 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="Btn_NewMdp">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Rockwell" size="10" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Nouveau"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btn_NewMdpActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="Control_mdp">
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

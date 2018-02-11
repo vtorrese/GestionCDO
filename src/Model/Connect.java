@@ -57,7 +57,8 @@ public class Connect {
             {
                 e.printStackTrace();
                 
-            }   
+            } 
+       
         }
         else
         {
@@ -84,4 +85,17 @@ public class Connect {
     {
         return al;
     }
+    
+ public class GestionException extends Exception {
+
+  public GestionException() {
+    super();
+  }
+
+  public GestionException(String s) {
+    super(s);
+  }
+}
+    
+    
 }

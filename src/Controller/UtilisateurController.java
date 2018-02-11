@@ -28,6 +28,18 @@ public class UtilisateurController {
         
     }
     
+    public static void modifierUser(String ID, int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
+        //String message = null;
+        utilisateur newuser = new utilisateur();
+        if(mdp.isEmpty()) {
+            mdp = "";
+        } else {
+            mdp = UtilisateurController.SHA1(mdp);
+        }
+        newuser.modifier_user(ID,status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,mdp);            
+        
+    }
+    
     public static void supprimerUser(String iduser) {
         utilisateur supuser = new utilisateur();
         supuser.supprimer_user(iduser);
