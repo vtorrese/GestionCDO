@@ -34,50 +34,50 @@ public class Utilisateur_new extends javax.swing.JPanel {
         initComponents();
         
         //remplissage des combobox
-   
+        
         //combobox status
         ArrayList status = new ArrayList();
         status = (ArrayList) donnees.get(0);
         Status_user.addItem("");
-        for(int i=1;i<status.size();i+=2) {
-            String texte = (String) status.get(i);
-            Status_user.addItem(texte);
+        for(int i=0;i<status.size();i++) {
+            ArrayList texte = (ArrayList) status.get(i);
+            Status_user.addItem(texte.get(1).toString());
         }
         
         //combobox site
-        ArrayList site = new ArrayList();
+       ArrayList site = new ArrayList();
         site = (ArrayList) donnees.get(1);
         Site_user.addItem("");
-        for(int i=1;i<site.size();i+=2) {
-            String texte = (String) site.get(i);
-            Site_user.addItem(texte);
+        for(int i=0;i<site.size();i++) {
+            ArrayList texte = (ArrayList) site.get(i);
+            Site_user.addItem(texte.get(1).toString());
         }
        
         //combobox civilite
         ArrayList civil = new ArrayList();
         civil = (ArrayList) donnees.get(2);
         Civil_user.addItem("");
-        for(int i=1;i<civil.size();i+=2) {
-            String texte = (String) civil.get(i);
-            Civil_user.addItem(texte);
+        for(int i=0;i<civil.size();i++) {
+            ArrayList texte = (ArrayList) civil.get(i);
+            Civil_user.addItem(texte.get(1).toString());
         }
         
          //combobox formation
         ArrayList formation = new ArrayList();
         formation = (ArrayList) donnees.get(3);
         Form_user.addItem("");
-        for(int i=1;i<formation.size();i+=2) {
-            String texte = (String) formation.get(i);
-            Form_user.addItem(texte);
+        for(int i=0;i<formation.size();i++) {
+            ArrayList texte = (ArrayList) formation.get(i);
+            Form_user.addItem(texte.get(1).toString());
         }
         
         //combobox promotion
         ArrayList promotion = new ArrayList();
         promotion = (ArrayList) donnees.get(4);
         Promo_user.addItem("");
-        for(int i=1;i<promotion.size();i+=2) {
-            String texte = (String) promotion.get(i);
-            Promo_user.addItem(texte);
+        for(int i=0;i<promotion.size();i++) {
+             ArrayList texte = (ArrayList) promotion.get(i);
+            Promo_user.addItem(texte.get(1).toString());
         }
         
        mdp_user.setColumns(15);
@@ -385,15 +385,15 @@ public class Utilisateur_new extends javax.swing.JPanel {
      
        if(Status_user.getSelectedIndex()==0) {
             JOptionPane.showMessageDialog(this,"Statut invalide !");}
-       
-       else if(status==2){ // si étudiant controle des combobox promotion et formation
-            if(Form_user.getSelectedIndex()==0) {
+        
+       else if(Status_user.getSelectedIndex()==2 && Form_user.getSelectedIndex()==0){ // si étudiant controle des combobox promotion et formation
+          
             JOptionPane.showMessageDialog(this,"Formation invalide !");}
             
-            if(Promo_user.getSelectedIndex()==0) {
+       else if(Status_user.getSelectedIndex()==2 && Promo_user.getSelectedIndex()==0) {
             JOptionPane.showMessageDialog(this,"Promotion invalide !");}
 
-        }
+        
        else if(Site_user.getSelectedIndex()==0) {
             JOptionPane.showMessageDialog(this,"Site invalide !");}
        
@@ -412,10 +412,10 @@ public class Utilisateur_new extends javax.swing.JPanel {
        else if(Commune_user.getText().equals("")) {
           JOptionPane.showMessageDialog(this,"Commune invalide !");}
         
-       else if(CP_user.getText().length()!=5) {
+       else if(CP_user.getText().length()!=5 || estUnEntier(CP_user.getText())==false) {
           JOptionPane.showMessageDialog(this,"Code postal invalide !");}
         
-       else if(Tel_user.getText().length()!=10) {
+       else if(Tel_user.getText().length()!=10 || estUnEntier(Tel_user.getText())==false) {
           JOptionPane.showMessageDialog(this,"Numéro de téléphone invalide !");}
         
        else if(Mail_user.getText().equals("")) { // Voir pour améliorer controle conformité mail
@@ -439,7 +439,7 @@ public class Utilisateur_new extends javax.swing.JPanel {
            adresse = Adresse_user.getText();
            nom = Nom_user.getText();
            prenom = Prenom_user.getText();
-
+           
             UtilisateurController.insereUser(status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,mdp);
             initialiser();
             JOptionPane.showMessageDialog(this,"Nouvel utilisateur ajouté !");
@@ -447,6 +447,15 @@ public class Utilisateur_new extends javax.swing.JPanel {
           
     }//GEN-LAST:event_Btn_enregistrerActionPerformed
 
+ 	public boolean estUnEntier(String chaine) {
+		try {
+			Integer.parseInt(chaine);
+		} catch (NumberFormatException e){
+			return false;
+		}
+		return true;
+        }
+        
         public void initialiser() {
         Status_user.setSelectedIndex(0);
         Site_user.setSelectedIndex(0);

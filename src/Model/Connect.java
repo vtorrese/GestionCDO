@@ -13,63 +13,89 @@ import java.util.ArrayList;
 public class Connect {
 
     private ArrayList al = new ArrayList();
-    String mdp = "root";
+ 
+    String mdp = "";
     
-    public Connect(String data) {
-        
+    public Connect(String data) 
+    {
         Connection connexion = null;
         
-        if (data.startsWith("S",0)) {
-            try {
-            
+        if (data.startsWith("S",0)) 
+        {
+            try 
+            {
                 Class.forName("com.mysql.jdbc.Driver");
                 System.out.println("Le pilote JDBC MySQL a été chargé");
                 connexion = DriverManager.getConnection("jdbc:mysql://localhost/cdo", "root", mdp);
+                //System.out.println(data.charAt(0));
 
+                try (Statement state = connexion.createStatement();
 
+                ResultSet result = state.executeQuery(data)) 
+                {
+                    ResultSetMetaData resultMeta = result.getMetaData();
+                    ArrayList a2 = null;
+                    while(result.next())
+                    {
 
-                    //System.out.println(data.charAt(0));
+                        a2 = new ArrayList();
+                        
+                        for(int i = 1; i <= resultMeta.getColumnCount(); i++) {
+                            a2.add(result.getObject(i).toString());}
+                         
+                        al.add(a2);
+                        
+                    }
 
-                     try (Statement state = connexion.createStatement();
-
-                     ResultSet result = state.executeQuery(data)) {
-                        ResultSetMetaData resultMeta = result.getMetaData();
-                        while(result.next()){
-                            for(int i = 1; i <= resultMeta.getColumnCount(); i++)
-                            al.add(result.getObject(i).toString());
-                            }
-                        }
-                connexion.close();
-                  
-                this.al = al;
                 }
-            catch (Exception e) {
-            e.printStackTrace();
-            }   
+
+                connexion.close();
+                 
+                this.al = al;
+            }
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+                
+            } 
+       
         }
         else
         {
-            try {
+            try 
+            {
             
                 Class.forName("com.mysql.jdbc.Driver");
                 System.out.println("Le pilote JDBC MySQL a été chargé");
                 connexion = DriverManager.getConnection("jdbc:mysql://localhost/cdo", "root", mdp);
 
-                     Statement state = connexion.createStatement();
-                     state.executeUpdate(data);
-                     connexion.close();
-                
-                }
-            catch (Exception e) {
-            e.printStackTrace();
+                Statement state = connexion.createStatement();
+                state.executeUpdate(data);
+                connexion.close();
+            }
+            catch (Exception e) 
+            {
+                e.printStackTrace();
             }  
         }
       
     }
 
-  ArrayList renvoi() {
-            return al;
-        }
+    public ArrayList renvoi() 
+    {
+        return al;
+    }
+    
+ public class GestionException extends Exception {
 
- 
+  public GestionException() {
+    super();
+  }
+
+  public GestionException(String s) {
+    super(s);
+  }
+}
+    
+    
 }

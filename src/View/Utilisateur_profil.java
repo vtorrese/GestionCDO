@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -6,8 +6,16 @@
 package view;
 
 import Controller.UtilisateurController;
+import java.awt.Color;
+
+import java.awt.Component;
 import java.util.ArrayList;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -19,7 +27,16 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         int formation =0;
         int promotion =0;
         int site =0;
+        int civil =0;
+        String ID = "";
         String nom = "";
+        String prenom = "";
+        String adresse = "";
+        String ville = "";
+        String CP = "";
+        String tel = "";
+        String mail = "";
+        String mdp = "";
         
     public Utilisateur_profil(ArrayList donnees) {
         initComponents();
@@ -29,10 +46,10 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         status = (ArrayList) donnees.get(0);
         Status_cherche.addItem("");
         Status_profil.addItem("");
-        for(int i=1;i<status.size();i+=2) {
-            String texte = (String) status.get(i);
-            Status_cherche.addItem(texte);
-            Status_profil.addItem(texte);
+        for(int i=0;i<status.size();i++) {
+            ArrayList texte = (ArrayList) status.get(i);
+            Status_cherche.addItem(texte.get(1).toString());
+            Status_profil.addItem(texte.get(1).toString());
         }
         
         //combobox formation
@@ -40,10 +57,10 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         formation = (ArrayList) donnees.get(3);
         Form_cherche.addItem("");
         Form_profil.addItem("");
-        for(int i=1;i<formation.size();i+=2) {
-            String texte = (String) formation.get(i);
-            Form_cherche.addItem(texte);
-            Form_profil.addItem(texte);
+        for(int i=0;i<formation.size();i++) {
+            ArrayList texte = (ArrayList) formation.get(i);
+            Form_cherche.addItem(texte.get(1).toString());
+            Form_profil.addItem(texte.get(1).toString());
         }
         
         //combobox promotion
@@ -51,30 +68,36 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         promotion = (ArrayList) donnees.get(4);
         Promo_cherche.addItem("");
         Promo_profil.addItem("");
-        for(int i=1;i<promotion.size();i+=2) {
-            String texte = (String) promotion.get(i);
-            Promo_cherche.addItem(texte);
-            Promo_profil.addItem(texte);
+        for(int i=0;i<promotion.size();i++) {
+            ArrayList texte = (ArrayList) promotion.get(i);
+            Promo_cherche.addItem(texte.get(1).toString());
+            Promo_profil.addItem(texte.get(1).toString());
         }
         
          //combobox site
         ArrayList site = new ArrayList();
         site = (ArrayList) donnees.get(1);
         Site_profil.addItem("");
-        for(int i=1;i<site.size();i+=2) {
-            String texte = (String) site.get(i);
-            Site_profil.addItem(texte);
+        for(int i=0;i<site.size();i++) {
+            ArrayList texte = (ArrayList) site.get(i);
+            Site_profil.addItem(texte.get(1).toString());
         }
        
         //combobox civilite
         ArrayList civil = new ArrayList();
         civil = (ArrayList) donnees.get(2);
         Civil_profil.addItem("");
-        for(int i=1;i<civil.size();i+=2) {
-            String texte = (String) civil.get(i);
-            Civil_profil.addItem(texte);
+        for(int i=0;i<civil.size();i++) {
+            ArrayList texte = (ArrayList) civil.get(i);
+            Civil_profil.addItem(texte.get(1).toString());
         }
         
+        //Tableau gauche des utilisateurs filtrés
+        //String  titre[] = {"ID","IDStatus","Status", "Nom", "Prénom", "Site"};
+        initialiser_tableau();
+        initialiser_panneau();
+        ID_profil.setVisible(false);
+        Control_mdp.setVisible(false);
     }
 
     /**
@@ -98,7 +121,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         Status_cherche = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        Tab_user = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -130,12 +153,17 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         Btn_modif = new javax.swing.JButton();
         Btn_supprimer = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
         jLabel18 = new javax.swing.JLabel();
         Civil_profil = new javax.swing.JComboBox<>();
+        ID_profil = new javax.swing.JTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        Tab_prt = new javax.swing.JTable();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        Tab_res = new javax.swing.JTable();
+        Btn_NewMdp = new javax.swing.JButton();
+        Control_mdp = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setMinimumSize(new java.awt.Dimension(900, 550));
@@ -227,19 +255,49 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Listes", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 12))); // NOI18N
 
-        jTable1.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        Tab_user.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        Tab_user.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "IDstatus", "Status", "Nom", "Prénom", "Site"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        Tab_user.getTableHeader().setReorderingAllowed(false);
+        Tab_user.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Tab_userMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(Tab_user);
+        if (Tab_user.getColumnModel().getColumnCount() > 0) {
+            Tab_user.getColumnModel().getColumn(0).setMinWidth(0);
+            Tab_user.getColumnModel().getColumn(0).setPreferredWidth(0);
+            Tab_user.getColumnModel().getColumn(0).setMaxWidth(0);
+            Tab_user.getColumnModel().getColumn(1).setMinWidth(0);
+            Tab_user.getColumnModel().getColumn(1).setPreferredWidth(0);
+            Tab_user.getColumnModel().getColumn(1).setMaxWidth(0);
+            Tab_user.getColumnModel().getColumn(2).setResizable(false);
+            Tab_user.getColumnModel().getColumn(3).setResizable(false);
+            Tab_user.getColumnModel().getColumn(4).setResizable(false);
+            Tab_user.getColumnModel().getColumn(5).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -254,7 +312,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -350,11 +408,21 @@ public class Utilisateur_profil extends javax.swing.JPanel {
 
         Btn_modif.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         Btn_modif.setText("Modifier");
+        Btn_modif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_modifActionPerformed(evt);
+            }
+        });
 
         Btn_supprimer.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
         Btn_supprimer.setForeground(new java.awt.Color(204, 0, 51));
         Btn_supprimer.setText("Supprimer");
         Btn_supprimer.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Btn_supprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_supprimerActionPerformed(evt);
+            }
+        });
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/files/images/mail.png"))); // NOI18N
         jButton1.setBorder(null);
@@ -363,28 +431,102 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         jButton1.setMinimumSize(new java.awt.Dimension(60, 60));
         jButton1.setPreferredSize(new java.awt.Dimension(60, 60));
 
-        jList1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Réservations", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 10))); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList1);
-
-        jList2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historique des prêts", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 10))); // NOI18N
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane4.setViewportView(jList2);
-
         jLabel18.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         jLabel18.setText("Civilité");
 
         Civil_profil.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         Civil_profil.setForeground(new java.awt.Color(153, 0, 153));
         Civil_profil.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        Tab_prt.setFont(new java.awt.Font("Rockwell", 0, 11)); // NOI18N
+        Tab_prt.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Titre", "Statut", "Date retour", "delai"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(Tab_prt);
+        if (Tab_prt.getColumnModel().getColumnCount() > 0) {
+            Tab_prt.getColumnModel().getColumn(0).setResizable(false);
+            Tab_prt.getColumnModel().getColumn(1).setResizable(false);
+            Tab_prt.getColumnModel().getColumn(2).setResizable(false);
+            Tab_prt.getColumnModel().getColumn(3).setMinWidth(0);
+            Tab_prt.getColumnModel().getColumn(3).setPreferredWidth(0);
+            Tab_prt.getColumnModel().getColumn(3).setMaxWidth(0);
+        }
+
+        jTextField1.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jTextField1.setText("Historique des prêts");
+        jTextField1.setBorder(null);
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTextField2.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jTextField2.setText("Réservations");
+        jTextField2.setBorder(null);
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        Tab_res.setFont(new java.awt.Font("Rockwell", 0, 11)); // NOI18N
+        Tab_res.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Titre", "Réservé le, à"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane6.setViewportView(Tab_res);
+        if (Tab_res.getColumnModel().getColumnCount() > 0) {
+            Tab_res.getColumnModel().getColumn(0).setResizable(false);
+            Tab_res.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        Btn_NewMdp.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        Btn_NewMdp.setText("Nouveau");
+        Btn_NewMdp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_NewMdpActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -424,6 +566,8 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(mdp_profil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Btn_NewMdp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(Btn_supprimer)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -439,14 +583,19 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(Prenom_profil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Nom_profil, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(Status_profil, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(Status_profil, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel18))
+                                    .addComponent(Nom_profil, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Civil_profil, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Civil_profil, 0, 60, Short.MAX_VALUE)
+                                    .addComponent(ID_profil)))
+                            .addComponent(Control_mdp, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel6)
@@ -464,10 +613,16 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(48, 48, 48)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1))
         );
@@ -509,7 +664,10 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(Civil_profil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(Civil_profil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ID_profil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
@@ -534,22 +692,28 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel17)
-                        .addComponent(mdp_profil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(mdp_profil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Btn_NewMdp)
+                        .addComponent(Control_mdp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Btn_modif)
                         .addComponent(Btn_supprimer)))
                 .addGap(17, 17, 17)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4))
-                .addGap(3, 3, 3))
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Nom_profil, Prenom_profil, Status_profil});
 
-        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {CP_profil, Mail_profil, Tel_profil, mdp_profil});
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Btn_NewMdp, CP_profil, Mail_profil, Tel_profil, mdp_profil});
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Btn_modif, Btn_supprimer});
 
@@ -571,13 +735,11 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -591,27 +753,284 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             formation = Form_cherche.getSelectedIndex();
             promotion = Promo_cherche.getSelectedIndex();
             nom = Nom_cherche.getText();
-            UtilisateurController.chercheUser(status,nom,formation,promotion);
+            ArrayList tabresult = new ArrayList();
+            //ArrayList tabresult = UtilisateurController.chercheUser(status,nom,formation,promotion);
+            tabresult = (ArrayList) UtilisateurController.chercheUser(status,nom,formation,promotion);
             initialiser_tableau();
+            initialiser_panneau();
+            //System.out.println(tabresult.size());
+            DefaultTableModel model = (DefaultTableModel) Tab_user.getModel();
+            
+              for(int i=0;i<tabresult.size();i++) {
+                    ArrayList tab = (ArrayList) tabresult.get(i);
+                  //System.out.println(tab.get(0));
+                  model.addRow(new Object[]{tab.get(0), tab.get(9), tab.get(10), tab.get(1), tab.get(2),tab.get(12)});
+            }
+           
+            
+               
+            
         }
     }//GEN-LAST:event_Btn_validActionPerformed
 
+    private void Tab_userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Tab_userMouseClicked
+            
+        //Sélection d'une ligne de la tab_user
+            JTable source = (JTable)evt.getSource();
+            int row = source.rowAtPoint( evt.getPoint() );
+            String iduser = Tab_user.getValueAt(row,0).toString();
+            String idstatus = Tab_user.getValueAt(row,1).toString();
+            
+        //Récupération des données
+            ArrayList profil = (ArrayList) UtilisateurController.chercheUserById(iduser,idstatus).get(0);
+            ArrayList pret = (ArrayList) UtilisateurController.cherchePrtByUser(iduser);
+            ArrayList reserv = (ArrayList) UtilisateurController.chercheResByUser(iduser);
+            
+        //Affichage des données sur le panneau profil    
+            initialiser_panneau();
+            Civil_profil.setSelectedIndex(Integer.parseInt(profil.get(13).toString()));
+            Status_profil.setSelectedIndex(Integer.parseInt(profil.get(9).toString()));
+            ID_profil.setText(profil.get(0).toString());
+            Nom_profil.setText(profil.get(1).toString());
+            Prenom_profil.setText(profil.get(2).toString());
+            Adresse_profil.setText(profil.get(4).toString());
+            Site_profil.setSelectedIndex(Integer.parseInt(profil.get(11).toString()));
+            if(Integer.parseInt(profil.get(9).toString())==2) {
+                Form_profil.setSelectedIndex(Integer.parseInt(profil.get(15).toString()));
+                Promo_profil.setSelectedIndex(Integer.parseInt(profil.get(17).toString()));
+            }
+            Commune_profil.setText(profil.get(6).toString());
+            CP_profil.setText(profil.get(5).toString());
+            Tel_profil.setText(profil.get(7).toString());
+            Mail_profil.setText(profil.get(8).toString());
+            
+            
+         //Remplissage des tables tab_prt et tab_res
+           DefaultTableModel model_prt = (DefaultTableModel) Tab_prt.getModel(); // Table pret
+           
+            for(int i=0;i<pret.size();i++) {
+                    ArrayList tab = (ArrayList) pret.get(i);
+                    model_prt.addRow(new Object[]{tab.get(0),tab.get(1),tab.get(2),tab.get(3)});
+                    
+                   
+            }
+            Tab_prt.setDefaultRenderer(Object.class, new jTableRender());
+            
+            DefaultTableModel model_res = (DefaultTableModel) Tab_res.getModel(); //Table réservation
+            for(int i=0;i<reserv.size();i++) {
+                    ArrayList tab = (ArrayList) reserv.get(i);
+                    model_res.addRow(new Object[]{tab.get(4),tab.get(1)});
+            }
+            
+            
+    }//GEN-LAST:event_Tab_userMouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void Btn_supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_supprimerActionPerformed
+        //Controles
+        if(ID_profil.getText().isEmpty()==true) {
+            JOptionPane.showMessageDialog(this,"Sélectionnez un utilisateur !");
+        } else {
+            int choix = JOptionPane.showConfirmDialog(null, "Êtes-vous sur(e) de vouloir supprimer cet utilisateur ?", "Supprimer un utilisateur", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if(choix != JOptionPane.NO_OPTION && 
+                    choix != JOptionPane.CANCEL_OPTION && 
+                    choix != JOptionPane.CLOSED_OPTION){
+                        String iduser = ID_profil.getText();
+                        int status = Status_profil.getSelectedIndex();
+                        if(status==1) {
+                            int choixadmin = JOptionPane.showConfirmDialog(null,"Vous allez supprimer un administrateur !", "Information", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                            if(choixadmin != JOptionPane.NO_OPTION && choixadmin != JOptionPane.CLOSED_OPTION) {
+                                UtilisateurController.supprimerUser(iduser);
+                            }
+                        } else {
+                            UtilisateurController.supprimerUser(iduser);
+                        }
+                        //On réinitialise les panneaux
+                        initialiser_tableau();
+                        initialiser_panneau();
+                    }
+
+        }
+        
+    }//GEN-LAST:event_Btn_supprimerActionPerformed
+
+    private void Btn_modifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_modifActionPerformed
+        // Modification des données d'un utilisateur
+         if(ID_profil.getText().isEmpty()==true) {
+            JOptionPane.showMessageDialog(this,"Sélectionnez un utilisateur !");
+        } else {
+             
+             //Effectuer tous les contrôles sur les changements
+        if(Status_profil.getSelectedIndex()==0) {
+          JOptionPane.showMessageDialog(this,"Statut invalide !");}
+            else if(Site_profil.getSelectedIndex()==0) {
+          JOptionPane.showMessageDialog(this,"Site invalide !");}
+            else if(Civil_profil.getSelectedIndex()==0) {
+          JOptionPane.showMessageDialog(this,"Civilité invalide !");}
+            else if(Nom_profil.getText().equals("")) {
+          JOptionPane.showMessageDialog(this,"Nom invalide !");}
+            else if(Prenom_profil.getText().equals("")) {
+          JOptionPane.showMessageDialog(this,"Prénom invalide !");}
+            else if(Adresse_profil.getText().equals("")) {
+          JOptionPane.showMessageDialog(this,"Adresse invalide !");}
+            else if(Commune_profil.getText().equals("")) {
+          JOptionPane.showMessageDialog(this,"Commune invalide !");}
+            else if(CP_profil.getText().length()!=5 || estUnEntier(CP_profil.getText())==false) {
+          JOptionPane.showMessageDialog(this,"Code postal invalide !");}
+            else if(Tel_profil.getText().length()!=10 || estUnEntier(Tel_profil.getText())==false) {
+          JOptionPane.showMessageDialog(this,"Numéro de téléphone invalide !");}
+            else if(Mail_profil.getText().equals("")) { // Voir pour améliorer controle conformité mail
+          JOptionPane.showMessageDialog(this,"Mail invalide !");}
+            else if(mdp_profil.getText().length()<5 && Control_mdp.getText().equals("new")) {
+          JOptionPane.showMessageDialog(this,"Mot de passe invalide (au moins 5 caractères!)");}
+            else if(Status_profil.getSelectedIndex()==2 && Form_profil.getSelectedIndex()==0){ // si étudiant controle des combobox promotion et formation
+          JOptionPane.showMessageDialog(this,"Formation invalide !");}
+            else if(Status_profil.getSelectedIndex()==2 && Promo_profil.getSelectedIndex()==0) {
+          JOptionPane.showMessageDialog(this,"Promotion invalide !");}
+            else {
+                
+                status = Status_profil.getSelectedIndex();
+                formation = Form_profil.getSelectedIndex();
+                promotion = Promo_profil.getSelectedIndex();
+                site = Site_profil.getSelectedIndex();
+                civil = Civil_profil.getSelectedIndex();
+                mail = Mail_profil.getText();
+                tel = Tel_profil.getText();
+                CP = CP_profil.getText();
+                ville = Commune_profil.getText();
+                adresse = Adresse_profil.getText();
+                nom = Nom_profil.getText();
+                prenom = Prenom_profil.getText();
+                ID = ID_profil.getText();
+                
+                if(Control_mdp.getText().equals("new")) {
+                    mdp = mdp_profil.getText();
+                } else
+                {
+                    mdp = "";
+                }
+                UtilisateurController.modifierUser(ID,status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,mdp);
+              //On réinitialise les panneaux
+                        initialiser_tableau();
+                        initialiser_panneau();
+                
+            }     
+               
+        }
+    }//GEN-LAST:event_Btn_modifActionPerformed
+
+    private void Btn_NewMdpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_NewMdpActionPerformed
+        // TODO add your handling code here:
+        if(ID_profil.getText().isEmpty()==true) {
+                JOptionPane.showMessageDialog(this,"Sélectionnez un utilisateur !");
+        } else {
+                Control_mdp.setText("new");
+                 mdp_profil.setEnabled(true);
+                 mdp_profil.requestFocus(true);
+        }
+    }//GEN-LAST:event_Btn_NewMdpActionPerformed
+
 
     public void initialiser_tableau() {
-            
+                  DefaultTableModel model = (DefaultTableModel) Tab_user.getModel();
+                   model.setRowCount(0);
+                }
+
+    public void initialiser_panneau() {
+        Status_profil.setSelectedIndex(0);
+        Civil_profil.setSelectedIndex(0);
+        Site_profil.setSelectedIndex(0);
+        Form_profil.setSelectedIndex(0);
+        Promo_profil.setSelectedIndex(0);
+        ID_profil.setText("");
+        Nom_profil.setText("");
+        Prenom_profil.setText("");
+        Adresse_profil.setText("");
+        Commune_profil.setText("");
+        CP_profil.setText("");
+        Tel_profil.setText("");
+        Mail_profil.setText("");
+        mdp_profil.setColumns(15);
+        mdp_profil.setText("");
+        mdp_profil.setEnabled(false);
+        Control_mdp.setText("");
+       DefaultTableModel pret = (DefaultTableModel) Tab_prt.getModel();
+       pret.setRowCount(0);
+       DefaultTableModel resa = (DefaultTableModel) Tab_res.getModel();
+       resa.setRowCount(0);
+ 
     }
 
+     	public boolean estUnEntier(String chaine) {
+		try {
+			Integer.parseInt(chaine);
+		} catch (NumberFormatException e){
+			return false;
+		}
+		return true;
+        }
+    
+    public class jTableRender extends DefaultTableCellRenderer { //Pour colorier les prets en cours
+ 
+    @Override
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        Component component = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
+        /**
+         * Colorier les cellules
+         */Color clr = null;
+
+        Object etat = table.getValueAt(row, 1);
+        if (etat != null && component instanceof JLabel) {
+            JLabel label_etat = (JLabel) component;
+            if (label_etat.getText().contains("En cours")) { // les prêts en cours
+                
+                Object delai = table.getValueAt(row,3);
+                if(delai.toString().contains("OK")) { // toujours actifs
+                    clr = new Color(0,250,0); 
+                } else
+                {
+                    clr = new Color(250,0,0); // toujours actifs mais En retard
+                }
+               
+                component.setBackground(clr);
+                
+            }
+    
+            else if (label_etat.getText().contains("En attente")) {
+                clr = new Color(250,170,170);
+                component.setBackground(clr);
+            }
+            else
+            {
+                 clr = new Color(255, 255, 255);
+                component.setBackground(clr);
+            }
+        }
+        return component;
+    }
+}
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Adresse_profil;
+    private javax.swing.JButton Btn_NewMdp;
     private javax.swing.JButton Btn_modif;
     private javax.swing.JButton Btn_supprimer;
     private javax.swing.JButton Btn_valid;
     private javax.swing.JTextField CP_profil;
     private javax.swing.JComboBox<String> Civil_profil;
     private javax.swing.JTextField Commune_profil;
+    private javax.swing.JTextField Control_mdp;
     private javax.swing.JComboBox<String> Form_cherche;
     private javax.swing.JComboBox<String> Form_profil;
+    private javax.swing.JTextField ID_profil;
     private javax.swing.JTextField Mail_profil;
     private javax.swing.JTextField Nom_cherche;
     private javax.swing.JTextField Nom_profil;
@@ -621,6 +1040,9 @@ public class Utilisateur_profil extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> Site_profil;
     private javax.swing.JComboBox<String> Status_cherche;
     private javax.swing.JComboBox<String> Status_profil;
+    private javax.swing.JTable Tab_prt;
+    private javax.swing.JTable Tab_res;
+    private javax.swing.JTable Tab_user;
     private javax.swing.JTextField Tel_profil;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
@@ -641,17 +1063,16 @@ public class Utilisateur_profil extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JPasswordField mdp_profil;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,19 +22,52 @@ public class UtilisateurController {
     }
     
     public static void insereUser(int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
-        
+        //String message = null;
         utilisateur newuser = new utilisateur();
-        newuser.enregistre_user(status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,UtilisateurController.SHA1(mdp));
-
+        newuser.enregistre_user(status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,UtilisateurController.SHA1(mdp));            
+        
+    }
+    
+    public static void modifierUser(String ID, int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
+        //String message = null;
+        utilisateur newuser = new utilisateur();
+        if(mdp.isEmpty()) {
+            mdp = "";
+        } else {
+            mdp = UtilisateurController.SHA1(mdp);
+        }
+        newuser.modifier_user(ID,status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,mdp);            
+        
+    }
+    
+    public static void supprimerUser(String iduser) {
+        utilisateur supuser = new utilisateur();
+        supuser.supprimer_user(iduser);
+        
     }
     
     public static ArrayList chercheUser(int status,String nom,int formation,int promotion) {
         utilisateur chercheuser = new utilisateur();
-        ArrayList resultat = new ArrayList();
+        /*ArrayList resultat = new ArrayList();
         resultat = chercheuser.cherche_user(status, nom, formation, promotion);
-        return resultat;
+        return resultat;*/
+        return chercheuser.cherche_user(status, nom, formation, promotion);
     }
     
+    public static ArrayList chercheUserById(String iduser,String idstatus) {
+        utilisateur chercheuserbyid = new utilisateur();
+        return chercheuserbyid.cherche_userById(iduser,idstatus);
+    }
+    
+   public static ArrayList cherchePrtByUser(String iduser) {
+       pret chercheByUser = new pret();
+       return chercheByUser.cherche_ByUser(iduser);
+    }
+   
+    public static ArrayList chercheResByUser(String iduser) {
+       reservation chercheByUser = new reservation();
+       return chercheByUser.cherche_ByUser(iduser);
+    }
 
     private static String SHA1(String value) {
 		
