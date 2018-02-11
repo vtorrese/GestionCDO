@@ -54,8 +54,8 @@ public class MaFenetre implements EventListener {
                     user.add(nouveau);
                      
 
-                JMenu fond = new JMenu("Fond Documentaire");
-                    JMenuItem consulter = new JMenuItem("Consulter & sélectionner");
+                JMenu fond = new JMenu("Fond");
+                    JMenuItem consulter = new JMenuItem("Consulter");
                     fond.add(consulter);
                     JMenuItem ajouter = new JMenuItem("Ajouter");
                     fond.add(ajouter);
@@ -98,34 +98,38 @@ public class MaFenetre implements EventListener {
                         Utilisateur panneau = new Utilisateur("Utilisateurs","Voir profil",donnees);
                         desktop.add(panneau);
                         panneau.setVisible(true);
-                   }
+                        }
                 });
                 
-               nouveau.addActionListener((ActionEvent e) -> {
+                nouveau.addActionListener((ActionEvent e) -> {
                    JInternalFrame[] tab = desktop.getAllFrames();
                    if(Arrays.toString(tab).indexOf("Nouvel utilisateur")==-1){
-                   Utilisateur panneau = new Utilisateur("Utilisateurs","Nouvel utilisateur",donnees);
-                   desktop.add(panneau);
-                   panneau.setVisible(true);
-               }
+                        Utilisateur panneau = new Utilisateur("Utilisateurs","Nouvel utilisateur",donnees);
+                        desktop.add(panneau);
+                        panneau.setVisible(true);
+                        }
                 });
                 
-                
-                
-                
-                /*ajouter.addActionListener((ActionEvent e) -> {
-                   Fond panneau = new Fond("Fond Documentaire","Ajouter");
-                   desktop.add(panneau);
-                   panneau.setVisible(true);
+
+                ajouter.addActionListener((ActionEvent e) -> {
+                    JInternalFrame[] tab = desktop.getAllFrames();
+                    if(Arrays.toString(tab).indexOf("Ajouter")==-1){
+                        View.Fond panneau = new View.Fond("Fond","Ajouter",donnees);
+                        desktop.add(panneau);
+                        panneau.setVisible(true);
+                        }
                 });
                 
                 consulter.addActionListener((ActionEvent e) -> {
-                   Fond panneau = new Fond("Fond Documentaire","Consultation & sélection");
-                   desktop.add(panneau);
-                   panneau.setVisible(true);
+                    JInternalFrame[] tab = desktop.getAllFrames();
+                    if(Arrays.toString(tab).indexOf("Consulter")==-1){
+                        View.Fond panneau = new View.Fond("Fond","Consulter",donnees);
+                        desktop.add(panneau);
+                        panneau.setVisible(true);
+                        }
                 });
                 
-                retour.addActionListener((ActionEvent e) -> {
+                /*retour.addActionListener((ActionEvent e) -> {
                    Pret panneau = new Pret("Prêts","Gestion des retours");
                    desktop.add(panneau);
                    panneau.setVisible(true);
