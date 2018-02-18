@@ -5,21 +5,34 @@
  */
 package View;
 
+
+import java.awt.BorderLayout;
+
 import java.util.ArrayList;
+
+
+
 
 /**
  *
  * @author vince
  */
 public class Fond_new extends javax.swing.JPanel {
-
+  
     /**
      * Creates new form Fond_new
      */
     public Fond_new(ArrayList donnees) {
         initComponents();
+        formulaire_fond inclus = new formulaire_fond();
+         this.setLayout(new BorderLayout());
+         this.add(inclus, BorderLayout.LINE_END);
+         
+         
     }
-
+    
+    
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,8 +78,11 @@ public class Fond_new extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+
+    
 }

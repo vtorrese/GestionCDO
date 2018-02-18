@@ -28,6 +28,7 @@ import javax.swing.UIManager;
  */
 public class MaFenetre implements EventListener {
     
+    
     public MaFenetre(ArrayList donnees) {
             JFrame fenetreP = new JFrame();
             fenetreP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -159,9 +160,13 @@ public class MaFenetre implements EventListener {
                    desktop.add(panneau);
                    panneau.setVisible(true);
                 });*/
-                
+            
+          
             fenetreP.setVisible(true);
     }
+    
+  
+    
     public static void main(String[] args){
     
     try{
@@ -174,6 +179,8 @@ public class MaFenetre implements EventListener {
 
     
     }
+
+ 
 
 
 
