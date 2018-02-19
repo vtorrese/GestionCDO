@@ -1126,7 +1126,7 @@ public class formulaire_fond extends javax.swing.JPanel {
     private javax.swing.JTextField mention_doc;
     private javax.swing.JComboBox<String> mtclf_doc;
     private javax.swing.JComboBox<String> niveau_doc;
-    private javax.swing.JTextField notice_doc;
+    public static javax.swing.JTextField notice_doc;
     private javax.swing.JTextField num_doc;
     private javax.swing.JTextField page_doc;
     private javax.swing.JComboBox<String> period_doc;

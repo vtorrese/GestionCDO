@@ -5,6 +5,8 @@
  */
 package View;
 import java.util.ArrayList;
+
+
 /**
  *
  * @author vince
@@ -22,8 +24,11 @@ public class Fond extends javax.swing.JInternalFrame {
         this.setResizable(true);
         this.setMaximizable(true);
         this.setIconifiable(true);
+        
         this.toFront();
         this.setSize(600, 400);
+        
+
         
         if(sstitre=="Ajouter") {
              Fond_new nouveau = new Fond_new(donnees);
