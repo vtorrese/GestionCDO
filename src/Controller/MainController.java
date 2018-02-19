@@ -23,13 +23,29 @@ public class MainController {
         civilite civil = new civilite();
         formation formation = new formation();
         promotion promotion = new promotion();
-       
+        type type = new type();
+        editeur editeur = new editeur();
+        langue langue = new langue();
+        niveau niveau = new niveau();
+        auteur auteur = new auteur();
+        mtclf mtclf = new mtclf();
+        periodique periodique = new periodique();
+        collection collection = new collection();
+        
         ArrayList donnees = new ArrayList();
-        donnees.add(status.getAll());
-        donnees.add(site.getAll());
-        donnees.add(civil.getAll());
-        donnees.add(formation.getAll());
-        donnees.add(promotion.getAll());
+        donnees.add(status.getAll());       //0
+        donnees.add(site.getAll());         //1
+        donnees.add(civil.getAll());        //2
+        donnees.add(formation.getAll());    //3
+        donnees.add(promotion.getAll());    //4
+        donnees.add(type.getAll());         //5
+        donnees.add(editeur.getAll());      //6
+        donnees.add(langue.getAll());       //7
+        donnees.add(niveau.getAll());       //8
+        donnees.add(auteur.getAll());       //9
+        donnees.add(mtclf.getAll());        //10
+        donnees.add(periodique.getAll());   //11
+        donnees.add(collection.getAll());   //12
         
         new MaFenetre(donnees);
         
