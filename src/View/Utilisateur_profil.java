@@ -10,11 +10,14 @@ import java.awt.Color;
 
 import java.awt.Component;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import static view.Utilisateur_new.getKeyFromValue;
 
 
 /**
@@ -28,7 +31,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         int promotion =0;
         int site =0;
         int civil =0;
-        String ID = "";
+        int ID = 0;
         String nom = "";
         String prenom = "";
         String adresse = "";
@@ -37,6 +40,13 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         String tel = "";
         String mail = "";
         String mdp = "";
+        
+        //gestion combo box
+        Map<String, String> StatusMap = new HashMap<String, String>();
+        Map<String, String> FormMap = new HashMap<String, String>();
+        Map<String, String> PromoMap = new HashMap<String, String>();
+        Map<String, String> SiteMap = new HashMap<String, String>();
+        Map<String, String> CivilMap = new HashMap<String, String>();
         
     public Utilisateur_profil(ArrayList donnees) {
         initComponents();
@@ -50,6 +60,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             ArrayList texte = (ArrayList) status.get(i);
             Status_cherche.addItem(texte.get(1).toString());
             Status_profil.addItem(texte.get(1).toString());
+            StatusMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
         //combobox formation
@@ -61,8 +72,9 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             ArrayList texte = (ArrayList) formation.get(i);
             Form_cherche.addItem(texte.get(1).toString());
             Form_profil.addItem(texte.get(1).toString());
+            FormMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
-        
+       
         //combobox promotion
         ArrayList promotion = new ArrayList();
         promotion = (ArrayList) donnees.get(4);
@@ -72,6 +84,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             ArrayList texte = (ArrayList) promotion.get(i);
             Promo_cherche.addItem(texte.get(1).toString());
             Promo_profil.addItem(texte.get(1).toString());
+            PromoMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
          //combobox site
@@ -81,6 +94,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         for(int i=0;i<site.size();i++) {
             ArrayList texte = (ArrayList) site.get(i);
             Site_profil.addItem(texte.get(1).toString());
+            SiteMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
        
         //combobox civilite
@@ -90,6 +104,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         for(int i=0;i<civil.size();i++) {
             ArrayList texte = (ArrayList) civil.get(i);
             Civil_profil.addItem(texte.get(1).toString());
+            CivilMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
         //Tableau gauche des utilisateurs filtrés
@@ -265,7 +280,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 true, true, false, false, false, false
@@ -749,11 +764,13 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         if(Status_cherche.getSelectedIndex()==0 && Nom_cherche.getText().equals("") && Form_cherche.getSelectedIndex()==0 && Promo_cherche.getSelectedIndex()==0)  {
             JOptionPane.showMessageDialog(this,"Filtre invalide !");}
         else {
-            status = Status_cherche.getSelectedIndex();
-            formation = Form_cherche.getSelectedIndex();
-            promotion = Promo_cherche.getSelectedIndex();
+            
+                if(Status_cherche.getSelectedIndex()!=0){status = Integer.parseInt(getKeyFromValue(StatusMap,Status_cherche.getSelectedItem()).toString());}
+                if(Form_cherche.getSelectedIndex()!=0){formation = Integer.parseInt(getKeyFromValue(FormMap,Form_cherche.getSelectedItem()).toString());}
+                if(Promo_cherche.getSelectedIndex()!=0){promotion = Integer.parseInt(getKeyFromValue(PromoMap,Promo_cherche.getSelectedItem()).toString());}
             nom = Nom_cherche.getText();
             ArrayList tabresult = new ArrayList();
+            
             //ArrayList tabresult = UtilisateurController.chercheUser(status,nom,formation,promotion);
             tabresult = (ArrayList) UtilisateurController.chercheUser(status,nom,formation,promotion);
             initialiser_tableau();
@@ -778,8 +795,8 @@ public class Utilisateur_profil extends javax.swing.JPanel {
         //Sélection d'une ligne de la tab_user
             JTable source = (JTable)evt.getSource();
             int row = source.rowAtPoint( evt.getPoint() );
-            String iduser = Tab_user.getValueAt(row,0).toString();
-            String idstatus = Tab_user.getValueAt(row,1).toString();
+            int iduser = Integer.parseInt(Tab_user.getValueAt(row,0).toString());
+            int idstatus = Integer.parseInt(Tab_user.getValueAt(row,1).toString());
             
         //Récupération des données
             ArrayList profil = (ArrayList) UtilisateurController.chercheUserById(iduser,idstatus).get(0);
@@ -788,16 +805,19 @@ public class Utilisateur_profil extends javax.swing.JPanel {
             
         //Affichage des données sur le panneau profil    
             initialiser_panneau();
-            Civil_profil.setSelectedIndex(Integer.parseInt(profil.get(13).toString()));
-            Status_profil.setSelectedIndex(Integer.parseInt(profil.get(9).toString()));
+           //System.out.println(new obj(profil.get(10).toString()));
+            Civil_profil.setSelectedItem(profil.get(14).toString());
+            Status_profil.setSelectedItem(profil.get(10).toString());
             ID_profil.setText(profil.get(0).toString());
             Nom_profil.setText(profil.get(1).toString());
             Prenom_profil.setText(profil.get(2).toString());
             Adresse_profil.setText(profil.get(4).toString());
-            Site_profil.setSelectedIndex(Integer.parseInt(profil.get(11).toString()));
+            Site_profil.setSelectedItem(profil.get(12).toString());
+            //System.out.println(Integer.parseInt(profil.get(9).toString()));
             if(Integer.parseInt(profil.get(9).toString())==2) {
-                Form_profil.setSelectedIndex(Integer.parseInt(profil.get(15).toString()));
-                Promo_profil.setSelectedIndex(Integer.parseInt(profil.get(17).toString()));
+                
+                Form_profil.setSelectedItem(profil.get(16).toString());
+                Promo_profil.setSelectedItem(profil.get(18).toString());
             }
             Commune_profil.setText(profil.get(6).toString());
             CP_profil.setText(profil.get(5).toString());
@@ -843,8 +863,9 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                     choix != JOptionPane.CANCEL_OPTION && 
                     choix != JOptionPane.CLOSED_OPTION){
                         String iduser = ID_profil.getText();
-                        int status = Status_profil.getSelectedIndex();
-                        if(status==1) {
+                        String status = Status_profil.getSelectedItem().toString();
+                        
+                        if(status.equals("Administrateur")) {
                             int choixadmin = JOptionPane.showConfirmDialog(null,"Vous allez supprimer un administrateur !", "Information", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                             if(choixadmin != JOptionPane.NO_OPTION && choixadmin != JOptionPane.CLOSED_OPTION) {
                                 UtilisateurController.supprimerUser(iduser);
@@ -896,11 +917,12 @@ public class Utilisateur_profil extends javax.swing.JPanel {
           JOptionPane.showMessageDialog(this,"Promotion invalide !");}
             else {
                 
-                status = Status_profil.getSelectedIndex();
-                formation = Form_profil.getSelectedIndex();
-                promotion = Promo_profil.getSelectedIndex();
-                site = Site_profil.getSelectedIndex();
-                civil = Civil_profil.getSelectedIndex();
+
+                status = Integer.parseInt(getKeyFromValue(StatusMap,Status_profil.getSelectedItem()).toString());
+                if(Form_profil.getSelectedIndex()!=0){formation = Integer.parseInt(getKeyFromValue(FormMap,Form_profil.getSelectedItem()).toString());}
+                if(Promo_profil.getSelectedIndex()!=0){promotion = Integer.parseInt(getKeyFromValue(PromoMap,Promo_profil.getSelectedItem()).toString());}
+                site = Integer.parseInt(getKeyFromValue(SiteMap,Site_profil.getSelectedItem()).toString());
+                civil = Integer.parseInt(getKeyFromValue(CivilMap,Civil_profil.getSelectedItem()).toString());
                 mail = Mail_profil.getText();
                 tel = Tel_profil.getText();
                 CP = CP_profil.getText();
@@ -908,7 +930,7 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                 adresse = Adresse_profil.getText();
                 nom = Nom_profil.getText();
                 prenom = Prenom_profil.getText();
-                ID = ID_profil.getText();
+                ID = Integer.parseInt(ID_profil.getText());
                 
                 if(Control_mdp.getText().equals("new")) {
                     mdp = mdp_profil.getText();

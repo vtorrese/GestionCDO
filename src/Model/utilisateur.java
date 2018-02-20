@@ -177,9 +177,9 @@ public class utilisateur {
         return retour; 
     }
     
-    public ArrayList cherche_userById(String iduser, String idstatus) {
+    public ArrayList cherche_userById(int iduser, int idstatus) {
         String requete = null;
-        if(idstatus.contains("2")) {  
+        if(idstatus==2) {  
         requete = "SELECT `id_user`, `nom_user`, `prenom_user`, `mdp_user`, `adresse_user`, `CP_user`, `ville_user`, `phone_user`, `mail_user`, `status_user`, lib_stat_user, `site_user`, lib_site, `civil_user`, lib_civil, form_user, lib_formation, promo_user, lib_promotion FROM `user` LEFT JOIN status_user ON status_user = id_stat_user LEFT JOIN site ON site_user = id_site LEFT JOIN civilite ON civil_user = id_civil LEFT JOIN formation ON form_user = id_formation LEFT JOIN promotion ON promo_user = id_promotion WHERE id_user='" + iduser + "' ORDER BY Nom_user";
         }
         else
@@ -198,7 +198,7 @@ public class utilisateur {
         new Connect(requete);
     }
     
-    public void modifier_user(String ID, int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
+    public void modifier_user(int ID, int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
         String requete = null;
         if(mdp.isEmpty()) {
             requete = "UPDATE `user` SET `nom_user`='" + nom + "',`prenom_user`='" + prenom + "',`adresse_user`='" + adresse + "',`CP_user`='" + CP + "',`ville_user`='" + ville + "',`phone_user`='" + tel + "',`mail_user`='" +  mail + "',`status_user`='" + status + "',`site_user`='" + site + "',`civil_user`='" + civil + "',`promo_user`='" +  promotion + "',`form_user`='" + formation + "' WHERE `id_user`='" + ID + "'";

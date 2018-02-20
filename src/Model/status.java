@@ -21,7 +21,7 @@ public class status {
     
     public ArrayList getAll() {
        String requete;
-        requete = "SELECT id_stat_user ID, lib_stat_user LIB FROM status_user";
+        requete = "SELECT id_stat_user ID, lib_stat_user LIB FROM status_user ORDER BY LIB ";
         Connect demande = new Connect(requete);
         retour = demande.renvoi();//retour.add(demande.renvoi());
         return retour;

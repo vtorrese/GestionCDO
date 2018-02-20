@@ -9,6 +9,7 @@ package View;
 import java.awt.BorderLayout;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 
@@ -25,12 +26,30 @@ public class Fond_new extends javax.swing.JPanel {
     /**
      * Creates new form Fond_new
      */
+    String notice = "";
+    int site = 0;
+    String classification = "";
+    int control =0;
+    int page = 0;
+    int type = 0;
+    String titre = "";
+    String sstitre ="";
+    String dateP = "";
+    String lieuP = "";
+    int editeur = 0;
+    String mention = "";
+    String ISBN = "";
+    int lang = 0;
+    int niveau = 0;
+    
+    
+    
     public Fond_new(ArrayList donnees) {
         initComponents();
         formulaire_fond inclus = new formulaire_fond(donnees);
          formul.setLayout(new BorderLayout());
          formul.add(inclus, BorderLayout.CENTER);
-         
+       
 
 
 
@@ -112,8 +131,43 @@ public class Fond_new extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_NewDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_NewDocActionPerformed
-        // TODO add your handling code here:
-        System.out.println(formulaire_fond.notice_doc.getText());
+        
+    // Contrôles
+      
+        if(formulaire_fond.notice_doc.getText().equals("")) {
+            JOptionPane.showMessageDialog(this,"Numéro de notice invalide !");
+        }
+        else if(formulaire_fond.localisation_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Localisation de la référence invalide !");
+        }
+        else if(formulaire_fond.classification_doc.getText().equals("")) {
+            JOptionPane.showMessageDialog(this,"Numéro de classification invalide !");
+        }
+        else if(formulaire_fond.control_doc.getText().equals("")) {
+            JOptionPane.showMessageDialog(this,"Contrôle invalide !");
+        }
+        else if(formulaire_fond.type_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Type invalide !");
+        }
+        else if(formulaire_fond.titre_doc.getText().equals("")) {
+            JOptionPane.showMessageDialog(this,"Titre invalide !");
+        }
+        else if(formulaire_fond.dateP_doc.getDate() == null) {
+            JOptionPane.showMessageDialog(this,"Date de publication invalide !");
+        }
+        else if(formulaire_fond.editeur_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Editeur invalide !");
+        }
+        else if(formulaire_fond.lang_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Langue invalide !");
+        }
+        else if(formulaire_fond.niveau_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Niveau invalide !");
+        }
+        else if(formulaire_fond.list_auteur.getModel().getSize() == 0) {
+            JOptionPane.showMessageDialog(this,"Aucun auteur ?!");
+        }
+        
     }//GEN-LAST:event_Btn_NewDocActionPerformed
 
   
@@ -126,3 +180,4 @@ public class Fond_new extends javax.swing.JPanel {
 
     
 }
+
