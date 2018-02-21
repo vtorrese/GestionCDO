@@ -11,6 +11,7 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import View.formulaire_fond;
 =======
 import javax.swing.JOptionPane;
@@ -19,6 +20,9 @@ import javax.swing.JOptionPane;
 
 
 >>>>>>> 2514b494ad620b15d56e0b232f112d6fc019d06e
+=======
+
+>>>>>>> parent of 248379f... erreur
 =======
 
 >>>>>>> parent of 248379f... erreur
@@ -134,6 +138,7 @@ public class Fond_new extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private void Btn_NewDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_NewDocActionPerformed
 <<<<<<< HEAD
         // TODO add your handling code here:
@@ -179,6 +184,8 @@ public class Fond_new extends javax.swing.JPanel {
 >>>>>>> 2514b494ad620b15d56e0b232f112d6fc019d06e
     }//GEN-LAST:event_Btn_NewDocActionPerformed
 
+=======
+>>>>>>> parent of 248379f... erreur
 =======
 >>>>>>> parent of 248379f... erreur
   
