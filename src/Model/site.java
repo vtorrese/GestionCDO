@@ -18,7 +18,7 @@ public class site {
     
     public ArrayList getAll() {
        String requete;
-        requete = "SELECT id_site ID, lib_site LIB FROM site";
+        requete = "SELECT id_site ID, lib_site LIB FROM site ORDER BY LIB";
         Connect demande = new Connect(requete);
         retour = demande.renvoi();//retour.add(demande.renvoi());
         return retour;

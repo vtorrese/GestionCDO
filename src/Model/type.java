@@ -18,7 +18,7 @@ public class type {
      
      public ArrayList getAll() {
        String requete;
-        requete = "SELECT id_type ID, lib_type LIB FROM type ORDER BY lib_type";
+        requete = "SELECT id_type ID, lib_type LIB FROM type ORDER BY LIB";
         Connect demande = new Connect(requete);
         retour = demande.renvoi();//retour.add(demande.renvoi());
         return retour;

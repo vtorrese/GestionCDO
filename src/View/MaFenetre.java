@@ -7,6 +7,7 @@ package view;
 
 
 import java.awt.BorderLayout;
+
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +21,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 
 /**
@@ -35,10 +37,11 @@ public class MaFenetre implements EventListener {
             fenetreP.setSize(900, 600);
             fenetreP.setLocationRelativeTo(null);
             fenetreP.setTitle("Gestion du Centre de Documentation");
-            
+           
             
             final JDesktopPane desktop = new JDesktopPane();
             fenetreP.add(desktop, BorderLayout.CENTER);
+            
             
               final JMenuBar menu = new JMenuBar();
   
@@ -161,8 +164,12 @@ public class MaFenetre implements EventListener {
                    panneau.setVisible(true);
                 });*/
             
+                JScrollPane scroll=new JScrollPane(desktop);
+                scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+                
+                fenetreP.getContentPane().add(scroll);
           
-            fenetreP.setVisible(true);
+                fenetreP.setVisible(true);
     }
     
   
@@ -175,16 +182,9 @@ public class MaFenetre implements EventListener {
     catch(Exception e){}
     
    
-    
+  
 
     
     }
 
- 
-
-
-
-
-
-  
 }

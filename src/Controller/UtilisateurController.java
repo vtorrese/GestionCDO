@@ -28,7 +28,7 @@ public class UtilisateurController {
         
     }
     
-    public static void modifierUser(String ID, int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
+    public static void modifierUser(int ID, int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
         //String message = null;
         utilisateur newuser = new utilisateur();
         if(mdp.isEmpty()) {
@@ -54,17 +54,17 @@ public class UtilisateurController {
         return chercheuser.cherche_user(status, nom, formation, promotion);
     }
     
-    public static ArrayList chercheUserById(String iduser,String idstatus) {
+    public static ArrayList chercheUserById(int iduser,int idstatus) {
         utilisateur chercheuserbyid = new utilisateur();
         return chercheuserbyid.cherche_userById(iduser,idstatus);
     }
     
-   public static ArrayList cherchePrtByUser(String iduser) {
+   public static ArrayList cherchePrtByUser(int iduser) {
        pret chercheByUser = new pret();
        return chercheByUser.cherche_ByUser(iduser);
     }
    
-    public static ArrayList chercheResByUser(String iduser) {
+    public static ArrayList chercheResByUser(int iduser) {
        reservation chercheByUser = new reservation();
        return chercheByUser.cherche_ByUser(iduser);
     }

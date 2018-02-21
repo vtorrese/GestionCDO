@@ -7,6 +7,8 @@ package view;
 
 import Controller.UtilisateurController;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,8 +30,14 @@ public class Utilisateur_new extends javax.swing.JPanel {
         String tel = "";
         String mail = "";
         String mdp = "";
-                
-  
+       
+        //récupérations des valeurs des combo box
+        Map<String, String> StatusMap = new HashMap<String, String>();
+        Map<String, String> SiteMap = new HashMap<String, String>();
+        Map<String, String> CivilMap = new HashMap<String, String>();
+        Map<String, String> FormMap = new HashMap<String, String>();
+        Map<String, String> PromoMap = new HashMap<String, String>();
+        
     public Utilisateur_new(ArrayList donnees) {
         initComponents();
         
@@ -37,20 +45,25 @@ public class Utilisateur_new extends javax.swing.JPanel {
         
         //combobox status
         ArrayList status = new ArrayList();
+        
         status = (ArrayList) donnees.get(0);
         Status_user.addItem("");
         for(int i=0;i<status.size();i++) {
             ArrayList texte = (ArrayList) status.get(i);
             Status_user.addItem(texte.get(1).toString());
+            StatusMap.put(texte.get(0).toString(), texte.get(1).toString());
+            
         }
         
         //combobox site
        ArrayList site = new ArrayList();
+       
         site = (ArrayList) donnees.get(1);
         Site_user.addItem("");
         for(int i=0;i<site.size();i++) {
             ArrayList texte = (ArrayList) site.get(i);
             Site_user.addItem(texte.get(1).toString());
+            SiteMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
        
         //combobox civilite
@@ -60,6 +73,7 @@ public class Utilisateur_new extends javax.swing.JPanel {
         for(int i=0;i<civil.size();i++) {
             ArrayList texte = (ArrayList) civil.get(i);
             Civil_user.addItem(texte.get(1).toString());
+            CivilMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
          //combobox formation
@@ -69,6 +83,7 @@ public class Utilisateur_new extends javax.swing.JPanel {
         for(int i=0;i<formation.size();i++) {
             ArrayList texte = (ArrayList) formation.get(i);
             Form_user.addItem(texte.get(1).toString());
+            FormMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
         //combobox promotion
@@ -78,6 +93,7 @@ public class Utilisateur_new extends javax.swing.JPanel {
         for(int i=0;i<promotion.size();i++) {
              ArrayList texte = (ArrayList) promotion.get(i);
             Promo_user.addItem(texte.get(1).toString());
+            PromoMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
        mdp_user.setColumns(15);
@@ -383,15 +399,15 @@ public class Utilisateur_new extends javax.swing.JPanel {
     private void Btn_enregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_enregistrerActionPerformed
         
         // Controles
-     
-       if(Status_user.getSelectedIndex()==0) {
+       
+      if(Status_user.getSelectedIndex()==0) {
             JOptionPane.showMessageDialog(this,"Statut invalide !");}
         
-       else if(Status_user.getSelectedIndex()==2 && Form_user.getSelectedIndex()==0){ // si étudiant controle des combobox promotion et formation
+       else if(Status_user.getSelectedItem().equals("Etudiant") && Form_user.getSelectedIndex()==0){ // si étudiant controle des combobox promotion et formation
           
             JOptionPane.showMessageDialog(this,"Formation invalide !");}
             
-       else if(Status_user.getSelectedIndex()==2 && Promo_user.getSelectedIndex()==0) {
+       else if(Status_user.getSelectedItem().equals("Etudiant") && Promo_user.getSelectedIndex()==0) {
             JOptionPane.showMessageDialog(this,"Promotion invalide !");}
 
         
@@ -427,11 +443,11 @@ public class Utilisateur_new extends javax.swing.JPanel {
        else 
        {
 
-           status = Status_user.getSelectedIndex();
-           formation = Form_user.getSelectedIndex();
-           promotion = Promo_user.getSelectedIndex();
-           site = Site_user.getSelectedIndex();
-           civil = Civil_user.getSelectedIndex();
+           status = Integer.parseInt(getKeyFromValue(StatusMap,Status_user.getSelectedItem()).toString());
+           if(Form_user.getSelectedIndex()!=0){formation = Integer.parseInt(getKeyFromValue(FormMap,Form_user.getSelectedItem()).toString());}
+           if(Promo_user.getSelectedIndex()!=0){promotion = Integer.parseInt(getKeyFromValue(PromoMap,Promo_user.getSelectedItem()).toString());}
+           site = Integer.parseInt(getKeyFromValue(SiteMap,Site_user.getSelectedItem()).toString());
+           civil = Integer.parseInt(getKeyFromValue(CivilMap,Civil_user.getSelectedItem()).toString());
            mdp = mdp_user.getText();
            mail = Mail_user.getText();
            tel = Tel_user.getText();
@@ -444,7 +460,7 @@ public class Utilisateur_new extends javax.swing.JPanel {
             UtilisateurController.insereUser(status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,mdp);
             initialiser();
             JOptionPane.showMessageDialog(this,"Nouvel utilisateur ajouté !");
-       }      
+       }     
           
     }//GEN-LAST:event_Btn_enregistrerActionPerformed
 
@@ -456,6 +472,15 @@ public class Utilisateur_new extends javax.swing.JPanel {
 		}
 		return true;
         }
+        
+        public static Object getKeyFromValue(Map hm, Object value) {
+            for (Object o : hm.keySet()) {
+              if (hm.get(o).equals(value)) {
+                return o;
+              }
+            }
+            return null;
+          }
         
         public void initialiser() {
         Status_user.setSelectedIndex(0);
@@ -473,6 +498,10 @@ public class Utilisateur_new extends javax.swing.JPanel {
         mdp_user.setText("");
         }
 
+        
+  
+        
+        
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea Adresse_user;
     private javax.swing.JButton Btn_enregistrer;
@@ -507,3 +536,4 @@ public class Utilisateur_new extends javax.swing.JPanel {
     private javax.swing.JPasswordField mdp_user;
     // End of variables declaration//GEN-END:variables
 }
+
