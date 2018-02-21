@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import static view.Utilisateur_new.getKeyFromValue;
 
 
 
@@ -41,6 +42,22 @@ public class Fond_new extends javax.swing.JPanel {
     String ISBN = "";
     int lang = 0;
     int niveau = 0;
+    String sommaire = "";
+    String resume ="";
+    String url ="";
+    String fichier = "";
+    String image ="";
+    String dateA ="";
+    int periodique =0;
+    int collection =0;
+    int formation = 0;
+    int promotion =0;
+    String ISSN ="";
+    String numero="";
+    String entreprise = "";
+    String tuteur ="";
+    String duree="";
+    int auteurRapport =0;
     
     
     
@@ -86,6 +103,19 @@ public class Fond_new extends javax.swing.JPanel {
             .addGap(0, 418, Short.MAX_VALUE)
         );
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(formul, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(formul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         Btn_NewDoc.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         Btn_NewDoc.setText("Enregistrer");
         Btn_NewDoc.addActionListener(new java.awt.event.ActionListener() {
@@ -94,38 +124,24 @@ public class Fond_new extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(formul, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(Btn_NewDoc)
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(formul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Btn_NewDoc)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(382, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn_NewDoc)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Btn_NewDoc)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -134,7 +150,7 @@ public class Fond_new extends javax.swing.JPanel {
         
     // Contrôles
       
-        if(formulaire_fond.notice_doc.getText().equals("")) {
+       if(formulaire_fond.notice_doc.getText().equals("")) {
             JOptionPane.showMessageDialog(this,"Numéro de notice invalide !");
         }
         else if(formulaire_fond.localisation_doc.getSelectedIndex()<=0) {
@@ -164,8 +180,25 @@ public class Fond_new extends javax.swing.JPanel {
         else if(formulaire_fond.niveau_doc.getSelectedIndex()<=0) {
             JOptionPane.showMessageDialog(this,"Niveau invalide !");
         }
-        else if(formulaire_fond.list_auteur.getModel().getSize() == 0) {
+         /*else if(formulaire_fond.list_auteur.getModel().getSize() == 0) {
             JOptionPane.showMessageDialog(this,"Aucun auteur ?!");
+        }
+        else if(formulaire_fond.list_mtclf.getModel().getSize() == 0) {
+            JOptionPane.showMessageDialog(this,"Aucun mot-clef ?!");
+        }*/
+        else
+        {
+            notice = formulaire_fond.notice_doc.getText();
+            site = Integer.parseInt(getKeyFromValue(formulaire_fond.SiteMap,formulaire_fond.localisation_doc.getSelectedItem()).toString());
+            classification = formulaire_fond.classification_doc.getText();
+            control = Integer.parseInt(formulaire_fond.control_doc.getText());
+            if(!formulaire_fond.page_doc.equals("")) {page = Integer.parseInt(formulaire_fond.page_doc.getText());}
+            type = Integer.parseInt(getKeyFromValue(formulaire_fond.TypeMap,formulaire_fond.type_doc.getSelectedItem()).toString());
+            titre = formulaire_fond.titre_doc.getText();
+            sstitre = formulaire_fond.sstitre_doc.getText();
+            dateP = formulaire_fond.dateP_doc.getDate().toString();
+            lieuP = formulaire_fond.lieuP_doc.getText();
+            System.out.println(dateP);
         }
         
     }//GEN-LAST:event_Btn_NewDocActionPerformed

@@ -1386,11 +1386,17 @@
       </Events>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dateP_doc">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-d"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
     </Component>
     <Component class="com.toedter.calendar.JDateChooser" name="dateA_doc">
+      <Properties>
+        <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-d"/>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>

@@ -18,8 +18,8 @@ public class formulaire_fond extends javax.swing.JPanel {
     /**
      * Creates new form formulaire_fond
      */
-    Map<String, String> SiteMap = new HashMap<String, String>();
-    //A terminer avec toutes les autres combobox
+    static Map<String, String>  SiteMap = new HashMap<String, String>();
+    static Map<String, String>  TypeMap = new HashMap<String, String>();
     
     
     public formulaire_fond(ArrayList donnees) {
@@ -43,6 +43,7 @@ public class formulaire_fond extends javax.swing.JPanel {
         for(int i=0;i<type.size();i++) {
             ArrayList texte = (ArrayList) type.get(i);
             type_doc.addItem(texte.get(1).toString());
+            TypeMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
         //combobox editeur
@@ -555,6 +556,10 @@ public class formulaire_fond extends javax.swing.JPanel {
                 Btn_Doc_InitActionPerformed(evt);
             }
         });
+
+        dateP_doc.setDateFormatString("yyyy-MM-d");
+
+        dateA_doc.setDateFormatString("yyyy-MM-d");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
