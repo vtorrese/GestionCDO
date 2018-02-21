@@ -18,7 +18,7 @@ public class formation {
     
     public ArrayList getAll() {
        String requete;
-        requete = "SELECT id_formation ID, lib_formation LIB FROM formation";
+        requete = "SELECT id_formation ID, lib_formation LIB FROM formation ORDER BY LIB";
         Connect demande = new Connect(requete);
         retour = demande.renvoi();//retour.add(demande.renvoi());
         return retour;

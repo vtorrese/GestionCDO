@@ -49,7 +49,7 @@ public class reservation {
         this.doc_reserv = doc_reserv;
     }
     
-    public ArrayList cherche_ByUser(String iduser) {
+    public ArrayList cherche_ByUser(int iduser) {
         String requete = null;
         requete = "SELECT `id_reserv`, CONCAT(Day(`date_reserv`),\"/\",MONTH(`date_reserv`),\"/\",YEAR(`date_reserv`),\" (\",HOUR(`date_reserv`),\"h \",MINUTE(`date_reserv`),\"mns)\") as datex, `user_reserv`, `doc_reserv`, titre_doc FROM `reservation` JOIN document ON `doc_reserv` = id_doc WHERE user_reserv ='" + iduser + "' ORDER BY date_reserv";
         Connect donnees = new Connect(requete);

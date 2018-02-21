@@ -7,6 +7,7 @@ package view;
 
 
 import java.awt.BorderLayout;
+
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,6 +21,7 @@ import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 
 /**
@@ -28,16 +30,18 @@ import javax.swing.UIManager;
  */
 public class MaFenetre implements EventListener {
     
+    
     public MaFenetre(ArrayList donnees) {
             JFrame fenetreP = new JFrame();
             fenetreP.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             fenetreP.setSize(900, 600);
             fenetreP.setLocationRelativeTo(null);
             fenetreP.setTitle("Gestion du Centre de Documentation");
-            
+           
             
             final JDesktopPane desktop = new JDesktopPane();
             fenetreP.add(desktop, BorderLayout.CENTER);
+            
             
               final JMenuBar menu = new JMenuBar();
   
@@ -54,8 +58,8 @@ public class MaFenetre implements EventListener {
                     user.add(nouveau);
                      
 
-                JMenu fond = new JMenu("Fond Documentaire");
-                    JMenuItem consulter = new JMenuItem("Consulter & sélectionner");
+                JMenu fond = new JMenu("Fond");
+                    JMenuItem consulter = new JMenuItem("Consulter");
                     fond.add(consulter);
                     JMenuItem ajouter = new JMenuItem("Ajouter");
                     fond.add(ajouter);
@@ -98,34 +102,38 @@ public class MaFenetre implements EventListener {
                         Utilisateur panneau = new Utilisateur("Utilisateurs","Voir profil",donnees);
                         desktop.add(panneau);
                         panneau.setVisible(true);
-                   }
+                        }
                 });
                 
-               nouveau.addActionListener((ActionEvent e) -> {
+                nouveau.addActionListener((ActionEvent e) -> {
                    JInternalFrame[] tab = desktop.getAllFrames();
                    if(Arrays.toString(tab).indexOf("Nouvel utilisateur")==-1){
-                   Utilisateur panneau = new Utilisateur("Utilisateurs","Nouvel utilisateur",donnees);
-                   desktop.add(panneau);
-                   panneau.setVisible(true);
-               }
+                        Utilisateur panneau = new Utilisateur("Utilisateurs","Nouvel utilisateur",donnees);
+                        desktop.add(panneau);
+                        panneau.setVisible(true);
+                        }
                 });
                 
-                
-                
-                
-                /*ajouter.addActionListener((ActionEvent e) -> {
-                   Fond panneau = new Fond("Fond Documentaire","Ajouter");
-                   desktop.add(panneau);
-                   panneau.setVisible(true);
+
+                ajouter.addActionListener((ActionEvent e) -> {
+                    JInternalFrame[] tab = desktop.getAllFrames();
+                    if(Arrays.toString(tab).indexOf("Ajouter")==-1){
+                        View.Fond panneau = new View.Fond("Fond","Ajouter",donnees);
+                        desktop.add(panneau);
+                        panneau.setVisible(true);
+                        }
                 });
                 
                 consulter.addActionListener((ActionEvent e) -> {
-                   Fond panneau = new Fond("Fond Documentaire","Consultation & sélection");
-                   desktop.add(panneau);
-                   panneau.setVisible(true);
+                    JInternalFrame[] tab = desktop.getAllFrames();
+                    if(Arrays.toString(tab).indexOf("Consulter")==-1){
+                        View.Fond panneau = new View.Fond("Fond","Consulter",donnees);
+                        desktop.add(panneau);
+                        panneau.setVisible(true);
+                        }
                 });
                 
-                retour.addActionListener((ActionEvent e) -> {
+                /*retour.addActionListener((ActionEvent e) -> {
                    Pret panneau = new Pret("Prêts","Gestion des retours");
                    desktop.add(panneau);
                    panneau.setVisible(true);
@@ -155,9 +163,17 @@ public class MaFenetre implements EventListener {
                    desktop.add(panneau);
                    panneau.setVisible(true);
                 });*/
+            
+                JScrollPane scroll=new JScrollPane(desktop);
+                scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
                 
-            fenetreP.setVisible(true);
+                fenetreP.getContentPane().add(scroll);
+          
+                fenetreP.setVisible(true);
     }
+    
+  
+    
     public static void main(String[] args){
     
     try{
@@ -166,14 +182,9 @@ public class MaFenetre implements EventListener {
     catch(Exception e){}
     
    
-    
+  
 
     
     }
 
-
-
-
-
-  
 }

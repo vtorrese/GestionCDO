@@ -18,7 +18,7 @@ public class promotion {
     
     public ArrayList getAll() {
        String requete;
-        requete = "SELECT id_promotion ID, lib_promotion LIB FROM promotion";
+        requete = "SELECT id_promotion ID, lib_promotion LIB FROM promotion ORDER BY LIB";
         Connect demande = new Connect(requete);
         retour = demande.renvoi();//retour.add(demande.renvoi());
         return retour;
