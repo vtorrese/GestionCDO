@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 
 import java.util.ArrayList;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import View.formulaire_fond;
 =======
 import javax.swing.JOptionPane;
@@ -18,6 +19,9 @@ import javax.swing.JOptionPane;
 
 
 >>>>>>> 2514b494ad620b15d56e0b232f112d6fc019d06e
+=======
+
+>>>>>>> parent of 248379f... erreur
 
 
 
@@ -92,11 +96,6 @@ public class Fond_new extends javax.swing.JPanel {
 
         Btn_NewDoc.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         Btn_NewDoc.setText("Enregistrer");
-        Btn_NewDoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btn_NewDocActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -134,6 +133,7 @@ public class Fond_new extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+<<<<<<< HEAD
     private void Btn_NewDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_NewDocActionPerformed
 <<<<<<< HEAD
         // TODO add your handling code here:
@@ -179,6 +179,8 @@ public class Fond_new extends javax.swing.JPanel {
 >>>>>>> 2514b494ad620b15d56e0b232f112d6fc019d06e
     }//GEN-LAST:event_Btn_NewDocActionPerformed
 
+=======
+>>>>>>> parent of 248379f... erreur
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_NewDoc;
