@@ -9,15 +9,11 @@ package View;
 import java.awt.BorderLayout;
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-import View.formulaire_fond;
-=======
 import javax.swing.JOptionPane;
 
 
 
 
->>>>>>> 2514b494ad620b15d56e0b232f112d6fc019d06e
 
 
 
@@ -135,10 +131,6 @@ public class Fond_new extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_NewDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_NewDocActionPerformed
-<<<<<<< HEAD
-        // TODO add your handling code here:
-      
-=======
         
     // Contrôles
       
@@ -176,7 +168,6 @@ public class Fond_new extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this,"Aucun auteur ?!");
         }
         
->>>>>>> 2514b494ad620b15d56e0b232f112d6fc019d06e
     }//GEN-LAST:event_Btn_NewDocActionPerformed
 
   
