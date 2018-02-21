@@ -9,7 +9,7 @@ package View;
 import java.awt.BorderLayout;
 
 import java.util.ArrayList;
-
+import View.formulaire_fond;
 
 
 
@@ -64,6 +64,11 @@ public class Fond_new extends javax.swing.JPanel {
 
         Btn_NewDoc.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         Btn_NewDoc.setText("Enregistrer");
+        Btn_NewDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_NewDocActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -102,6 +107,11 @@ public class Fond_new extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Btn_NewDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_NewDocActionPerformed
+        // TODO add your handling code here:
+      
+    }//GEN-LAST:event_Btn_NewDocActionPerformed
 
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
