@@ -938,7 +938,10 @@ public class Utilisateur_profil extends javax.swing.JPanel {
                 {
                     mdp = "";
                 }
+                
+                
                 UtilisateurController.modifierUser(ID,status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,mdp);
+                
               //On réinitialise les panneaux
                         initialiser_tableau();
                         initialiser_panneau();
