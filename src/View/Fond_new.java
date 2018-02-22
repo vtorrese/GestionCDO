@@ -159,8 +159,11 @@ public class Fond_new extends javax.swing.JPanel {
         else if(formulaire_fond.classification_doc.getText().equals("")) {
             JOptionPane.showMessageDialog(this,"Numéro de classification invalide !");
         }
-        else if(formulaire_fond.control_doc.getText().equals("")) {
+        else if(formulaire_fond.control_doc.getText().equals("") || estUnEntier(formulaire_fond.control_doc.getText())==false) {
             JOptionPane.showMessageDialog(this,"Contrôle invalide !");
+        }
+        else if(estUnEntier(formulaire_fond.page_doc.getText())==false) {
+            JOptionPane.showMessageDialog(this,"Nombre de pages invalide !");
         }
         else if(formulaire_fond.type_doc.getSelectedIndex()<=0) {
             JOptionPane.showMessageDialog(this,"Type invalide !");
@@ -186,6 +189,9 @@ public class Fond_new extends javax.swing.JPanel {
         else if(formulaire_fond.list_mtclf.getModel().getSize() == 0) {
             JOptionPane.showMessageDialog(this,"Aucun mot-clef ?!");
         }*/
+        else if(formulaire_fond.type_doc.getSelectedItem().equals("Périodiques") && formulaire_fond.period_doc.getSelectedIndex()<=0 && formulaire_fond.coll_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Périodique et/ou collection invalides !");
+        }
         else
         {
             notice = formulaire_fond.notice_doc.getText();
@@ -198,11 +204,48 @@ public class Fond_new extends javax.swing.JPanel {
             sstitre = formulaire_fond.sstitre_doc.getText();
             dateP = formulaire_fond.dateP_doc.getDate().toString();
             lieuP = formulaire_fond.lieuP_doc.getText();
-            System.out.println(dateP);
+            editeur = Integer.parseInt(getKeyFromValue(formulaire_fond.EditeurMap,formulaire_fond.editeur_doc.getSelectedItem()).toString());
+            mention = formulaire_fond.mention_doc.getText();
+            ISBN = formulaire_fond.isbn_doc.getText();
+            lang = Integer.parseInt(getKeyFromValue(formulaire_fond.LangMap,formulaire_fond.lang_doc.getSelectedItem()).toString());
+            niveau = Integer.parseInt(getKeyFromValue(formulaire_fond.NiveauMap,formulaire_fond.niveau_doc.getSelectedItem()).toString());
+            sommaire = formulaire_fond.sommaire_doc.getText();
+            resume = formulaire_fond.resum_doc.getText();
+            url = formulaire_fond.url_doc.getText();
+            fichier = formulaire_fond.file_doc.getText();
+            image = formulaire_fond.img_doc.getText();
+            if(formulaire_fond.dateA_doc.getDate() != null) {dateA = formulaire_fond.dateA_doc.getDate().toString();}
+            duree = formulaire_fond.img_doc.getText();
+            
+            if(formulaire_fond.type_doc.getSelectedItem().equals("Périodiques")) {
+                periodique = Integer.parseInt(getKeyFromValue(formulaire_fond.PeriodMap,formulaire_fond.period_doc.getSelectedItem()).toString());
+                collection = Integer.parseInt(getKeyFromValue(formulaire_fond.CollMap,formulaire_fond.coll_doc.getSelectedItem()).toString());
+                numero = formulaire_fond.num_doc.getText();
+                ISSN = formulaire_fond.issn_doc.getText();              
+                }
+            
+            if(formulaire_fond.type_doc.getSelectedItem().equals("Rapports")) {
+                auteurRapport = Integer.parseInt(getKeyFromValue(formulaire_fond.UserMap,formulaire_fond.auteurRapport.getSelectedItem()).toString());
+                entreprise = formulaire_fond.ent_doc.getText();
+                tuteur = formulaire_fond.tuto_doc.getText();
+                formation = Integer.parseInt(getKeyFromValue(formulaire_fond.FormationMap,formulaire_fond.form_doc.getSelectedItem()).toString());
+                promotion = Integer.parseInt(getKeyFromValue(formulaire_fond.PromotionMap,formulaire_fond.promo_doc.getSelectedItem()).toString());
+                }
+            
+            
+            
         }
         
     }//GEN-LAST:event_Btn_NewDocActionPerformed
 
+    	public boolean estUnEntier(String chaine) {
+		try {
+			Integer.parseInt(chaine);
+		} catch (NumberFormatException e){
+			return false;
+		}
+		return true;
+        }
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_NewDoc;

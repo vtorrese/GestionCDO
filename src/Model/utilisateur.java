@@ -213,4 +213,12 @@ public class utilisateur {
         //System.out.println(requete);
         new Connect(requete);
     }
+    
+    public ArrayList getAll() {
+        String requete;
+        requete = "SELECT `id_user`, `nom_user`, `prenom_user`, `mdp_user`, `adresse_user`, `CP_user`, `ville_user`, `phone_user`, `mail_user`, `status_user`, lib_stat_user, `site_user`, lib_site, `civil_user`, lib_civil FROM `user` LEFT JOIN status_user ON status_user = id_stat_user LEFT JOIN site ON site_user = id_site LEFT JOIN civilite ON civil_user = id_civil ORDER BY Nom_user";
+        Connect demande = new Connect(requete);
+        retour = demande.renvoi();//retour.add(demande.renvoi());
+        return retour;
+    }
 }

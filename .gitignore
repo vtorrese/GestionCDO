@@ -2,7 +2,11 @@
 nbproject/private/private.properties
 nbproject/private/private.xml
 *.properties
+<<<<<<< HEAD
 build/classes/Model/Connect.class
 build/classes/Model/Connect.class
 build/classes/Model/Connect.class
 nbproject/private/private.properties
+=======
+/build/
+>>>>>>> 9405b73b43100f601ba792dab9de0c430f5d7e4e

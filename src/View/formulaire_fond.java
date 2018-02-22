@@ -5,6 +5,7 @@
  */
 package View;
 
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,14 @@ public class formulaire_fond extends javax.swing.JPanel {
      */
     static Map<String, String>  SiteMap = new HashMap<String, String>();
     static Map<String, String>  TypeMap = new HashMap<String, String>();
-    
+    static Map<String, String>  EditeurMap = new HashMap<String, String>();
+    static Map<String, String>  LangMap = new HashMap<String, String>();
+    static Map<String, String>  NiveauMap = new HashMap<String, String>();
+    static Map<String, String>  PeriodMap = new HashMap<String, String>();
+    static Map<String, String>  CollMap = new HashMap<String, String>();
+    static Map<String, String>  UserMap = new HashMap<String, String>();
+    static Map<String, String>  FormationMap = new HashMap<String, String>();
+    static Map<String, String>  PromotionMap = new HashMap<String, String>();
     
     public formulaire_fond(ArrayList donnees) {
         initComponents();
@@ -53,6 +61,7 @@ public class formulaire_fond extends javax.swing.JPanel {
         for(int i=0;i<editeur.size();i++) {
             ArrayList texte = (ArrayList) editeur.get(i);
             editeur_doc.addItem(texte.get(1).toString());
+            EditeurMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
         //combobox langue
@@ -62,6 +71,7 @@ public class formulaire_fond extends javax.swing.JPanel {
         for(int i=0;i<langue.size();i++) {
             ArrayList texte = (ArrayList) langue.get(i);
             lang_doc.addItem(texte.get(1).toString());
+            LangMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
         //combobox niveau
@@ -71,6 +81,7 @@ public class formulaire_fond extends javax.swing.JPanel {
         for(int i=0;i<niveau.size();i++) {
             ArrayList texte = (ArrayList) niveau.get(i);
             niveau_doc.addItem(texte.get(1).toString());
+            NiveauMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
        //combobox auteur
@@ -98,6 +109,7 @@ public class formulaire_fond extends javax.swing.JPanel {
         for(int i=0;i<periodique.size();i++) {
             ArrayList texte = (ArrayList) periodique.get(i);
             period_doc.addItem(texte.get(1).toString());
+            PeriodMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
         //combobox collection
@@ -107,6 +119,7 @@ public class formulaire_fond extends javax.swing.JPanel {
         for(int i=0;i<collection.size();i++) {
             ArrayList texte = (ArrayList) collection.get(i);
             coll_doc.addItem(texte.get(1).toString());
+            CollMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
         //combobox formation
@@ -116,6 +129,7 @@ public class formulaire_fond extends javax.swing.JPanel {
         for(int i=0;i<formation.size();i++) {
             ArrayList texte = (ArrayList) formation.get(i);
             form_doc.addItem(texte.get(1).toString());
+            FormationMap.put(texte.get(0).toString(), texte.get(1).toString());
         }
         
         //combobox formation
@@ -125,6 +139,17 @@ public class formulaire_fond extends javax.swing.JPanel {
         for(int i=0;i<promotion.size();i++) {
             ArrayList texte = (ArrayList) promotion.get(i);
             promo_doc.addItem(texte.get(1).toString());
+            PromotionMap.put(texte.get(0).toString(), texte.get(1).toString());
+        }
+        
+        //combobox formation
+        ArrayList etudiant = new ArrayList();
+        etudiant = (ArrayList) donnees.get(13);
+        auteurRapport.addItem("");
+        for(int i=0;i<etudiant.size();i++) {
+            ArrayList texte = (ArrayList) etudiant.get(i);
+            auteurRapport.addItem(texte.get(1).toString() + " " + texte.get(2).toString());
+            UserMap.put(texte.get(0).toString(), texte.get(1).toString() + " " + texte.get(2).toString());
         }
         
         
@@ -214,7 +239,6 @@ public class formulaire_fond extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         list_auteur = new javax.swing.JList<>();
         jLabel36 = new javax.swing.JLabel();
-        auteur_rap = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
         mtclf_doc = new javax.swing.JComboBox<>();
         jButton9 = new javax.swing.JButton();
@@ -226,6 +250,7 @@ public class formulaire_fond extends javax.swing.JPanel {
         Btn_Doc_Init = new javax.swing.JButton();
         dateP_doc = new com.toedter.calendar.JDateChooser();
         dateA_doc = new com.toedter.calendar.JDateChooser();
+        auteurRapport = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -506,9 +531,6 @@ public class formulaire_fond extends javax.swing.JPanel {
         jLabel36.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         jLabel36.setText("Auteur");
 
-        auteur_rap.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
-        auteur_rap.setForeground(new java.awt.Color(153, 0, 153));
-
         jLabel35.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         jLabel35.setText("Mot-clef");
 
@@ -561,6 +583,9 @@ public class formulaire_fond extends javax.swing.JPanel {
 
         dateA_doc.setDateFormatString("yyyy-MM-d");
 
+        auteurRapport.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        auteurRapport.setForeground(new java.awt.Color(153, 0, 153));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -597,25 +622,6 @@ public class formulaire_fond extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(ID_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(mention_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel19))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(dateP_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(37, 37, 37)
-                                .addComponent(jLabel14)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lieuP_doc, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                            .addComponent(isbn_doc))
-                        .addGap(298, 299, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -683,11 +689,11 @@ public class formulaire_fond extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(auteur_rap))
+                                        .addComponent(auteurRapport, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -725,18 +731,15 @@ public class formulaire_fond extends javax.swing.JPanel {
                                 .addComponent(jLabel32)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(localisation_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 379, Short.MAX_VALUE)
                         .addComponent(Btn_Doc_Init))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator3))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(mtclf_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -750,13 +753,35 @@ public class formulaire_fond extends javax.swing.JPanel {
                                 .addGap(33, 33, 33)
                                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(issn_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(jLabel25)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator3)))
+                                .addComponent(issn_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(mention_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel19))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(dateP_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(37, 37, 37)
+                                            .addComponent(jLabel14)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(lieuP_doc, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                                        .addComponent(isbn_doc)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel35, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(mtclf_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jButton9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -794,16 +819,9 @@ public class formulaire_fond extends javax.swing.JPanel {
                         .addComponent(page_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel24)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(titre_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sstitre_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 52, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel13)
                             .addComponent(lieuP_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -892,9 +910,9 @@ public class formulaire_fond extends javax.swing.JPanel {
                                     .addComponent(jLabel9)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel36)
-                                    .addComponent(auteur_rap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(auteurRapport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7)
@@ -922,7 +940,16 @@ public class formulaire_fond extends javax.swing.JPanel {
                                     .addComponent(duree_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel26)))
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(dateP_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(titre_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(sstitre_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateP_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -933,8 +960,6 @@ public class formulaire_fond extends javax.swing.JPanel {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jButton2, jButton4, jButton5, jButton6, jButton7, jButton8, jLabel6, period_doc});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel32, localisation_doc});
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {auteur_rap, jLabel36});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton9, mtclf_doc});
 
@@ -982,10 +1007,6 @@ public class formulaire_fond extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void auteur_docActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_auteur_docActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_auteur_docActionPerformed
-
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
@@ -1024,10 +1045,8 @@ public class formulaire_fond extends javax.swing.JPanel {
         isbn_doc.setText("");
         lang_doc.setSelectedIndex(0);
         niveau_doc.setSelectedIndex(0);
-        auteur_doc.setSelectedIndex(0);
-        list_auteur.removeAll();
+        auteur_doc.setSelectedIndex(0);  
         mtclf_doc.setSelectedIndex(0);
-        list_mtclf.removeAll();
         sommaire_doc.setText("");
         resum_doc.setText("");
         url_doc.setText("");
@@ -1038,7 +1057,6 @@ public class formulaire_fond extends javax.swing.JPanel {
         num_doc.setText("");
         issn_doc.setText("");
         file_doc.setText("");
-        auteur_rap.setText("");
         form_doc.setSelectedIndex(0);
         promo_doc.setSelectedIndex(0);
         ent_doc.setText("");
@@ -1048,12 +1066,18 @@ public class formulaire_fond extends javax.swing.JPanel {
         
     }//GEN-LAST:event_Btn_Doc_InitActionPerformed
 
+    private void auteur_docActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_auteur_docActionPerformed
+        // TODO add your handling code here:
+        
+        System.out.println(auteur_doc.getSelectedItem().toString());
+    }//GEN-LAST:event_auteur_docActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_Doc_Init;
     public static javax.swing.JTextField ID_doc;
+    public static javax.swing.JComboBox<String> auteurRapport;
     public static javax.swing.JComboBox<String> auteur_doc;
-    public static javax.swing.JTextField auteur_rap;
     public static javax.swing.JTextField classification_doc;
     public static javax.swing.JComboBox<String> coll_doc;
     public static javax.swing.JTextField control_doc;
@@ -1119,8 +1143,8 @@ public class formulaire_fond extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator3;
     public static javax.swing.JComboBox<String> lang_doc;
     public static javax.swing.JTextField lieuP_doc;
-    public static javax.swing.JList<String> list_auteur;
-    public static javax.swing.JList<String> list_mtclf;
+    private javax.swing.JList<String> list_auteur;
+    private javax.swing.JList<String> list_mtclf;
     public static javax.swing.JComboBox<String> localisation_doc;
     public static javax.swing.JTextField mention_doc;
     public static javax.swing.JComboBox<String> mtclf_doc;

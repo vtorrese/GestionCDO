@@ -31,6 +31,7 @@ public class MainController {
         mtclf mtclf = new mtclf();
         periodique periodique = new periodique();
         collection collection = new collection();
+        utilisateur utilisateur = new utilisateur();
         
         ArrayList donnees = new ArrayList();
         donnees.add(status.getAll());       //0
@@ -46,6 +47,7 @@ public class MainController {
         donnees.add(mtclf.getAll());        //10
         donnees.add(periodique.getAll());   //11
         donnees.add(collection.getAll());   //12
+        donnees.add(utilisateur.getAll());   //13
         
         new MaFenetre(donnees);
         
