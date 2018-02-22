@@ -36,6 +36,7 @@ public class UtilisateurController {
         } else {
             mdp = UtilisateurController.SHA1(mdp);
         }
+        
         newuser.modifier_user(ID,status,nom,prenom,site,formation,promotion,civil,adresse,CP,ville,tel,mail,mdp);            
         
     }
