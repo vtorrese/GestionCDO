@@ -14,7 +14,7 @@ public class Connect {
 
     private ArrayList al = new ArrayList();
  
-    String mdp = "root";
+    String mdp = "";
     
     public Connect(String data) 
     {
@@ -86,6 +86,9 @@ public class Connect {
         return al;
     }
     
+ 
+
+    
  public class GestionException extends Exception {
 
   public GestionException() {
@@ -99,3 +102,5 @@ public class Connect {
     
     
 }
+
+  
