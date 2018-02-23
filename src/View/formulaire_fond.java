@@ -1050,14 +1050,20 @@ public class formulaire_fond extends javax.swing.JPanel {
 
     private void Btn_periodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_periodActionPerformed
         // TODO add your handling code here:
+        String table = "periodique";
+        FondController.ajoutCategory(table);
     }//GEN-LAST:event_Btn_periodActionPerformed
 
     private void Btn_FormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_FormActionPerformed
         // TODO add your handling code here:
+                String table = "formation";
+        FondController.ajoutCategory(table);
     }//GEN-LAST:event_Btn_FormActionPerformed
 
     private void Btn_PromoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_PromoActionPerformed
         // TODO add your handling code here:
+                String table = "promotion";
+        FondController.ajoutCategory(table);
     }//GEN-LAST:event_Btn_PromoActionPerformed
 
     private void editeur_docActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editeur_docActionPerformed
@@ -1068,7 +1074,7 @@ public class formulaire_fond extends javax.swing.JPanel {
         // TODO add your handling code here:
         String table = "editeur";
         FondController.ajoutCategory(table);
-        System.out.println(EditeurMap);
+        
              
     }//GEN-LAST:event_Btn_editeurActionPerformed
 
@@ -1078,6 +1084,9 @@ public class formulaire_fond extends javax.swing.JPanel {
 
     private void Btn_langActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_langActionPerformed
         // TODO add your handling code here:
+        String table = "langue";
+        FondController.ajoutCategory(table);
+        
     }//GEN-LAST:event_Btn_langActionPerformed
 
     private void niveau_docActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_niveau_docActionPerformed
@@ -1086,10 +1095,13 @@ public class formulaire_fond extends javax.swing.JPanel {
 
     private void Btn_niveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_niveauActionPerformed
         // TODO add your handling code here:
+        String table = "niveau";
+        FondController.ajoutCategory(table);
     }//GEN-LAST:event_Btn_niveauActionPerformed
 
     private void Btn_auteurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_auteurActionPerformed
         // TODO add your handling code here:
+        FondController.ajoutAuteur();
     }//GEN-LAST:event_Btn_auteurActionPerformed
 
     private void mtclf_docActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mtclf_docActionPerformed
@@ -1118,10 +1130,14 @@ public class formulaire_fond extends javax.swing.JPanel {
 
     private void Btn_mtclfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_mtclfActionPerformed
         // TODO add your handling code here:
+        String table = "mtclf";
+        FondController.ajoutCategory(table);
     }//GEN-LAST:event_Btn_mtclfActionPerformed
 
     private void Btn_collActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_collActionPerformed
         // TODO add your handling code here:
+        String table = "collection";
+        FondController.ajoutCategory(table);
     }//GEN-LAST:event_Btn_collActionPerformed
 
     private void coll_docActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_coll_docActionPerformed

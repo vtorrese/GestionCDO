@@ -24,16 +24,19 @@ public class editeur {
         retour = demande.renvoi();//retour.add(demande.renvoi());
         return retour;
     }
-    
-    public void enregistre(String valeur) {
-        String requete = null;
         
-        if(controlDB(valeur)==false) {
-            requete = "INSERT INTO `editeur`(`lib_edit`) VALUES ('" + valeur + "')";
-            new Connect(requete);
+    public String enregistreRet(String valeur) {
+        String requete = null;
+        String message = null;
+            if(controlDB(valeur)==false) {
+                requete = "INSERT INTO `editeur`(`lib_edit`) VALUES ('" + valeur + "')";
+                new Connect(requete);
+                message = "ok";
+            } else {
+                message = "ko";
+            }
+        return message;
         }
-            // voir pour faire un message retour
-    }
     
     public static boolean controlDB(String valeur) {
         String requete = null;

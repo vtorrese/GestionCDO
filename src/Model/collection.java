@@ -25,4 +25,36 @@ public class collection {
         retour = demande.renvoi();//retour.add(demande.renvoi());
         return retour;
     }
+    
+    public String enregistreRet(String valeur) {
+        String requete = null;
+        String message = null;
+            if(controlDB(valeur)==false) {
+                requete = "INSERT INTO `collection`(`lib_collection`) VALUES ('" + valeur + "')";
+                new Connect(requete);
+                message = "ok";
+            } else {
+                message = "ko";
+            }
+        return message;
+        }
+    
+    public static boolean controlDB(String valeur) {
+        String requete = null;
+        boolean retour = false;
+        requete = "SELECT COUNT(*) FROM `collection` WHERE lib_collection = '" + valeur + "'";
+        Connect donnees = new Connect(requete);
+        if(donnees.renvoi().get(0).toString().contains("1")) {
+            retour = true;
+        }
+        return retour;
+    }
+    
+    public static String lastID() {
+        String requete = null;
+        requete = "SELECT MAX(id_collection) FROM collection LIMIT 1";
+        Connect lastID = new Connect(requete);
+        return lastID.renvoi().get(0).toString();
+        
+    }
 }

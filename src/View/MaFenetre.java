@@ -37,7 +37,8 @@ public class MaFenetre implements EventListener {
             fenetreP.setSize(900, 600);
             fenetreP.setLocationRelativeTo(null);
             fenetreP.setTitle("Gestion du Centre de Documentation");
-           
+            fenetreP.setDefaultLookAndFeelDecorated(true);
+            fenetreP.setExtendedState(fenetreP.MAXIMIZED_BOTH);
             
             final JDesktopPane desktop = new JDesktopPane();
             fenetreP.add(desktop, BorderLayout.CENTER);
