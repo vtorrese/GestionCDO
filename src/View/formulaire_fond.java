@@ -227,7 +227,7 @@ public class formulaire_fond extends javax.swing.JPanel {
         page_doc = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
-        duree_doc = new javax.swing.JTextField();
+        dureeH_doc = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         sommaire_doc = new javax.swing.JTextField();
@@ -262,6 +262,9 @@ public class formulaire_fond extends javax.swing.JPanel {
         list_mtclf = new javax.swing.JTable();
         jLabel38 = new javax.swing.JLabel();
         dateA_doc = new com.toedter.calendar.JDateChooser();
+        jLabel39 = new javax.swing.JLabel();
+        dureeM_doc = new javax.swing.JTextField();
+        jLabel40 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -466,11 +469,11 @@ public class formulaire_fond extends javax.swing.JPanel {
 
         jSeparator3.setForeground(new java.awt.Color(153, 0, 153));
 
-        duree_doc.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
-        duree_doc.setForeground(new java.awt.Color(153, 0, 153));
+        dureeH_doc.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        dureeH_doc.setForeground(new java.awt.Color(153, 0, 153));
 
         jLabel26.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
-        jLabel26.setText("Durée");
+        jLabel26.setText("Durée (00:00)");
 
         jLabel27.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         jLabel27.setText("Sommaire");
@@ -652,6 +655,15 @@ public class formulaire_fond extends javax.swing.JPanel {
 
         dateA_doc.setDateFormatString("yyyy-MM-d");
 
+        jLabel39.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
+        jLabel39.setText("H");
+
+        dureeM_doc.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        dureeM_doc.setForeground(new java.awt.Color(153, 0, 153));
+
+        jLabel40.setFont(new java.awt.Font("Rockwell", 1, 12)); // NOI18N
+        jLabel40.setText("Mns");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -797,7 +809,13 @@ public class formulaire_fond extends javax.swing.JPanel {
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(duree_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(dureeH_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel39)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(dureeM_doc, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel40))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createSequentialGroup()
@@ -853,7 +871,7 @@ public class formulaire_fond extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {classification_doc, duree_doc, mention_doc, notice_doc, num_doc, type_doc});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {classification_doc, mention_doc, notice_doc, num_doc, type_doc});
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {Btn_Form, Btn_Promo, Btn_auteur, Btn_editeur, Btn_lang, Btn_niveau, Btn_period});
 
@@ -1021,8 +1039,11 @@ public class formulaire_fond extends javax.swing.JPanel {
                                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel25))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(duree_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dureeM_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel40)
+                                    .addComponent(jLabel39)
+                                    .addComponent(dureeH_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel26)))
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
@@ -1041,6 +1062,8 @@ public class formulaire_fond extends javax.swing.JPanel {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Btn_coll, coll_doc});
 
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dateA_doc, jLabel38});
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {dureeH_doc, dureeM_doc, jLabel26, jLabel39, jLabel40});
 
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1178,7 +1201,8 @@ public class formulaire_fond extends javax.swing.JPanel {
         promo_doc.setSelectedIndex(0);
         ent_doc.setText("");
         tuto_doc.setText("");
-        duree_doc.setText("");
+        dureeH_doc.setText("");
+        dureeM_doc.setText("");
         DefaultTableModel auteur = (DefaultTableModel) list_auteur.getModel();
         auteur.setRowCount(0);
         DefaultTableModel mtclf = (DefaultTableModel) list_mtclf.getModel();
@@ -1250,7 +1274,8 @@ public class formulaire_fond extends javax.swing.JPanel {
     public static javax.swing.JTextField control_doc;
     public static com.toedter.calendar.JDateChooser dateA_doc;
     public static com.toedter.calendar.JDateChooser dateP_doc;
-    public static javax.swing.JTextField duree_doc;
+    public static javax.swing.JTextField dureeH_doc;
+    public static javax.swing.JTextField dureeM_doc;
     public static javax.swing.JComboBox<String> editeur_doc;
     public static javax.swing.JTextField ent_doc;
     public static javax.swing.JTextField file_doc;
@@ -1288,7 +1313,9 @@ public class formulaire_fond extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

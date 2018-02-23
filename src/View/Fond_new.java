@@ -9,7 +9,9 @@ package View;
 import java.awt.BorderLayout;
 
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import static view.Utilisateur_new.getKeyFromValue;
 
 
@@ -181,6 +183,12 @@ public class Fond_new extends javax.swing.JPanel {
         else if(formulaire_fond.niveau_doc.getSelectedIndex()<=0) {
             JOptionPane.showMessageDialog(this,"Niveau invalide !");
         }
+        else if(formulaire_fond.type_doc.getSelectedItem().equals("CD-ROM/DVD") && formulaire_fond.dureeH_doc.getText().equals("") && estUnEntier(formulaire_fond.dureeH_doc.getText())==false) {
+            JOptionPane.showMessageDialog(this,"Heure invalide (durée CD-ROM) !");
+        }
+        else if(formulaire_fond.type_doc.getSelectedItem().equals("CD-ROM/DVD") && formulaire_fond.dureeM_doc.getText().equals("") && estUnEntier(formulaire_fond.dureeM_doc.getText())==false) {
+            JOptionPane.showMessageDialog(this,"Minutes invalides (durée CD-ROM) !");
+        }
          /*else if(formulaire_fond.list_auteur.getModel().getSize() == 0) {
             JOptionPane.showMessageDialog(this,"Aucun auteur ?!");
         }
@@ -213,7 +221,7 @@ public class Fond_new extends javax.swing.JPanel {
             fichier = formulaire_fond.file_doc.getText();
             image = formulaire_fond.img_doc.getText();
             if(formulaire_fond.dateA_doc.getDate() != null) {dateA = formulaire_fond.dateA_doc.getDate().toString();}
-            duree = formulaire_fond.img_doc.getText();
+            duree = formulaire_fond.dureeH_doc.getText() + ":" + formulaire_fond.dureeM_doc.getText();
             
             if(formulaire_fond.type_doc.getSelectedItem().equals("Périodiques")) {
                 periodique = Integer.parseInt(getKeyFromValue(formulaire_fond.PeriodMap,formulaire_fond.period_doc.getSelectedItem()).toString());
@@ -230,6 +238,21 @@ public class Fond_new extends javax.swing.JPanel {
                 promotion = Integer.parseInt(getKeyFromValue(formulaire_fond.PromotionMap,formulaire_fond.promo_doc.getSelectedItem()).toString());
                 }
             
+           
+            
+            //Demande du nombre d'exemplaire de la référence
+             JFrame frame = new JFrame();
+                JTextField exemplaire = new JTextField();
+                Object[] message = {
+                    "Nombre d'exemplaire(s) :", exemplaire
+                    };
+                    int option = JOptionPane.showConfirmDialog(frame, message, "", JOptionPane.OK_CANCEL_OPTION);
+                    if (option == JOptionPane.OK_OPTION)
+                        {
+                               
+                             //Insertion finale après controle
+                            
+                        }
             
             
         }

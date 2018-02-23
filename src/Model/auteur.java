@@ -20,10 +20,42 @@ public class auteur {
     
     public ArrayList getAll() {
        String requete;
-        requete = "SELECT `id_auteur` ID, CONCAT(`prenom_auteur`,\" \",`nom_auteur`) Lib FROM `auteur` ORDER BY `nom_auteur`";
+        requete = "SELECT `id_auteur` ID, CONCAT(`nom_auteur`,\" \",`prenom_auteur`) Lib FROM `auteur` ORDER BY `nom_auteur`";
         Connect demande = new Connect(requete);
         retour = demande.renvoi();//retour.add(demande.renvoi());
         return retour;
+    }
+    
+        public String enregistreRet(String nom, String prenom) {
+        String requete = null;
+        String message = null;
+            if(controlDB(nom,prenom)==false) {
+                requete = "INSERT INTO `auteur`(`nom_auteur`,`prenom_auteur`) VALUES ('" + nom + "','" + prenom + "')";
+                new Connect(requete);
+                message = "ok";
+            } else {
+                message = "ko";
+            }
+        return message;
+        }
+    
+    public static boolean controlDB(String nom, String prenom) {
+        String requete = null;
+        boolean retour = false;
+        requete = "SELECT COUNT(*) FROM `auteur` WHERE nom_auteur = '" + nom + "' AND prenom_auteur='" + prenom + "'";
+        Connect donnees = new Connect(requete);
+        if(donnees.renvoi().get(0).toString().contains("1")) {
+            retour = true;
+        }
+        return retour;
+    }
+    
+    public static String lastID() {
+        String requete = null;
+        requete = "SELECT MAX(id_auteur) FROM auteur LIMIT 1";
+        Connect lastID = new Connect(requete);
+        return lastID.renvoi().get(0).toString();
+        
     }
             
 }

@@ -193,7 +193,13 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel26" min="-2" pref="95" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="duree_doc" linkSize="4" min="-2" pref="114" max="-2" attributes="0"/>
+                                  <Component id="dureeH_doc" min="-2" pref="42" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel39" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="dureeM_doc" min="-2" pref="42" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jLabel40" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -473,9 +479,12 @@
                                   <Component id="jLabel25" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="duree_doc" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="dureeM_doc" linkSize="15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel40" linkSize="15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel39" linkSize="15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="dureeH_doc" linkSize="15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel26" linkSize="15" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jScrollPane4" min="-2" pref="66" max="-2" attributes="0"/>
@@ -1046,7 +1055,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="duree_doc">
+    <Component class="javax.swing.JTextField" name="dureeH_doc">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Rockwell" size="10" style="1"/>
@@ -1064,7 +1073,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Rockwell" size="10" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Dur&#xe9;e"/>
+        <Property name="text" type="java.lang.String" value="Dur&#xe9;e (00:00)"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel27">
@@ -1480,6 +1489,35 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel39">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Rockwell" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="H"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="dureeM_doc">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Rockwell" size="10" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="99" green="0" red="99" type="rgb"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel40">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Rockwell" size="12" style="1"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Mns"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -135,13 +135,19 @@ public class FondController {
         int option = JOptionPane.showConfirmDialog(frame, message, "Nouvel auteur", JOptionPane.OK_CANCEL_OPTION);
         if (option == JOptionPane.OK_OPTION)
             {
-                if(!nom.getText().isEmpty() || !prenom.getText().isEmpty()) {
-                    String Nom = nom.getText();
-                    String Prenom = prenom.getText();
-                    System.out.println(Nom+" "+Prenom);
+                if(nom.getText().isEmpty() || prenom.getText().isEmpty()) {
+                        JOptionPane.showMessageDialog(frame,"Nom et/ou prénom invalide(s) !");
                 } else
                 {
-                    JOptionPane.showMessageDialog(frame,"Nom et/ou prénom invalide(s) !");
+                    String Nom = nom.getText();
+                    String Prenom = prenom.getText();
+                    auteur auteur = new auteur();
+                    String ident = Nom + " " + Prenom;
+                    if(auteur.enregistreRet(Nom,Prenom).contains("ok")) {
+                        formulaire_fond.auteur_doc.addItem(ident);
+                        formulaire_fond.AuteurMap.put(promotion.lastID(), ident);
+                        formulaire_fond.auteur_doc.setSelectedItem(ident);
+                        }
                 }
                 
             }
