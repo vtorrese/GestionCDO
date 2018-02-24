@@ -152,8 +152,19 @@ public class FondController {
             }
     }
     
-    public static void enregistreDoc(int nbexemplaire, String notice, int site, String classification, int control,int page,int type,String titre,String sstitre,String dateP,String lieuP,int editeur,String mention,String ISBN,int lang,int niveau,String sommaire,String resume,String url,String fichier,String image,String dateA,int periodique,int collection,int formation,int promotion,String ISSN,String numero,String entreprise,String tuteur,String duree) {
+    public static void enregistreDoc(int nbexemplaire, String notice, int site, String classification, int control,int page,int type,String titre,String sstitre,String dateP,String lieuP,int editeur,String mention,String ISBN,int lang,int niveau,String sommaire,String resume,String url,boolean fichier,boolean image,String dateA,int periodique,int collection,int formation,int promotion,String ISSN,String numero,String entreprise,String tuteur,String duree) {
         document document = new document();
-        document.enregisreDoc(nbexemplaire, notice, site, classification, control,page,type,titre,sstitre,dateP,lieuP,editeur,mention,ISBN,lang,niveau,sommaire,resume,url, fichier,image,dateA,periodique,collection,formation,promotion,ISSN,numero,entreprise,tuteur,duree);
+        document.enregistreDoc(nbexemplaire, notice, site, classification, control,page,type,titre,sstitre,dateP,lieuP,editeur,mention,ISBN,lang,niveau,sommaire,resume,url, fichier,image,dateA,periodique,collection,formation,promotion,ISSN,numero,entreprise,tuteur,duree);
+    }
+    
+    public static void enregistreCompDoc(int lastID,ArrayList listauteur,ArrayList listmtclf) {
+        document document = new document();
+        document.enregistreCompDoc(lastID,listauteur,listmtclf);
+      
+    }
+    
+    public static int lastIndex() {
+        document document = new document();
+        return document.lastIndex();
     }
 }

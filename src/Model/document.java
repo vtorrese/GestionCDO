@@ -6,7 +6,7 @@
 package Model;
 
 
-import java.text.ParseException;
+
 import java.util.ArrayList;
 /**
  *
@@ -33,8 +33,8 @@ public class document {
     String sommaire = "";
     String resume ="";
     String url ="";
-    String fichier = "";
-    String image ="";
+    boolean fichier;
+    boolean image;
     String dateA ="";
     int periodique =0;
     int collection =0;
@@ -198,19 +198,19 @@ public class document {
         this.url = url;
     }
 
-    public String getFichier() {
+    public boolean getFichier() {
         return fichier;
     }
 
-    public void setFichier(String fichier) {
+    public void setFichier(boolean fichier) {
         this.fichier = fichier;
     }
 
-    public String getImage() {
+    public boolean getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(boolean image) {
         this.image = image;
     }
 
@@ -298,7 +298,7 @@ public class document {
         
     }
     
-    public void enregisreDoc(int nbexemplaire, String notice, int site, String classification, int control,int page,int type,String titre,String sstitre,String dateP,String lieuP,int editeur,String mention,String ISBN,int lang,int niveau,String sommaire,String resume,String url,String fichier,String image,String dateA,int periodique,int collection,int formation,int promotion,String ISSN,String numero,String entreprise,String tuteur,String duree) throws ParseException {
+    public void enregistreDoc(int nbexemplaire, String notice, int site, String classification, int control,int page,int type,String titre,String sstitre,String dateP,String lieuP,int editeur,String mention,String ISBN,int lang,int niveau,String sommaire,String resume,String url,boolean fichier,boolean image,String dateA,int periodique,int collection,int formation,int promotion,String ISSN,String numero,String entreprise,String tuteur,String duree) {
         
         for(int a=0;a<nbexemplaire;a++) { // on répète l'opération autant de fois que d'exemplaires
             
@@ -361,25 +361,35 @@ public class document {
                valeur = valeur + "'" + url + "',";
                
                table = table + "lien_doc,";
-               valeur = valeur + "'" + fichier + "',";
+               int file = 0;
+               if(fichier) {file = 1;}
+               valeur = valeur + "'" + file + "',";
  
                table = table + "image_doc,";
-               valeur = valeur + "'" + image + "',";
+               int img = 0;
+               if(image) {img = 1;}
+               valeur = valeur + "'" + img + "',";
                
                table = table + "date_doc,";
                valeur = valeur + "'" + dateA + "',";
                
-               table = table + "period_doc,";
-               valeur = valeur + "'" + periodique + "',";
+               if(periodique>0) {
+                    table = table + "period_doc,";
+                    valeur = valeur + "'" + periodique + "',";
+               }
+              
+               if(collection>0) {
+                   table = table + "coll_doc,";
+                    valeur = valeur + "'" + collection + "',";
+               }
                
-               table = table + "coll_doc,";
-               valeur = valeur + "'" + collection + "',";
-               
-               table = table + "form_doc,";
-               valeur = valeur + "'" + formation + "',";
-               
-               table = table + "promo_doc,";
-               valeur = valeur + "'" + promotion + "',";
+               if(formation>0 && promotion>0) {
+                    table = table + "form_doc,";
+                    valeur = valeur + "'" + formation + "',";
+
+                    table = table + "promo_doc,";
+                    valeur = valeur + "'" + promotion + "',";
+               }
                
                table = table + "ISSN_doc,";
                valeur = valeur + "'" + ISSN + "',";
@@ -393,15 +403,41 @@ public class document {
                table = table + "tuto_doc,";
                valeur = valeur + "'" + tuteur + "',";
                
-               table = table + "duree_doc)";
-               valeur = valeur + "'" + duree + "')";
+               if(duree.length()>1) {
+               table = table + "duree_doc,";
+               valeur = valeur + "'" + duree + "',";
+               }
                
-               requete = "INSERT INTO document " + table + " VALUES " + valeur;
-               System.out.println(requete);
+               requete = "INSERT INTO document " + table.substring(0, table.length()-1) + ") VALUES " + valeur.substring(0, valeur.length()-1) + ")";
+               new Connect(requete);
                
         }
         
     }
     
+    public void enregistreCompDoc(int lastID,ArrayList listauteur,ArrayList listmtclf) {
+            
+        for(int i=0;i<listauteur.size();i++) {
+            String requete = null;
+            requete = "INSERT INTO doc_auteur (doc_docauteur,auteur_docauteur) VALUES (" + lastID + ",'" + listauteur.get(i).toString() + "')";
+            new Connect(requete);
+        }
+        
+        for(int i=0;i<listmtclf.size();i++) {
+            String requete = null;
+            requete = "INSERT INTO doc_motclef (doc_docmotclef,motclef_docmotclef) VALUES (" + lastID + ",'" + listmtclf.get(i).toString() + "')";
+            new Connect(requete);
+        }
+        
+        
+    }
+    
+    public static int lastIndex() {
+        String requete = null;
+        requete = "SELECT MAX(id_doc) FROM document LIMIT 1";
+        Connect lastID = new Connect(requete);
+        return lastID.renvoiInt();
+        
+    }
     
 }

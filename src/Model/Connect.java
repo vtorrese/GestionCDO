@@ -86,7 +86,11 @@ public class Connect {
         return al;
     }
     
- 
+    public int renvoiInt() {
+        String contenu = al.get(0).toString();
+        int don = Integer.parseInt(contenu.substring(1,contenu.length()-1));
+        return don;
+    }
 
     
  public class GestionException extends Exception {

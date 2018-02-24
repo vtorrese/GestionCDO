@@ -8,6 +8,7 @@ package View;
 
 import java.awt.BorderLayout;
 import Controller.FondController;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -47,8 +48,8 @@ public class Fond_new extends javax.swing.JPanel {
     String sommaire = "";
     String resume ="";
     String url ="";
-    String fichier = "";
-    String image ="";
+    boolean fichier = false;
+    boolean image = false;
     String dateA ="";
     int periodique =0;
     int collection =0;
@@ -183,10 +184,10 @@ public class Fond_new extends javax.swing.JPanel {
         else if(formulaire_fond.niveau_doc.getSelectedIndex()<=0) {
             JOptionPane.showMessageDialog(this,"Niveau invalide !");
         }
-        else if(formulaire_fond.type_doc.getSelectedItem().equals("CD-ROM/DVD") && formulaire_fond.dureeH_doc.getText().equals("") && estUnEntier(formulaire_fond.dureeH_doc.getText())==false) {
+        else if(formulaire_fond.type_doc.getSelectedItem().equals("CD-ROM/DVD") && (formulaire_fond.dureeH_doc.getText().equals("") || estUnEntier(formulaire_fond.dureeH_doc.getText())==false)) {
             JOptionPane.showMessageDialog(this,"Heure invalide (durée CD-ROM) !");
         }
-        else if(formulaire_fond.type_doc.getSelectedItem().equals("CD-ROM/DVD") && formulaire_fond.dureeM_doc.getText().equals("") && estUnEntier(formulaire_fond.dureeM_doc.getText())==false) {
+        else if(formulaire_fond.type_doc.getSelectedItem().equals("CD-ROM/DVD") && (formulaire_fond.dureeM_doc.getText().equals("") || estUnEntier(formulaire_fond.dureeM_doc.getText())==false)) {
             JOptionPane.showMessageDialog(this,"Minutes invalides (durée CD-ROM) !");
         }
          /*else if(formulaire_fond.list_auteur.getModel().getSize() == 0) {
@@ -208,7 +209,8 @@ public class Fond_new extends javax.swing.JPanel {
             type = Integer.parseInt(getKeyFromValue(formulaire_fond.TypeMap,formulaire_fond.type_doc.getSelectedItem()).toString());
             titre = formulaire_fond.titre_doc.getText();
             sstitre = formulaire_fond.sstitre_doc.getText();
-            dateP = formulaire_fond.dateP_doc.getDate().toString();
+            String fdateP = new SimpleDateFormat("yyyy-MM-dd").format(formulaire_fond.dateP_doc.getDate());
+            dateP = fdateP; 
             lieuP = formulaire_fond.lieuP_doc.getText();
             editeur = Integer.parseInt(getKeyFromValue(formulaire_fond.EditeurMap,formulaire_fond.editeur_doc.getSelectedItem()).toString());
             mention = formulaire_fond.mention_doc.getText();
@@ -218,9 +220,10 @@ public class Fond_new extends javax.swing.JPanel {
             sommaire = formulaire_fond.sommaire_doc.getText();
             resume = formulaire_fond.resum_doc.getText();
             url = formulaire_fond.url_doc.getText();
-            fichier = formulaire_fond.file_doc.getText();
-            image = formulaire_fond.img_doc.getText();
-            if(formulaire_fond.dateA_doc.getDate() != null) {dateA = formulaire_fond.dateA_doc.getDate().toString();}
+            fichier = formulaire_fond.file_doc.isSelected();
+            image = formulaire_fond.img_doc.isSelected();
+            String fdateA = new SimpleDateFormat("yyyy-MM-dd").format(formulaire_fond.dateA_doc.getDate());
+            dateA = fdateA;
             duree = formulaire_fond.dureeH_doc.getText() + ":" + formulaire_fond.dureeM_doc.getText();
             
             if(formulaire_fond.type_doc.getSelectedItem().equals("Périodiques")) {
@@ -253,12 +256,33 @@ public class Fond_new extends javax.swing.JPanel {
                             if(exemp>0) {
                                //Insertion finale après controle dans la table document
                                FondController.enregistreDoc(exemp,notice,site,classification,control,page,type,titre,sstitre,dateP,lieuP,editeur,mention,ISBN,lang,niveau,sommaire,resume,url,fichier,image,dateA,periodique,collection,formation,promotion,ISSN,numero,entreprise,tuteur,duree);
+                               
+                               //Recherche du last index(document)
+                               int lastID = FondController.lastIndex();
+                               lastID = lastID - (exemp-1);
+                               
                                // Ajout des auteurs et des mots clés
+                               ArrayList listauteur = new ArrayList();
+                               ArrayList listmtclf = new ArrayList();
+                                 for(int i=0;i<formulaire_fond.list_auteur.getRowCount();i++) {
+                                        if(!formulaire_fond.list_auteur.getValueAt(i, 0).equals("")) {
+                                            listauteur.add(formulaire_fond.list_auteur.getValueAt(i, 0));
+                                        }       
+                                     }
+                                 for(int i=0;i<formulaire_fond.list_mtclf.getRowCount();i++) {
+                                        if(!formulaire_fond.list_mtclf.getValueAt(i, 0).equals("")) {
+                                            listmtclf.add(formulaire_fond.list_mtclf.getValueAt(i, 0));
+                                        }       
+                                     }
+                                 FondController.enregistreCompDoc(lastID,listauteur,listmtclf);
+                                 formulaire_fond.initialise();
                                
                             } else
                             {
                                JOptionPane.showMessageDialog(this,"Nombre d'exemplaire invalide !"); 
                             }
+                            
+                                
                         }
             
             
