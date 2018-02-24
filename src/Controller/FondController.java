@@ -148,9 +148,12 @@ public class FondController {
                         formulaire_fond.AuteurMap.put(promotion.lastID(), ident);
                         formulaire_fond.auteur_doc.setSelectedItem(ident);
                         }
-                }
-                
+                }               
             }
-       
+    }
+    
+    public static void enregistreDoc(int nbexemplaire, String notice, int site, String classification, int control,int page,int type,String titre,String sstitre,String dateP,String lieuP,int editeur,String mention,String ISBN,int lang,int niveau,String sommaire,String resume,String url,String fichier,String image,String dateA,int periodique,int collection,int formation,int promotion,String ISSN,String numero,String entreprise,String tuteur,String duree) {
+        document document = new document();
+        document.enregisreDoc(nbexemplaire, notice, site, classification, control,page,type,titre,sstitre,dateP,lieuP,editeur,mention,ISBN,lang,niveau,sommaire,resume,url, fichier,image,dateA,periodique,collection,formation,promotion,ISSN,numero,entreprise,tuteur,duree);
     }
 }

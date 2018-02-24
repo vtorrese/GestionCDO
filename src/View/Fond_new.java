@@ -7,7 +7,7 @@ package View;
 
 
 import java.awt.BorderLayout;
-
+import Controller.FondController;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -249,9 +249,16 @@ public class Fond_new extends javax.swing.JPanel {
                     int option = JOptionPane.showConfirmDialog(frame, message, "", JOptionPane.OK_CANCEL_OPTION);
                     if (option == JOptionPane.OK_OPTION)
                         {
+                            int exemp = Integer.parseInt(exemplaire.getText());
+                            if(exemp>0) {
+                               //Insertion finale après controle dans la table document
+                               FondController.enregistreDoc(exemp,notice,site,classification,control,page,type,titre,sstitre,dateP,lieuP,editeur,mention,ISBN,lang,niveau,sommaire,resume,url,fichier,image,dateA,periodique,collection,formation,promotion,ISSN,numero,entreprise,tuteur,duree);
+                               // Ajout des auteurs et des mots clés
                                
-                             //Insertion finale après controle
-                            
+                            } else
+                            {
+                               JOptionPane.showMessageDialog(this,"Nombre d'exemplaire invalide !"); 
+                            }
                         }
             
             
