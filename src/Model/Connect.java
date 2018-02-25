@@ -41,10 +41,12 @@ public class Connect {
                         a2 = new ArrayList();
                         
                         for(int i = 1; i <= resultMeta.getColumnCount(); i++) {
+                            if(result.getObject(i)!=null) {
                             a2.add(result.getObject(i).toString());}
-                         
-                        al.add(a2);
+                         else {a2.add("");}
                         
+                        }
+                    al.add(a2);    
                     }
 
                 }

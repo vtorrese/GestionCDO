@@ -428,8 +428,79 @@ public class document {
             requete = "INSERT INTO doc_motclef (doc_docmotclef,motclef_docmotclef) VALUES (" + lastID + ",'" + listmtclf.get(i).toString() + "')";
             new Connect(requete);
         }
+    } 
+    public ArrayList cherche_doc(int type,String notice,String terme,int mtclf,int auteur,int site,String ISBN,String ISSN,String control,boolean fichier) {
+    
+    String requete = null;
+    String condition = "";
+    if(type>0) {
+        condition = condition + "type_doc =" + type;
+    }
+    if(!notice.isEmpty()) {
+        if(condition.length()>0) {
+            condition = condition + " AND id_not='" + notice + "'";
+        } else {condition = condition + "id_not='" + notice + "'";}
+    }  
+    if(!terme.isEmpty()) {
+        if(condition.length()>0) {
+            condition = condition + " AND (titre_doc LIKE ('%" + terme + "%') OR sstitre_doc LIKE ('%" + terme + "%') OR resum_doc LIKE ('%" + terme + "%'))";
+        } else {condition = condition + "(titre_doc LIKE ('%" + terme + "%') OR sstitre_doc LIKE ('%" + terme + "%') OR resum_doc LIKE ('%" + terme + "%'))";}
+    }
+    if(mtclf>0) {
+        if(condition.length()>0) {
+            condition = condition + " AND motclef_docmotclef='" + mtclf + "'";
+        } else {condition = condition + "motclef_docmotclef='" + mtclf + "'";}
+    } 
+    if(auteur>0) {
+        if(condition.length()>0) {
+            condition = condition + " AND auteur_docauteur='" + auteur + "'";
+        } else {condition = condition + "auteur_docauteur='" + auteur + "'";}
+    } 
+   if(site>0) {
+        if(condition.length()>0) {
+            condition = condition + " AND localisation_doc='" + site + "'";
+        } else {condition = condition + "localisation_doc='" + site + "'";}
+    }
+    if(!ISBN.isEmpty()) {
+        if(condition.length()>0) {
+            condition = condition + " AND ISBN_doc='" + ISBN + "'";
+        } else {condition = condition + "ISBN_doc='" + ISBN + "'";}
+    } 
+    if(!ISSN.isEmpty()) {
+        if(condition.length()>0) {
+            condition = condition + " AND ISSN_doc='" + ISSN + "'";
+        } else {condition = condition + "ISSN_doc='" + ISSN + "'";}
+    } 
+    if(!control.isEmpty()) {
+        if(condition.length()>0) {
+            condition = condition + " AND control_doc='" + control + "'";
+        } else {condition = condition + "control_doc='" + control + "'";}
+    } 
+    
+    requete = "SELECT id_doc, titre_doc, type_doc FROM document LEFT JOIN doc_motclef ON id_doc = doc_docmotclef LEFT JOIN doc_auteur ON id_doc = doc_docauteur ";
+    if(condition.length()>0) {
+        requete = requete + "WHERE " + condition;
+    }
+    requete = requete + " GROUP BY titre_doc ORDER BY titre_doc";
         
-        
+        Connect donnees = new Connect(requete);
+        retour = donnees.renvoi();
+        return retour; 
+    }
+    
+    public ArrayList cherche_ById(int iddoc) {
+        String requete = null;
+        requete = "SELECT id_doc, id_not, class_doc, type_doc, titre_doc, sstitre_doc, period_doc, form_doc, promo_doc, ent_doc, tuto_doc, edit_doc, date_doc, lieu_doc, mention_doc, coll_doc, num_doc, ISBN_doc, ISSN_doc, lang_doc, DATE_FORMAT(dateP_doc, \"%d %M %Y\"), niveau_doc, page_doc, duree_doc, somm_doc, resum_doc, lien_doc, image_doc, url_doc, control_doc, localisation_doc FROM document WHERE id_doc = '" + iddoc + "'";
+        Connect donnees = new Connect(requete);    
+        retour = donnees.renvoi();
+        return retour; 
+    }
+    
+    public ArrayList compteExemplaire(int iddoc) {
+        String requete = null;
+        requete = "SELECT COUNT(*) as exemplaire FROM document WHERE titre_doc IN (SELECT titre_doc FROM `document` WHERE id_doc=" + iddoc + ")";
+        Connect donnees = new Connect(requete);
+        return donnees.renvoi();
     }
     
     public static int lastIndex() {
@@ -439,5 +510,7 @@ public class document {
         return lastID.renvoiInt();
         
     }
+    
+    
     
 }

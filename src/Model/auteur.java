@@ -50,6 +50,15 @@ public class auteur {
         return retour;
     }
     
+    public ArrayList cherche_ByIddociddoc( int iddoc) {
+        String requete = null;
+        requete = "SELECT auteur_docauteur as IDauteur, CONCAT(nom_auteur,\" \",prenom_auteur) as Nom FROM `doc_auteur` JOIN auteur ON `auteur_docauteur` = id_auteur where `doc_docauteur` = '" + iddoc + "'";
+        Connect donnees = new Connect(requete);
+        retour = donnees.renvoi();//retour.add(demande.renvoi());
+        return retour;
+    }
+    
+    
     public static String lastID() {
         String requete = null;
         requete = "SELECT MAX(id_auteur) FROM auteur LIMIT 1";

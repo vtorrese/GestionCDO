@@ -163,6 +163,32 @@ public class FondController {
       
     }
     
+    public static ArrayList chercheDoc(int type,String notice,String terme,int mtclf,int auteur,int site,String ISBN,String ISSN,String control,boolean fichier) {
+        document document = new document();
+        return document.cherche_doc(type,notice,terme,mtclf,auteur,site,ISBN,ISSN,control,fichier);
+    }
+    
+    public static ArrayList chercheDocbyId(int iddoc) {
+       document chercheByID = new document();
+       return chercheByID.cherche_ById(iddoc);
+    }
+    
+    public static ArrayList chercheDocAuteurbyId(int iddoc) {
+        auteur chercheByIddoc = new auteur();
+       return chercheByIddoc.cherche_ByIddociddoc(iddoc);
+    }
+     
+    public static ArrayList chercheDocMtclfbyId(int iddoc) {
+        mtclf chercheByIddoc = new mtclf();
+       return chercheByIddoc.cherche_ByIddociddoc(iddoc);
+    }
+    
+    public static ArrayList compteExempbyId(int iddoc) {
+        document cptex = new document();
+        return cptex.compteExemplaire(iddoc);
+    }
+        
+    
     public static int lastIndex() {
         document document = new document();
         return document.lastIndex();

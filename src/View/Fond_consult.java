@@ -6,17 +6,94 @@
 
 package View;
 
+
+import Controller.FondController;
+import static View.formulaire_fond.*;
+import java.awt.BorderLayout;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import static view.Utilisateur_new.getKeyFromValue;
 
 /**
  *
  * @author vince
  */
 public class Fond_consult extends javax.swing.JPanel {
-
+    
+    
+        int type =0;
+        String notice = null;
+        String terme = null;
+        int mtclf =0;
+        int auteur = 0;
+        int site = 0;
+        String ISBN = null;
+        String ISSN = null;
+        String control = null;
+        boolean fichier = false;
+        
+        
+        public static Map<String, String>  TypeMapC = new HashMap<String, String>();
+        public static Map<String, String>  MtclfMapC = new HashMap<String, String>();
+        public static Map<String, String>  AuteurMapC = new HashMap<String, String>();
+        public static Map<String, String>  SiteMapC = new HashMap<String, String>();
+        
     /** Creates new form Fond_consult */
     public Fond_consult(ArrayList donnees) {
         initComponents();
+        
+        
+        //Remplissage des combo-box
+        
+        //combobox type
+        ArrayList type = new ArrayList();
+        type = (ArrayList) donnees.get(5);
+        type_cherche.addItem("Tous");
+        TypeMapC.put("0", "Tous");
+        for(int i=0;i<type.size();i++) {
+            ArrayList texte = (ArrayList) type.get(i);
+            type_cherche.addItem(texte.get(1).toString());
+            TypeMapC.put(texte.get(0).toString(), texte.get(1).toString());
+        }
+        
+        //combobox mot-clef
+        ArrayList mtclf = new ArrayList();
+        mtclf = (ArrayList) donnees.get(10);
+        mtclf_cherche.addItem("");
+        for(int i=0;i<mtclf.size();i++) {
+            ArrayList texte = (ArrayList) mtclf.get(i);
+            mtclf_cherche.addItem(texte.get(1).toString());
+            MtclfMapC.put(texte.get(0).toString(), texte.get(1).toString());
+        }
+        
+        //combobox auteur
+        ArrayList auteur = new ArrayList();
+        auteur = (ArrayList) donnees.get(9);
+        auteur_cherche.addItem("");
+        for(int i=0;i<auteur.size();i++) {
+            ArrayList texte = (ArrayList) auteur.get(i);
+            auteur_cherche.addItem(texte.get(1).toString());
+            AuteurMapC.put(texte.get(0).toString(), texte.get(1).toString());
+        }
+        
+         //combobox localisation
+        ArrayList localisation = new ArrayList();
+        localisation = (ArrayList) donnees.get(1);
+        site_cherche.addItem("");
+        for(int i=0;i<localisation.size();i++) {
+            ArrayList texte = (ArrayList) localisation.get(i);
+            site_cherche.addItem(texte.get(1).toString());
+            SiteMapC.put(texte.get(0).toString(), texte.get(1).toString());
+        }
+        
+        //initialiser_consult();
+        formulaire_fond inclus = new formulaire_fond(donnees);
+         formulaire.setLayout(new BorderLayout());
+         formulaire.add(inclus, BorderLayout.CENTER);
     }
 
     /** This method is called from within the constructor to
@@ -29,46 +106,275 @@ public class Fond_consult extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        type_cherche = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        notice_cherche = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        terme_cherche = new javax.swing.JTextField();
+        mtclf_cherche = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        auteur_cherche = new javax.swing.JComboBox<>();
+        ISBN_cherche = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        ISSN_cherche = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        control_cherche = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        fichier_cherche = new javax.swing.JCheckBox();
+        Btn_valider = new javax.swing.JButton();
+        Btn_init = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        site_cherche = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table_result = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
+        Btn_modifier = new javax.swing.JButton();
+        Btn_supprimer = new javax.swing.JButton();
+        formulaire = new javax.swing.JPanel();
+        Btn_modifier1 = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        exemplaire = new javax.swing.JTextField();
 
         setMinimumSize(new java.awt.Dimension(900, 500));
         setName(""); // NOI18N
         setPreferredSize(new java.awt.Dimension(900, 500));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Rechercher", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 11))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Filtrer par", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 11))); // NOI18N
         jPanel1.setToolTipText("");
+
+        type_cherche.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        type_cherche.setForeground(new java.awt.Color(153, 0, 153));
+
+        jLabel1.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel1.setText("Mots du titre, résumé");
+
+        jLabel2.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel2.setText("N° Notice");
+
+        notice_cherche.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        notice_cherche.setForeground(new java.awt.Color(153, 0, 153));
+
+        jLabel3.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel3.setText("Type");
+
+        terme_cherche.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        terme_cherche.setForeground(new java.awt.Color(153, 0, 153));
+
+        mtclf_cherche.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        mtclf_cherche.setForeground(new java.awt.Color(153, 0, 153));
+
+        jLabel4.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel4.setText("Mot-clé");
+
+        jLabel5.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel5.setText("Auteur");
+
+        auteur_cherche.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        auteur_cherche.setForeground(new java.awt.Color(153, 0, 153));
+
+        ISBN_cherche.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        ISBN_cherche.setForeground(new java.awt.Color(153, 0, 153));
+
+        jLabel6.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel6.setText("ISBN");
+
+        ISSN_cherche.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        ISSN_cherche.setForeground(new java.awt.Color(153, 0, 153));
+
+        jLabel7.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel7.setText("ISSN");
+
+        jLabel8.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel8.setText("Controle");
+
+        control_cherche.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        control_cherche.setForeground(new java.awt.Color(153, 0, 153));
+
+        jLabel9.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel9.setText("Fichier PDF");
+
+        fichier_cherche.setBackground(new java.awt.Color(255, 255, 255));
+
+        Btn_valider.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        Btn_valider.setForeground(new java.awt.Color(153, 0, 153));
+        Btn_valider.setText("Valider");
+        Btn_valider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_validerActionPerformed(evt);
+            }
+        });
+
+        Btn_init.setFont(new java.awt.Font("Rockwell", 0, 10)); // NOI18N
+        Btn_init.setText("Initialiser");
+        Btn_init.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_initActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel10.setText("Site");
+
+        site_cherche.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        site_cherche.setForeground(new java.awt.Color(153, 0, 153));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Btn_init)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(fichier_cherche))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(control_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(site_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(mtclf_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Btn_valider)
+                                .addGap(10, 10, 10))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(notice_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(auteur_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ISBN_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(ISSN_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap())))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(terme_cherche)
+                        .addContainerGap())))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(type_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 212, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(notice_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(type_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(terme_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(auteur_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(mtclf_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ISBN_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(site_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ISSN_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8)
+                    .addComponent(control_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(fichier_cherche))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btn_valider)
+                    .addComponent(Btn_init))
+                .addContainerGap())
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel2, jLabel3, notice_cherche, terme_cherche, type_cherche});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel4, mtclf_cherche});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {auteur_cherche, jLabel5});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {control_cherche, jLabel8});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel10, site_cherche});
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {fichier_cherche, jLabel9});
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Résultats", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 11))); // NOI18N
         jPanel2.setToolTipText("");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table_result.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        table_result.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "iddoc", "Titre", "Type"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        table_result.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_resultMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(table_result);
+        if (table_result.getColumnModel().getColumnCount() > 0) {
+            table_result.getColumnModel().getColumn(0).setMinWidth(0);
+            table_result.getColumnModel().getColumn(0).setPreferredWidth(0);
+            table_result.getColumnModel().getColumn(0).setMaxWidth(0);
+            table_result.getColumnModel().getColumn(2).setMaxWidth(150);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -78,22 +384,73 @@ public class Fond_consult extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Fiche détail référence (édition)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 11))); // NOI18N
 
+        Btn_modifier.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        Btn_modifier.setForeground(new java.awt.Color(153, 0, 153));
+        Btn_modifier.setText("Modifier");
+
+        Btn_supprimer.setFont(new java.awt.Font("Rockwell", 2, 10)); // NOI18N
+        Btn_supprimer.setForeground(new java.awt.Color(204, 51, 0));
+        Btn_supprimer.setText("Supprimer");
+
+        javax.swing.GroupLayout formulaireLayout = new javax.swing.GroupLayout(formulaire);
+        formulaire.setLayout(formulaireLayout);
+        formulaireLayout.setHorizontalGroup(
+            formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        formulaireLayout.setVerticalGroup(
+            formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        Btn_modifier1.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        Btn_modifier1.setForeground(new java.awt.Color(0, 153, 51));
+        Btn_modifier1.setText("Suggerer");
+
+        jLabel11.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel11.setText("Nb exemp.");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 576, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(formulaire, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(Btn_modifier)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Btn_modifier1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(exemplaire, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                        .addComponent(Btn_supprimer)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btn_supprimer)
+                    .addComponent(Btn_modifier)
+                    .addComponent(Btn_modifier1)
+                    .addComponent(jLabel11)
+                    .addComponent(exemplaire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(formulaire, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {Btn_modifier, Btn_supprimer});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -104,15 +461,15 @@ public class Fond_consult extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,13 +479,170 @@ public class Fond_consult extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Btn_initActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_initActionPerformed
+        // TODO add your handling code here:
+        initialiser_consult();
+        
+        
+    }//GEN-LAST:event_Btn_initActionPerformed
+
+    private void Btn_validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_validerActionPerformed
+        // TODO add your handling code here:
+        System.out.println(type_cherche.getSelectedIndex());
+        if(type_cherche.getSelectedIndex()!=0){type = Integer.parseInt(getKeyFromValue(TypeMapC,type_cherche.getSelectedItem()).toString());} else {type=0;}
+        notice = notice_cherche.getText();
+        terme = terme_cherche.getText();
+        if(mtclf_cherche.getSelectedIndex()!=0){mtclf = Integer.parseInt(getKeyFromValue(MtclfMapC,mtclf_cherche.getSelectedItem()).toString());} else {mtclf =0;}
+        if(auteur_cherche.getSelectedIndex()!=0){auteur = Integer.parseInt(getKeyFromValue(AuteurMapC,auteur_cherche.getSelectedItem()).toString());} else {auteur =0;}
+        if(site_cherche.getSelectedIndex()!=0){site = Integer.parseInt(getKeyFromValue(SiteMapC,site_cherche.getSelectedItem()).toString());} else {site =0;}
+        ISBN = ISBN_cherche.getText();
+        ISSN = ISSN_cherche.getText();
+        control = control_cherche.getText();
+        fichier = fichier_cherche.isSelected();
+        
+        ArrayList tabresult = new ArrayList();
+        initialiser_tableau();
+        formulaire_fond.initialise();
+        
+        tabresult = (ArrayList) FondController.chercheDoc(type,notice,terme,mtclf,auteur,site,ISBN,ISSN,control,fichier);
+        
+        DefaultTableModel model = (DefaultTableModel) table_result.getModel();
+            
+              for(int i=0;i<tabresult.size();i++) {
+                    ArrayList tab = (ArrayList) tabresult.get(i);
+                  //System.out.println(tab.get(0));
+                  
+                  model.addRow(new Object[]{tab.get(0), tab.get(1), TypeMapC.get(tab.get(2)) });
+            }
+
+    }//GEN-LAST:event_Btn_validerActionPerformed
+
+    private void table_resultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_resultMouseClicked
+        // TODO add your handling code here:
+        
+                //Sélection d'une ligne de la tab_user
+            JTable source = (JTable)evt.getSource();
+            int row = source.rowAtPoint( evt.getPoint() );
+            int iddoc = Integer.parseInt(table_result.getValueAt(row,0).toString());
+            
+            ArrayList profildoc = (ArrayList) FondController.chercheDocbyId(iddoc).get(0);
+            ArrayList auteurdoc = (ArrayList) FondController.chercheDocAuteurbyId(iddoc);
+            ArrayList mtclfdoc = (ArrayList) FondController.chercheDocMtclfbyId(iddoc);
+            ArrayList nbexemplaire = (ArrayList) FondController.compteExempbyId(iddoc).get(0);
+            
+            //System.out.println(profildoc);
+            formulaire_fond.initialise();
+
+            ID_doc.setText(profildoc.get(0).toString()); 
+            notice_doc.setText(profildoc.get(1).toString());
+            classification_doc.setText(profildoc.get(2).toString());
+            type_doc.setSelectedItem(TypeMapC.get(profildoc.get(3).toString())); 
+            titre_doc.setText(profildoc.get(4).toString());
+            sstitre_doc.setText(profildoc.get(5).toString());
+            period_doc.setSelectedItem(PeriodMap.get(profildoc.get(6).toString()));
+            form_doc.setSelectedItem(FormationMap.get(profildoc.get(7).toString()));
+            promo_doc.setSelectedItem(PromotionMap.get(profildoc.get(8).toString()));
+            ent_doc.setText(profildoc.get(9).toString());
+            tuto_doc.setText(profildoc.get(10).toString());
+            editeur_doc.setSelectedItem(EditeurMap.get(profildoc.get(11).toString()));
+            // faire les champs dateA index 12
+            
+            lieuP_doc.setText(profildoc.get(13).toString());
+            mention_doc.setText(profildoc.get(14).toString());
+            // collation en index 15
+            num_doc.setText(profildoc.get(16).toString());
+            isbn_doc.setText(profildoc.get(17).toString());
+            issn_doc.setText(profildoc.get(18).toString());
+            lang_doc.setSelectedItem(LangMap.get(profildoc.get(19).toString()));
+            // faire les champs dateP index 20
+            
+                
+            niveau_doc.setSelectedItem(NiveauMap.get(profildoc.get(21).toString()));
+            page_doc.setText(profildoc.get(22).toString());
+            if(profildoc.get(23).toString().length()>0) {dureeH_doc.setText(profildoc.get(23).toString().substring(0, 2));dureeM_doc.setText(profildoc.get(23).toString().substring(3, 5));}
+            sommaire_doc.setText(profildoc.get(24).toString());
+            resum_doc.setText(profildoc.get(25).toString());
+            if(profildoc.get(26).toString().equals("true")) {file_doc.setSelected(true);} else {file_doc.setSelected(false);}
+            if(profildoc.get(27).toString().equals("true")) {img_doc.setSelected(true);} else {img_doc.setSelected(false);}
+            url_doc.setText(profildoc.get(28).toString());
+            control_doc.setText(profildoc.get(29).toString());
+            localisation_doc.setSelectedItem(SiteMapC.get(profildoc.get(30).toString()));
+            
+            
+            DefaultTableModel model_auteur = (DefaultTableModel) list_auteur.getModel(); 
+            for(int i=0;i<auteurdoc.size();i++) {
+                    ArrayList tab = (ArrayList) auteurdoc.get(i);
+                    model_auteur.addRow(new Object[]{tab.get(0),tab.get(1)});
+            }
+            
+            DefaultTableModel model_mtc = (DefaultTableModel) list_mtclf.getModel(); 
+            for(int i=0;i<mtclfdoc.size();i++) {
+                    ArrayList tab = (ArrayList) mtclfdoc.get(i);
+                    model_mtc.addRow(new Object[]{tab.get(0),tab.get(1)});
+            }
+            
+            //ajouter nombre d'exemplaire
+            exemplaire.setText(nbexemplaire.get(0).toString());
+            
+            //gel de certains champs pour edition
+            notice_doc.setEnabled(false); 
+            
+    }//GEN-LAST:event_table_resultMouseClicked
+    
+    private void initialiser_tableau() {
+         DefaultTableModel model = (DefaultTableModel) table_result.getModel();
+         model.setRowCount(0);
+         exemplaire.setText("");
+    }
+    private void initialiser_consult() {
+        type_cherche.setSelectedIndex(0);
+        site_cherche.setSelectedIndex(0);
+        notice_cherche.setText("");
+        terme_cherche.setText(""); 
+        mtclf_cherche.setSelectedIndex(0);
+        auteur_cherche.setSelectedIndex(0);
+        control_cherche.setText("");
+        ISBN_cherche.setText("");
+        ISSN_cherche.setText("");
+        fichier_cherche.setSelected(false);
+        exemplaire.setText("");
+        initialiser_tableau();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btn_init;
+    private javax.swing.JButton Btn_modifier;
+    private javax.swing.JButton Btn_modifier1;
+    private javax.swing.JButton Btn_supprimer;
+    private javax.swing.JButton Btn_valider;
+    private javax.swing.JTextField ISBN_cherche;
+    private javax.swing.JTextField ISSN_cherche;
+    private javax.swing.JComboBox<String> auteur_cherche;
+    private javax.swing.JTextField control_cherche;
+    public static javax.swing.JTextField exemplaire;
+    private javax.swing.JCheckBox fichier_cherche;
+    private javax.swing.JPanel formulaire;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<String> mtclf_cherche;
+    private javax.swing.JTextField notice_cherche;
+    private javax.swing.JComboBox<String> site_cherche;
+    private javax.swing.JTable table_result;
+    private javax.swing.JTextField terme_cherche;
+    private javax.swing.JComboBox<String> type_cherche;
     // End of variables declaration//GEN-END:variables
 
 }
