@@ -496,6 +496,17 @@ public class document {
         return retour; 
     }
     
+    public void supprimeDoc(int ID_doc) {
+        //Controle nbre exemplaires
+        
+        //Controle prêt en cours (hors prêts terminés)
+        
+        //Controle réservation
+        
+        //Controle consultation
+        
+    }
+    
     public ArrayList compteExemplaire(int iddoc) {
         String requete = null;
         requete = "SELECT COUNT(*) as exemplaire FROM document WHERE titre_doc IN (SELECT titre_doc FROM `document` WHERE id_doc=" + iddoc + ")";

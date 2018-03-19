@@ -163,6 +163,12 @@ public class FondController {
       
     }
     
+    public static void supprimeDoc(int ID_doc) {
+        document document = new document();
+        document.supprimeDoc(ID_doc);
+      
+    }
+    
     public static ArrayList chercheDoc(int type,String notice,String terme,int mtclf,int auteur,int site,String ISBN,String ISSN,String control,boolean fichier) {
         document document = new document();
         return document.cherche_doc(type,notice,terme,mtclf,auteur,site,ISBN,ISSN,control,fichier);

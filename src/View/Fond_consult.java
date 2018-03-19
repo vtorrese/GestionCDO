@@ -249,13 +249,12 @@ public class Fond_consult extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(site_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(mtclf_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(Btn_valider)
                                 .addGap(10, 10, 10))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                         .addComponent(jLabel2)
@@ -324,9 +323,9 @@ public class Fond_consult extends javax.swing.JPanel {
                     .addComponent(jLabel9)
                     .addComponent(fichier_cherche))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Btn_valider)
-                    .addComponent(Btn_init))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Btn_init)
+                    .addComponent(Btn_valider))
                 .addContainerGap())
         );
 
@@ -397,6 +396,11 @@ public class Fond_consult extends javax.swing.JPanel {
         Btn_supprimer.setFont(new java.awt.Font("Rockwell", 2, 10)); // NOI18N
         Btn_supprimer.setForeground(new java.awt.Color(204, 51, 0));
         Btn_supprimer.setText("Supprimer");
+        Btn_supprimer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_supprimerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout formulaireLayout = new javax.swing.GroupLayout(formulaire);
         formulaire.setLayout(formulaireLayout);
@@ -588,6 +592,26 @@ public class Fond_consult extends javax.swing.JPanel {
             notice_doc.setEnabled(false); 
             
     }//GEN-LAST:event_table_resultMouseClicked
+
+    private void Btn_supprimerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_supprimerActionPerformed
+        // Suppression d'une référence
+        if(ID_doc.getText().isEmpty()==true) {
+            JOptionPane.showMessageDialog(this,"Aucun document sélectionné !");
+        } else 
+        {
+            int choix_ref = JOptionPane.showConfirmDialog(null, "Êtes-vous sur(e) de vouloir supprimer cette référence et tous ses exemplaires ?", "Supprimer une référence", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+              if(choix_ref != JOptionPane.NO_OPTION && 
+                    choix_ref != JOptionPane.CANCEL_OPTION && 
+                    choix_ref != JOptionPane.CLOSED_OPTION){
+                    int iddoc = Integer.parseInt(ID_doc.getText());
+                    FondController.supprimeDoc(iddoc);
+                    
+                    
+              }
+                
+        }
+        
+    }//GEN-LAST:event_Btn_supprimerActionPerformed
     
     private void initialiser_tableau() {
          DefaultTableModel model = (DefaultTableModel) table_result.getModel();
