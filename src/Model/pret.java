@@ -90,5 +90,12 @@ public class pret {
         return retour; 
     }
     
+    public static int compte_ByIDDOC(int iddoc) {
+        String requete = null;
+        requete = "SELECT COUNT(*) as EnCours FROM pret WHERE `doc_prt` ='" + iddoc + "'";
+        Connect donnees = new Connect(requete);
+        return donnees.renvoiInt();
+    }
+    
     
 }

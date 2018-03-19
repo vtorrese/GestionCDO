@@ -163,10 +163,9 @@ public class FondController {
       
     }
     
-    public static void supprimeDoc(int ID_doc) {
+    public static String supprimeDoc(int ID_doc) {
         document document = new document();
-        document.supprimeDoc(ID_doc);
-      
+        return document.supprimeDoc(ID_doc);
     }
     
     public static ArrayList chercheDoc(int type,String notice,String terme,int mtclf,int auteur,int site,String ISBN,String ISSN,String control,boolean fichier) {
@@ -189,11 +188,16 @@ public class FondController {
        return chercheByIddoc.cherche_ByIddociddoc(iddoc);
     }
     
-    public static ArrayList compteExempbyId(int iddoc) {
+    public static int compteExempbyId(int iddoc) {
         document cptex = new document();
         return cptex.compteExemplaire(iddoc);
     }
         
+    public static int compteSuggestionById(int iddoc) {
+        suggestion sugg = new suggestion();
+        return sugg.compte_ByIDDOC(iddoc);
+    }
+    
     
     public static int lastIndex() {
         document document = new document();

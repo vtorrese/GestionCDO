@@ -496,20 +496,58 @@ public class document {
         return retour; 
     }
     
-    public void supprimeDoc(int ID_doc) {
-        //Controle nbre exemplaires
+    public String supprimeDoc(int ID_doc) {
         
+        //Récupération ID par exemplaire d'une référence commune
+        ArrayList exemplaire = new ArrayList();
+        exemplaire = (ArrayList) IdExemplaire(ID_doc);
+        for(int i=0;i<exemplaire.size();i++) {
+            String ID = exemplaire.get(i).toString();
+            int IDdoc = Integer.parseInt(ID.substring(1,ID.length()-1));
+          
         //Controle prêt en cours (hors prêts terminés)
-        
+        if(pret.compte_ByIDDOC(IDdoc)>0) {
+            String message = "Suppression impossible, un exemplaire est en cours de prêt !";
+            return message;
+        }
+  
         //Controle réservation
+        if(reservation.compte_ByIDDOC(IDdoc)>0) {
+            String message = "Suppression impossible, un exemplaire est en cours de réservation !";
+            return message;
+        }
         
-        //Controle consultation
+        //Controle suggestion
+        if(suggestion.compte_ByIDDOC(IDdoc)>0) {
+            String message = "Suppression impossible, un exemplaire est dans la liste de suggestion !";
+            return message;
+        }
         
+        //Suppression table consulattion
+        String sup_consult = null;
+        sup_consult = "DELETE FROM `consultation` WHERE `doc_consult` ='" + IDdoc + "'";
+        new Connect(sup_consult);
+        
+        //Suppression table document
+        String sup_doc = null;
+        sup_doc = "DELETE FROM `document` WHERE `id_doc` ='" + IDdoc + "'";
+        new Connect(sup_doc);
+
+        }
+        String message = "";
+        return message;
     }
     
-    public ArrayList compteExemplaire(int iddoc) {
+    public int compteExemplaire(int iddoc) {
         String requete = null;
         requete = "SELECT COUNT(*) as exemplaire FROM document WHERE titre_doc IN (SELECT titre_doc FROM `document` WHERE id_doc=" + iddoc + ")";
+        Connect donnees = new Connect(requete);
+        return donnees.renvoiInt();
+    }
+    
+    public ArrayList IdExemplaire(int iddoc) { // renvoi un tableau des id de chaque exemplaire d'une référence
+        String requete = null;
+        requete = "SELECT id_doc FROM document WHERE titre_doc IN (SELECT titre_doc FROM `document` WHERE id_doc=" + iddoc + ")";
         Connect donnees = new Connect(requete);
         return donnees.renvoi();
     }
