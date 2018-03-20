@@ -422,7 +422,12 @@ public class Fond_consult extends javax.swing.JPanel {
 
         Btn_suggerer.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         Btn_suggerer.setForeground(new java.awt.Color(0, 153, 51));
-        Btn_suggerer.setText("Suggerer");
+        Btn_suggerer.setText("Suggérer");
+        Btn_suggerer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_suggererActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         jLabel11.setText("Nb exemp.");
@@ -636,6 +641,26 @@ public class Fond_consult extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_Btn_supprimerActionPerformed
+
+    private void Btn_suggererActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_suggererActionPerformed
+        // TODO add your handling code here:
+        if(ID_doc.getText().isEmpty()==true) {
+            JOptionPane.showMessageDialog(this,"Aucun document sélectionné !");
+        } else 
+        {
+            int iddoc = Integer.parseInt(ID_doc.getText());
+            if(Btn_suggerer.getText().equals("Suggérer")) {
+                FondController.ActionSuggestion(1,iddoc);
+                Btn_suggerer.setText("Désuggérer");
+            }
+            else {
+                FondController.ActionSuggestion(2,iddoc);
+                Btn_suggerer.setText("Suggérer");
+            }
+            
+            
+        }
+    }//GEN-LAST:event_Btn_suggererActionPerformed
     
     private void initialiser_tableau() {
          DefaultTableModel model = (DefaultTableModel) table_result.getModel();

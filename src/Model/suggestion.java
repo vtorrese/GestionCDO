@@ -21,6 +21,12 @@ public class suggestion {
         new Connect(sup_doc);
      }
     
+    public void affecter_sug(int iddoc) {
+        String sup_doc = null;
+        sup_doc = "INSERT INTO `suggestion` (doc_suggest) VALUES ('" + iddoc + "')";
+        new Connect(sup_doc);
+     }
+    
     public static int compte_ByIDDOC(int iddoc) {
         String requete = null;
         requete = "SELECT COUNT(*) as EnSug FROM suggestion WHERE `doc_suggest` ='" + iddoc + "'";

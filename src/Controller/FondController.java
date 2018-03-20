@@ -198,6 +198,16 @@ public class FondController {
         return sugg.compte_ByIDDOC(iddoc);
     }
     
+    public static void ActionSuggestion(int action,int iddoc) { // pour ajouter supprimer référence de la liste de suggestion
+        if(action==1) {
+            suggestion suggestion = new suggestion();
+            suggestion.affecter_sug(iddoc);
+        } else {
+            suggestion suggestion = new suggestion();
+            suggestion.supprimer_sug(iddoc);
+        }
+    }
+    
     
     public static int lastIndex() {
         document document = new document();
