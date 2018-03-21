@@ -173,7 +173,7 @@ public class FondController {
         return document.supprimeDoc(ID_doc);
     }
     
-    public static ArrayList chercheDoc(int type,String notice,String terme,int mtclf,int auteur,int site,String ISBN,String ISSN,String control,boolean fichier) {
+    public static ArrayList chercheDoc(int type,String notice,String terme,int mtclf,int auteur,int site,String ISBN,String ISSN,int control,boolean fichier) {
         document document = new document();
         return document.cherche_doc(type,notice,terme,mtclf,auteur,site,ISBN,ISSN,control,fichier);
     }

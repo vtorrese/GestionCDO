@@ -587,7 +587,6 @@ public class formulaire_fond extends javax.swing.JPanel {
         });
 
         dateP_doc.setForeground(new java.awt.Color(153, 0, 153));
-        dateP_doc.setDateFormatString("d MMM YYYY");
 
         auteurRapport.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         auteurRapport.setForeground(new java.awt.Color(153, 0, 153));
@@ -1200,8 +1199,8 @@ public class formulaire_fond extends javax.swing.JPanel {
         resum_doc.setText("");
         url_doc.setText("");
         img_doc.setSelected(false);
-        Date date = new Date();
-        dateA_doc.setDate(date);
+        
+        dateA_doc.setDate(null);
         period_doc.setSelectedIndex(0);
         coll_doc.setSelectedIndex(0);
         num_doc.setText("");

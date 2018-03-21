@@ -10,9 +10,14 @@ package View;
 import Controller.FondController;
 import static View.formulaire_fond.*;
 import java.awt.BorderLayout;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -33,9 +38,32 @@ public class Fond_consult extends javax.swing.JPanel {
         int site = 0;
         String ISBN = null;
         String ISSN = null;
-        String control = null;
+        int control = 0;
         boolean fichier = false;
-        
+        String classification = "";
+        int page = 0;
+        String titre = "";
+        String sstitre ="";
+        String dateP = "";
+        String lieuP = "";
+        int editeur = 0;
+        String mention = "";
+        int lang = 0;
+        int niveau = 0;
+        String sommaire = "";
+        String resume ="";
+        String url ="";
+        boolean image = false;
+        String dateA ="";
+        int periodique =0;
+        int collection =0;
+        int formation = 0;
+        int promotion =0;
+        String numero="";
+        String entreprise = "";
+        String tuteur ="";
+        String duree="";
+        int auteurRapport =0;
         
         public static Map<String, String>  TypeMapC = new HashMap<String, String>();
         public static Map<String, String>  MtclfMapC = new HashMap<String, String>();
@@ -94,6 +122,10 @@ public class Fond_consult extends javax.swing.JPanel {
         formulaire_fond inclus = new formulaire_fond(donnees);
          formulaire.setLayout(new BorderLayout());
          formulaire.add(inclus, BorderLayout.CENTER);
+         
+        
+        dateA_doc.setDate(null);
+         
          
     }
 
@@ -509,7 +541,7 @@ public class Fond_consult extends javax.swing.JPanel {
 
     private void Btn_validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_validerActionPerformed
         // TODO add your handling code here:
-        System.out.println(type_cherche.getSelectedIndex());
+        //System.out.println(type_cherche.getSelectedIndex());
         if(type_cherche.getSelectedIndex()!=0){type = Integer.parseInt(getKeyFromValue(TypeMapC,type_cherche.getSelectedItem()).toString());} else {type=0;}
         notice = notice_cherche.getText();
         terme = terme_cherche.getText();
@@ -518,7 +550,9 @@ public class Fond_consult extends javax.swing.JPanel {
         if(site_cherche.getSelectedIndex()!=0){site = Integer.parseInt(getKeyFromValue(SiteMapC,site_cherche.getSelectedItem()).toString());} else {site =0;}
         ISBN = ISBN_cherche.getText();
         ISSN = ISSN_cherche.getText();
-        control = control_cherche.getText();
+        if(control_cherche.getText().equals("")) {control = 0;} else {control = Integer.parseInt(control_cherche.getText());}
+
+        
         fichier = fichier_cherche.isSelected();
         
         ArrayList tabresult = new ArrayList();
@@ -539,84 +573,106 @@ public class Fond_consult extends javax.swing.JPanel {
     }//GEN-LAST:event_Btn_validerActionPerformed
 
     private void table_resultMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_resultMouseClicked
-        // TODO add your handling code here:
-        
-                //Sélection d'une ligne de la tab_user
-            JTable source = (JTable)evt.getSource();
-            int row = source.rowAtPoint( evt.getPoint() );
-            int iddoc = Integer.parseInt(table_result.getValueAt(row,0).toString());
             
-            ArrayList profildoc = (ArrayList) FondController.chercheDocbyId(iddoc).get(0);
-            ArrayList auteurdoc = (ArrayList) FondController.chercheDocAuteurbyId(iddoc);
-            ArrayList mtclfdoc = (ArrayList) FondController.chercheDocMtclfbyId(iddoc);
-            int nbexemplaire = FondController.compteExempbyId(iddoc);
-            int suggestion = FondController.compteSuggestionById(iddoc);
-            
-            //System.out.println(profildoc);
-            formulaire_fond.initialise();
-
-            ID_doc.setText(profildoc.get(0).toString()); 
-            notice_doc.setText(profildoc.get(1).toString());
-            classification_doc.setText(profildoc.get(2).toString());
-            type_doc.setSelectedItem(TypeMapC.get(profildoc.get(3).toString())); 
-            titre_doc.setText(profildoc.get(4).toString());
-            sstitre_doc.setText(profildoc.get(5).toString());
-            period_doc.setSelectedItem(PeriodMap.get(profildoc.get(6).toString()));
-            form_doc.setSelectedItem(FormationMap.get(profildoc.get(7).toString()));
-            promo_doc.setSelectedItem(PromotionMap.get(profildoc.get(8).toString()));
-            ent_doc.setText(profildoc.get(9).toString());
-            tuto_doc.setText(profildoc.get(10).toString());
-            editeur_doc.setSelectedItem(EditeurMap.get(profildoc.get(11).toString()));
-            // faire les champs dateA index 12
-            
-            lieuP_doc.setText(profildoc.get(13).toString());
-            mention_doc.setText(profildoc.get(14).toString());
-            // collation en index 15
-            num_doc.setText(profildoc.get(16).toString());
-            isbn_doc.setText(profildoc.get(17).toString());
-            issn_doc.setText(profildoc.get(18).toString());
-            lang_doc.setSelectedItem(LangMap.get(profildoc.get(19).toString()));
-            // faire les champs dateP index 20
-            
+                // TODO add your handling code here:
                 
-            niveau_doc.setSelectedItem(NiveauMap.get(profildoc.get(21).toString()));
-            page_doc.setText(profildoc.get(22).toString());
-            if(profildoc.get(23).toString().length()>0) {dureeH_doc.setText(profildoc.get(23).toString().substring(0, 2));dureeM_doc.setText(profildoc.get(23).toString().substring(3, 5));}
-            sommaire_doc.setText(profildoc.get(24).toString());
-            resum_doc.setText(profildoc.get(25).toString());
-            if(profildoc.get(26).toString().equals("true")) {file_doc.setSelected(true);} else {file_doc.setSelected(false);}
-            if(profildoc.get(27).toString().equals("true")) {img_doc.setSelected(true);} else {img_doc.setSelected(false);}
-            url_doc.setText(profildoc.get(28).toString());
-            control_doc.setText(profildoc.get(29).toString());
-            localisation_doc.setSelectedItem(SiteMapC.get(profildoc.get(30).toString()));
-            
-            
-            DefaultTableModel model_auteur = (DefaultTableModel) list_auteur.getModel(); 
-            for(int i=0;i<auteurdoc.size();i++) {
+                //Sélection d'une ligne de la tab_user
+                JTable source = (JTable)evt.getSource();
+                int row = source.rowAtPoint( evt.getPoint() );
+                int iddoc = Integer.parseInt(table_result.getValueAt(row,0).toString());
+                
+                ArrayList profildoc = (ArrayList) FondController.chercheDocbyId(iddoc).get(0);
+                ArrayList auteurdoc = (ArrayList) FondController.chercheDocAuteurbyId(iddoc);
+                ArrayList mtclfdoc = (ArrayList) FondController.chercheDocMtclfbyId(iddoc);
+                int nbexemplaire = FondController.compteExempbyId(iddoc);
+                int suggestion = FondController.compteSuggestionById(iddoc);
+                
+                //System.out.println(profildoc);
+                formulaire_fond.initialise();
+                
+                ID_doc.setText(profildoc.get(0).toString());
+                notice_doc.setText(profildoc.get(1).toString());
+                classification_doc.setText(profildoc.get(2).toString());
+                type_doc.setSelectedItem(TypeMapC.get(profildoc.get(3).toString()));
+                titre_doc.setText(profildoc.get(4).toString());
+                sstitre_doc.setText(profildoc.get(5).toString());
+                period_doc.setSelectedItem(PeriodMap.get(profildoc.get(6).toString()));
+                form_doc.setSelectedItem(FormationMap.get(profildoc.get(7).toString()));
+                promo_doc.setSelectedItem(PromotionMap.get(profildoc.get(8).toString()));
+                ent_doc.setText(profildoc.get(9).toString());
+                tuto_doc.setText(profildoc.get(10).toString());
+                editeur_doc.setSelectedItem(EditeurMap.get(profildoc.get(11).toString()));
+                
+                // Champs dateA index 12
+                String dateA = convertirDate(profildoc.get(12).toString());
+                java.util.Date date1;
+                try {
+                    
+                    date1 = new SimpleDateFormat("d MMM yyyy").parse(dateA);
+                    dateA_doc.setDate(date1);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Fond_consult.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                lieuP_doc.setText(profildoc.get(13).toString());
+                mention_doc.setText(profildoc.get(14).toString());
+                // collation en index 15
+                num_doc.setText(profildoc.get(16).toString());
+                isbn_doc.setText(profildoc.get(17).toString());
+                issn_doc.setText(profildoc.get(18).toString());
+                lang_doc.setSelectedItem(LangMap.get(profildoc.get(19).toString()));
+                
+                // Champs dateP index 20
+                String dateP = convertirDate(profildoc.get(20).toString());
+                java.util.Date date2;
+                try {
+                    
+                    date2 = new SimpleDateFormat("d MMM yyyy").parse(dateP);
+                    dateP_doc.setDate(date2);
+                } catch (ParseException ex) {
+                    Logger.getLogger(Fond_consult.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
+                niveau_doc.setSelectedItem(NiveauMap.get(profildoc.get(21).toString()));
+                if(!profildoc.get(22).toString().isEmpty()) {page_doc.setText(profildoc.get(22).toString());} else {page_doc.setText("0");}
+                if(profildoc.get(23).toString().length()>0) {dureeH_doc.setText(profildoc.get(23).toString().substring(0, 2));dureeM_doc.setText(profildoc.get(23).toString().substring(3, 5));}
+                sommaire_doc.setText(profildoc.get(24).toString());
+                resum_doc.setText(profildoc.get(25).toString());
+                if(profildoc.get(26).toString().equals("true")) {file_doc.setSelected(true);} else {file_doc.setSelected(false);}
+                if(profildoc.get(27).toString().equals("true")) {img_doc.setSelected(true);} else {img_doc.setSelected(false);}
+                url_doc.setText(profildoc.get(28).toString());
+                control_doc.setText(profildoc.get(29).toString());
+                localisation_doc.setSelectedItem(SiteMapC.get(profildoc.get(30).toString()));
+                
+                
+                DefaultTableModel model_auteur = (DefaultTableModel) list_auteur.getModel();
+                for(int i=0;i<auteurdoc.size();i++) {
                     ArrayList tab = (ArrayList) auteurdoc.get(i);
                     model_auteur.addRow(new Object[]{tab.get(0),tab.get(1)});
-            }
-            
-            DefaultTableModel model_mtc = (DefaultTableModel) list_mtclf.getModel(); 
-            for(int i=0;i<mtclfdoc.size();i++) {
+                }
+                
+                DefaultTableModel model_mtc = (DefaultTableModel) list_mtclf.getModel();
+                for(int i=0;i<mtclfdoc.size();i++) {
                     ArrayList tab = (ArrayList) mtclfdoc.get(i);
                     model_mtc.addRow(new Object[]{tab.get(0),tab.get(1)});
-            }
+                }
+                
+                //ajouter nombre d'exemplaire
+                //
+                exemplaire.setText(String.valueOf(nbexemplaire));
+                
+                //gel de certains champs pour edition
+                notice_doc.setEnabled(false);
+                
+                //gestion bouton suggérer
+                if(suggestion>0) {
+                    Btn_suggerer.setText("Désuggérer");
+                } else
+                {
+                    Btn_suggerer.setText("Suggérer");
+                }
             
-            //ajouter nombre d'exemplaire
-            //
-            exemplaire.setText(String.valueOf(nbexemplaire));
-            
-            //gel de certains champs pour edition
-            notice_doc.setEnabled(false);
-            
-            //gestion bouton suggérer
-            if(suggestion>0) {
-                Btn_suggerer.setText("Désuggérer");
-            } else
-            {
-                Btn_suggerer.setText("Suggérer");
-            }
             
     }//GEN-LAST:event_table_resultMouseClicked
 
@@ -673,11 +729,133 @@ public class Fond_consult extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this,"Aucun document sélectionné !");
         } else 
         {
-            // faire la connexion avec la méthode ActionDocument("modifier") de la view fond_new !!!!!!!
-            //Fond_new.ActionDocument("modifier");
+            // Contrôles
+      
+       if(formulaire_fond.notice_doc.getText().equals("")) {
+            JOptionPane.showMessageDialog(this,"Numéro de notice invalide !");
+        }
+        else if(formulaire_fond.localisation_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Localisation de la référence invalide !");
+        }
+        else if(formulaire_fond.classification_doc.getText().equals("")) {
+            JOptionPane.showMessageDialog(this,"Numéro de classification invalide !");
+        }
+        else if(formulaire_fond.control_doc.getText().equals("") || estUnEntier(formulaire_fond.control_doc.getText())==false) {
+            JOptionPane.showMessageDialog(this,"Contrôle invalide !");
+        }
+        else if(estUnEntier(formulaire_fond.page_doc.getText())==false) {
+            JOptionPane.showMessageDialog(this,"Nombre de pages invalide !");
+        }
+        else if(formulaire_fond.type_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Type invalide !");
+        }
+        else if(formulaire_fond.titre_doc.getText().equals("")) {
+            JOptionPane.showMessageDialog(this,"Titre invalide !");
+        }
+        else if(formulaire_fond.dateP_doc.getDate() == null) {
+            JOptionPane.showMessageDialog(this,"Date de publication invalide !");
+        }
+        else if(formulaire_fond.editeur_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Editeur invalide !");
+        }
+        else if(formulaire_fond.lang_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Langue invalide !");
+        }
+        else if(formulaire_fond.niveau_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Niveau invalide !");
+        }
+        else if(formulaire_fond.type_doc.getSelectedItem().equals("CD-ROM/DVD") && (formulaire_fond.dureeH_doc.getText().equals("") || estUnEntier(formulaire_fond.dureeH_doc.getText())==false)) {
+            JOptionPane.showMessageDialog(this,"Heure invalide (durée CD-ROM) !");
+        }
+        else if(formulaire_fond.type_doc.getSelectedItem().equals("CD-ROM/DVD") && (formulaire_fond.dureeM_doc.getText().equals("") || estUnEntier(formulaire_fond.dureeM_doc.getText())==false)) {
+            JOptionPane.showMessageDialog(this,"Minutes invalides (durée CD-ROM) !");
+        }
+         /*else if(formulaire_fond.list_auteur.getModel().getSize() == 0) {
+            JOptionPane.showMessageDialog(this,"Aucun auteur ?!");
+        }
+        else if(formulaire_fond.list_mtclf.getModel().getSize() == 0) {
+            JOptionPane.showMessageDialog(this,"Aucun mot-clef ?!");
+        }*/
+        else if(formulaire_fond.type_doc.getSelectedItem().equals("Périodiques") && formulaire_fond.period_doc.getSelectedIndex()<=0 && formulaire_fond.coll_doc.getSelectedIndex()<=0) {
+            JOptionPane.showMessageDialog(this,"Périodique et/ou collection invalides !");
+        }
+        else
+        {
+            notice = formulaire_fond.notice_doc.getText();
+            site = Integer.parseInt(getKeyFromValue(formulaire_fond.SiteMap,formulaire_fond.localisation_doc.getSelectedItem()).toString());
+            classification = formulaire_fond.classification_doc.getText();
+            control = Integer.parseInt(formulaire_fond.control_doc.getText());
+            if(!formulaire_fond.page_doc.equals("")) {page = Integer.parseInt(formulaire_fond.page_doc.getText());}
+            type = Integer.parseInt(getKeyFromValue(formulaire_fond.TypeMap,formulaire_fond.type_doc.getSelectedItem()).toString());
+            titre = formulaire_fond.titre_doc.getText();
+            sstitre = formulaire_fond.sstitre_doc.getText();
+            String fdateP = new SimpleDateFormat("yyyy-MM-dd").format(formulaire_fond.dateP_doc.getDate());
+            dateP = fdateP; 
+            lieuP = formulaire_fond.lieuP_doc.getText();
+            editeur = Integer.parseInt(getKeyFromValue(formulaire_fond.EditeurMap,formulaire_fond.editeur_doc.getSelectedItem()).toString());
+            mention = formulaire_fond.mention_doc.getText();
+            ISBN = formulaire_fond.isbn_doc.getText();
+            lang = Integer.parseInt(getKeyFromValue(formulaire_fond.LangMap,formulaire_fond.lang_doc.getSelectedItem()).toString());
+            niveau = Integer.parseInt(getKeyFromValue(formulaire_fond.NiveauMap,formulaire_fond.niveau_doc.getSelectedItem()).toString());
+            sommaire = formulaire_fond.sommaire_doc.getText();
+            resume = formulaire_fond.resum_doc.getText();
+            url = formulaire_fond.url_doc.getText();
+            fichier = formulaire_fond.file_doc.isSelected();
+            image = formulaire_fond.img_doc.isSelected();
+            String fdateA = new SimpleDateFormat("yyyy-MM-dd").format(formulaire_fond.dateA_doc.getDate());
+            dateA = fdateA;
+            duree = formulaire_fond.dureeH_doc.getText() + ":" + formulaire_fond.dureeM_doc.getText();
+            
+            if(formulaire_fond.type_doc.getSelectedItem().equals("Périodiques")) {
+                periodique = Integer.parseInt(getKeyFromValue(formulaire_fond.PeriodMap,formulaire_fond.period_doc.getSelectedItem()).toString());
+                collection = Integer.parseInt(getKeyFromValue(formulaire_fond.CollMap,formulaire_fond.coll_doc.getSelectedItem()).toString());
+                numero = formulaire_fond.num_doc.getText();
+                ISSN = formulaire_fond.issn_doc.getText();              
+                }
+            
+            if(formulaire_fond.type_doc.getSelectedItem().equals("Rapports")) {
+                auteurRapport = Integer.parseInt(getKeyFromValue(formulaire_fond.UserMap,formulaire_fond.auteurRapport.getSelectedItem()).toString());
+                entreprise = formulaire_fond.ent_doc.getText();
+                tuteur = formulaire_fond.tuto_doc.getText();
+                formation = Integer.parseInt(getKeyFromValue(formulaire_fond.FormationMap,formulaire_fond.form_doc.getSelectedItem()).toString());
+                promotion = Integer.parseInt(getKeyFromValue(formulaire_fond.PromotionMap,formulaire_fond.promo_doc.getSelectedItem()).toString());
+                }
+            
+            //réponse vers controller pour odif référence
+             int iddoc = Integer.parseInt(ID_doc.getText());
+              //On envoie la première partie de la modifi (hors auteurs et mtclf)
+             FondController.modifieDoc(iddoc,notice,site,classification,control,page,type,titre,sstitre,dateP,lieuP,editeur,mention,ISBN,lang,niveau,sommaire,resume,url,fichier,image,dateA,periodique,collection,formation,promotion,ISSN,numero,entreprise,tuteur,duree);
+             
+             //modification table auteurs et mot-clefs //////////////////////////////
+             
+        }
         }
         
     }//GEN-LAST:event_Btn_modifierActionPerformed
+    
+    private String convertirDate(String date) {
+        String[] dateExp=date.split(" ");       
+        String jour = dateExp[0];
+        String annee = dateExp[2];
+        int nbmois = Integer.parseInt(dateExp[1].toString());
+        ArrayList<String> Mois = new ArrayList<String>();
+        Mois.add("");
+        Mois.add("janvier");
+        Mois.add("février");
+        Mois.add("mars");
+        Mois.add("avril");
+        Mois.add("mai");
+        Mois.add("juin");
+        Mois.add("juillet");
+        Mois.add("août");
+        Mois.add("septembre");
+        Mois.add("octobre");
+        Mois.add("novembre");
+        Mois.add("décembre");       
+        String mois = Mois.get(nbmois);
+        String datex = jour + " " + mois + " " + annee;
+        return datex;
+    }
     
     private void initialiser_tableau() {
          DefaultTableModel model = (DefaultTableModel) table_result.getModel();
@@ -735,4 +913,13 @@ public class Fond_consult extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> type_cherche;
     // End of variables declaration//GEN-END:variables
 
+    
+        	public boolean estUnEntier(String chaine) {
+		try {
+			Integer.parseInt(chaine);
+		} catch (NumberFormatException e){
+			return false;
+		}
+		return true;
+        }
 }

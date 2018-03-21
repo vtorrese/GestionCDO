@@ -420,7 +420,7 @@ public class document {
                 
                 String valeur = null;
                 String requete = "UPDATE `document` SET ";
-                
+                              
                 valeur = "`id_not`='" + notice + "', ";
                 valeur = valeur + "`class_doc`='" + classification + "', ";
                 valeur = valeur + "`type_doc`='" + type + "', ";
@@ -460,15 +460,19 @@ public class document {
                valeur = valeur + "`page_doc`='" + page + "', ";
                valeur = valeur + "`somm_doc`='" + sommaire + "', ";
                valeur = valeur + "`resum_doc`='" + resume + "', ";
-               valeur = valeur + "`lien_doc`='" + fichier + "', ";
-               valeur = valeur + "`image_doc`='" + image + "', ";
+               int file = 0;
+               if(fichier) {file = 1;}
+               valeur = valeur + "`lien_doc`='" + file + "', ";
+               int img = 0;
+               if(image) {img = 1;}
+               valeur = valeur + "`image_doc`='" + img + "', ";
                valeur = valeur + "`url_doc`='" + url + "', ";
                valeur = valeur + "`control_doc`='" + control + "', ";
                valeur = valeur + "`localisation_doc`='" + site + "' ";
-               valeur = valeur + " WHERE id_doc=" + iddoc + "', ";
+               valeur = valeur + " WHERE id_doc='" + iddoc + "'";
                
                requete = requete + valeur;
-               System.out.println(requete);
+               new Connect(requete);
         }
     
     public void enregistreCompDoc(int lastID,ArrayList listauteur,ArrayList listmtclf) {
@@ -485,7 +489,7 @@ public class document {
             new Connect(requete);
         }
     } 
-    public ArrayList cherche_doc(int type,String notice,String terme,int mtclf,int auteur,int site,String ISBN,String ISSN,String control,boolean fichier) {
+    public ArrayList cherche_doc(int type,String notice,String terme,int mtclf,int auteur,int site,String ISBN,String ISSN,int control,boolean fichier) {
     
     String requete = null;
     String condition = "";
@@ -527,7 +531,7 @@ public class document {
             condition = condition + " AND ISSN_doc='" + ISSN + "'";
         } else {condition = condition + "ISSN_doc='" + ISSN + "'";}
     } 
-    if(!control.isEmpty()) {
+    if(control>0) {
         if(condition.length()>0) {
             condition = condition + " AND control_doc='" + control + "'";
         } else {condition = condition + "control_doc='" + control + "'";}
@@ -546,7 +550,7 @@ public class document {
     
     public ArrayList cherche_ById(int iddoc) {
         String requete = null;
-        requete = "SELECT id_doc, id_not, class_doc, type_doc, titre_doc, sstitre_doc, period_doc, form_doc, promo_doc, ent_doc, tuto_doc, edit_doc, date_doc, lieu_doc, mention_doc, coll_doc, num_doc, ISBN_doc, ISSN_doc, lang_doc, DATE_FORMAT(dateP_doc, \"%d %M %Y\"), niveau_doc, page_doc, duree_doc, somm_doc, resum_doc, lien_doc, image_doc, url_doc, control_doc, localisation_doc FROM document WHERE id_doc = '" + iddoc + "'";
+        requete = "SELECT id_doc, id_not, class_doc, type_doc, titre_doc, sstitre_doc, period_doc, form_doc, promo_doc, ent_doc, tuto_doc, edit_doc,  CONCAT(DAY(date_doc),' ',MONTH(date_doc),' ',YEAR(date_doc)) AS DateA, lieu_doc, mention_doc, coll_doc, num_doc, ISBN_doc, ISSN_doc, lang_doc, CONCAT(DAY(dateP_doc),' ',MONTH(dateP_doc),' ',YEAR(dateP_doc)) AS DateP, niveau_doc, page_doc, duree_doc, somm_doc, resum_doc, lien_doc, image_doc, url_doc, control_doc, localisation_doc FROM document WHERE id_doc ='" + iddoc + "'";
         Connect donnees = new Connect(requete);    
         retour = donnees.renvoi();
         return retour; 

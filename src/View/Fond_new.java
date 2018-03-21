@@ -9,8 +9,10 @@ package View;
 import java.awt.BorderLayout;
 import Controller.FondController;
 import static View.formulaire_fond.ID_doc;
+import static View.formulaire_fond.dateA_doc;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -71,7 +73,8 @@ public class Fond_new extends javax.swing.JPanel {
          formul.setLayout(new BorderLayout());
          formul.add(inclus, BorderLayout.CENTER);
        
-
+         Date date = new Date();
+        dateA_doc.setDate(date);
 
 
     }
@@ -149,11 +152,7 @@ public class Fond_new extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Btn_NewDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_NewDocActionPerformed
-            ActionDocument("ajouter");
-        }
 
-        
-    public void ActionDocument(String requete) {
     // Contrôles
       
        if(formulaire_fond.notice_doc.getText().equals("")) {
@@ -246,7 +245,7 @@ public class Fond_new extends javax.swing.JPanel {
                 promotion = Integer.parseInt(getKeyFromValue(formulaire_fond.PromotionMap,formulaire_fond.promo_doc.getSelectedItem()).toString());
                 }
             
-            if(requete.equals("ajouter")) { // Cas de figure d'un ajout d'une nouvelle référence
+            // Cas de figure d'un ajout d'une nouvelle référence
             
                 //Demande du nombre d'exemplaire de la référence
                  JFrame frame = new JFrame();
@@ -289,17 +288,7 @@ public class Fond_new extends javax.swing.JPanel {
 
 
                             }
-                 } else {   // Cas de figure d'une modification d'une référence
-                    
-                        //On récupère l'ID du doc à modifier
-                        int iddoc = Integer.parseInt(ID_doc.getText());
-
-                        //On envoie la première partie de la modifi (hors auteurs et mtclf)
-                        FondController.modifieDoc(iddoc,notice,site,classification,control,page,type,titre,sstitre,dateP,lieuP,editeur,mention,ISBN,lang,niveau,sommaire,resume,url,fichier,image,dateA,periodique,collection,formation,promotion,ISSN,numero,entreprise,tuteur,duree);
-                        
-                        //modification table auteurs et mot-clefs
-                        
-                    }
+                 
             
             }
         
