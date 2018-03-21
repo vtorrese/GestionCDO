@@ -56,4 +56,11 @@ public class reservation {
         retour = donnees.renvoi();
         return retour; 
     }
+    
+    public static int compte_ByIDDOC(int iddoc) {
+        String requete = null;
+        requete = "SELECT COUNT(*) as EnCoursR FROM reservation WHERE `doc_reserv` ='" + iddoc + "'";
+        Connect donnees = new Connect(requete);
+        return donnees.renvoiInt();
+    }
 }

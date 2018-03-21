@@ -94,6 +94,7 @@ public class Fond_consult extends javax.swing.JPanel {
         formulaire_fond inclus = new formulaire_fond(donnees);
          formulaire.setLayout(new BorderLayout());
          formulaire.add(inclus, BorderLayout.CENTER);
+         
     }
 
     /** This method is called from within the constructor to
@@ -135,7 +136,7 @@ public class Fond_consult extends javax.swing.JPanel {
         Btn_modifier = new javax.swing.JButton();
         Btn_supprimer = new javax.swing.JButton();
         formulaire = new javax.swing.JPanel();
-        Btn_modifier1 = new javax.swing.JButton();
+        Btn_suggerer = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         exemplaire = new javax.swing.JTextField();
 
@@ -249,7 +250,7 @@ public class Fond_consult extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(site_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(mtclf_cherche, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(Btn_valider)
@@ -357,9 +358,16 @@ public class Fond_consult extends javax.swing.JPanel {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         table_result.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -372,7 +380,6 @@ public class Fond_consult extends javax.swing.JPanel {
             table_result.getColumnModel().getColumn(0).setMinWidth(0);
             table_result.getColumnModel().getColumn(0).setPreferredWidth(0);
             table_result.getColumnModel().getColumn(0).setMaxWidth(0);
-            table_result.getColumnModel().getColumn(2).setMaxWidth(150);
         }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -392,6 +399,11 @@ public class Fond_consult extends javax.swing.JPanel {
         Btn_modifier.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         Btn_modifier.setForeground(new java.awt.Color(153, 0, 153));
         Btn_modifier.setText("Modifier");
+        Btn_modifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_modifierActionPerformed(evt);
+            }
+        });
 
         Btn_supprimer.setFont(new java.awt.Font("Rockwell", 2, 10)); // NOI18N
         Btn_supprimer.setForeground(new java.awt.Color(204, 51, 0));
@@ -413,9 +425,14 @@ public class Fond_consult extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        Btn_modifier1.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
-        Btn_modifier1.setForeground(new java.awt.Color(0, 153, 51));
-        Btn_modifier1.setText("Suggerer");
+        Btn_suggerer.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        Btn_suggerer.setForeground(new java.awt.Color(0, 153, 51));
+        Btn_suggerer.setText("Suggérer");
+        Btn_suggerer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_suggererActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
         jLabel11.setText("Nb exemp.");
@@ -431,12 +448,12 @@ public class Fond_consult extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(Btn_modifier)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Btn_modifier1)
+                        .addComponent(Btn_suggerer)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(exemplaire, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+                        .addGap(68, 68, 68)
                         .addComponent(Btn_supprimer)))
                 .addContainerGap())
         );
@@ -447,7 +464,7 @@ public class Fond_consult extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Btn_supprimer)
                     .addComponent(Btn_modifier)
-                    .addComponent(Btn_modifier1)
+                    .addComponent(Btn_suggerer)
                     .addComponent(jLabel11)
                     .addComponent(exemplaire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -532,7 +549,8 @@ public class Fond_consult extends javax.swing.JPanel {
             ArrayList profildoc = (ArrayList) FondController.chercheDocbyId(iddoc).get(0);
             ArrayList auteurdoc = (ArrayList) FondController.chercheDocAuteurbyId(iddoc);
             ArrayList mtclfdoc = (ArrayList) FondController.chercheDocMtclfbyId(iddoc);
-            ArrayList nbexemplaire = (ArrayList) FondController.compteExempbyId(iddoc).get(0);
+            int nbexemplaire = FondController.compteExempbyId(iddoc);
+            int suggestion = FondController.compteSuggestionById(iddoc);
             
             //System.out.println(profildoc);
             formulaire_fond.initialise();
@@ -586,10 +604,19 @@ public class Fond_consult extends javax.swing.JPanel {
             }
             
             //ajouter nombre d'exemplaire
-            exemplaire.setText(nbexemplaire.get(0).toString());
+            //
+            exemplaire.setText(String.valueOf(nbexemplaire));
             
             //gel de certains champs pour edition
-            notice_doc.setEnabled(false); 
+            notice_doc.setEnabled(false);
+            
+            //gestion bouton suggérer
+            if(suggestion>0) {
+                Btn_suggerer.setText("Désuggérer");
+            } else
+            {
+                Btn_suggerer.setText("Suggérer");
+            }
             
     }//GEN-LAST:event_table_resultMouseClicked
 
@@ -604,14 +631,53 @@ public class Fond_consult extends javax.swing.JPanel {
                     choix_ref != JOptionPane.CANCEL_OPTION && 
                     choix_ref != JOptionPane.CLOSED_OPTION){
                     int iddoc = Integer.parseInt(ID_doc.getText());
-                    FondController.supprimeDoc(iddoc);
+                    if(FondController.supprimeDoc(iddoc).isEmpty()) {
+                        JOptionPane.showMessageDialog(this,"Suppression effectuée !");
+                         initialiser_tableau();
+                         initialiser_consult();
+                         formulaire_fond.initialise();
+                    } else {
+                        JOptionPane.showMessageDialog(this,FondController.supprimeDoc(iddoc));
+                    }
                     
-                    
+                   
               }
                 
         }
         
     }//GEN-LAST:event_Btn_supprimerActionPerformed
+
+    private void Btn_suggererActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_suggererActionPerformed
+        // TODO add your handling code here:
+        if(ID_doc.getText().isEmpty()==true) {
+            JOptionPane.showMessageDialog(this,"Aucun document sélectionné !");
+        } else 
+        {
+            int iddoc = Integer.parseInt(ID_doc.getText());
+            if(Btn_suggerer.getText().equals("Suggérer")) {
+                FondController.ActionSuggestion(1,iddoc);
+                Btn_suggerer.setText("Désuggérer");
+            }
+            else {
+                FondController.ActionSuggestion(2,iddoc);
+                Btn_suggerer.setText("Suggérer");
+            }
+            
+            
+        }
+    }//GEN-LAST:event_Btn_suggererActionPerformed
+
+    private void Btn_modifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_modifierActionPerformed
+        // Modifier une référence
+        if(ID_doc.getText().isEmpty()==true) {
+            JOptionPane.showMessageDialog(this,"Aucun document sélectionné !");
+        } else 
+        {
+            // faire la connexion avec la méthode ActionDocument("modifier") de la view fond_new !!!!!!!
+            //Fond_new.ActionDocument("modifier");
+        }
+        
+    }//GEN-LAST:event_Btn_modifierActionPerformed
     
     private void initialiser_tableau() {
          DefaultTableModel model = (DefaultTableModel) table_result.getModel();
@@ -635,8 +701,8 @@ public class Fond_consult extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Btn_init;
-    private javax.swing.JButton Btn_modifier;
-    private javax.swing.JButton Btn_modifier1;
+    private static javax.swing.JButton Btn_modifier;
+    private javax.swing.JButton Btn_suggerer;
     private javax.swing.JButton Btn_supprimer;
     private javax.swing.JButton Btn_valider;
     private javax.swing.JTextField ISBN_cherche;

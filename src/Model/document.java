@@ -415,6 +415,62 @@ public class document {
         
     }
     
+    public void modifieDoc(int iddoc, String notice, int site, String classification, int control,int page,int type,String titre,String sstitre,String dateP,String lieuP,int editeur,String mention,String ISBN,int lang,int niveau,String sommaire,String resume,String url,boolean fichier,boolean image,String dateA,int periodique,int collection,int formation,int promotion,String ISSN,String numero,String entreprise,String tuteur,String duree) 
+    {
+                
+                String valeur = null;
+                String requete = "UPDATE `document` SET ";
+                
+                valeur = "`id_not`='" + notice + "', ";
+                valeur = valeur + "`class_doc`='" + classification + "', ";
+                valeur = valeur + "`type_doc`='" + type + "', ";
+                valeur = valeur + "`titre_doc`='" + titre + "', ";
+                valeur = valeur + "`sstitre_doc`='" + sstitre + "', ";
+                valeur = valeur + "`sstitre_doc`='" + sstitre + "', ";
+               
+                if(periodique>0) {
+                    valeur = valeur + "`period_doc`='" + periodique + "', ";
+                }
+                
+                if(collection>0) {
+                   valeur = valeur + "`coll_doc`='" + collection + "', ";
+                }
+               
+               if(formation>0 && promotion>0) {
+                    valeur = valeur + "`form_doc`='" + formation + "', ";
+                    valeur = valeur + "`promo_doc`='" + promotion + "', ";
+               }
+               
+               if(duree.length()>1) {
+                    valeur = valeur + "`duree_doc`='" + duree + "', ";
+               }
+               
+               valeur = valeur + "`ent_doc`='" + entreprise + "', ";
+               valeur = valeur + "`tuto_doc`='" + tuteur + "', ";
+               valeur = valeur + "`edit_doc`='" + editeur + "', ";
+               valeur = valeur + "`date_doc`='" + dateA + "', ";
+               valeur = valeur + "`lieu_doc`='" + lieuP + "', ";
+               valeur = valeur + "`mention_doc`='" + mention + "', ";
+               valeur = valeur + "`num_doc`='" + numero + "', ";
+               valeur = valeur + "`ISBN_doc`='" + ISBN + "', ";
+               valeur = valeur + "`ISSN_doc`='" + ISSN + "', ";
+               valeur = valeur + "`lang_doc`='" + lang + "', ";
+               valeur = valeur + "`dateP_doc`='" + dateP + "', ";
+               valeur = valeur + "`niveau_doc`='" + niveau + "', ";
+               valeur = valeur + "`page_doc`='" + page + "', ";
+               valeur = valeur + "`somm_doc`='" + sommaire + "', ";
+               valeur = valeur + "`resum_doc`='" + resume + "', ";
+               valeur = valeur + "`lien_doc`='" + fichier + "', ";
+               valeur = valeur + "`image_doc`='" + image + "', ";
+               valeur = valeur + "`url_doc`='" + url + "', ";
+               valeur = valeur + "`control_doc`='" + control + "', ";
+               valeur = valeur + "`localisation_doc`='" + site + "' ";
+               valeur = valeur + " WHERE id_doc=" + iddoc + "', ";
+               
+               requete = requete + valeur;
+               System.out.println(requete);
+        }
+    
     public void enregistreCompDoc(int lastID,ArrayList listauteur,ArrayList listmtclf) {
             
         for(int i=0;i<listauteur.size();i++) {
@@ -496,20 +552,58 @@ public class document {
         return retour; 
     }
     
-    public void supprimeDoc(int ID_doc) {
-        //Controle nbre exemplaires
+    public String supprimeDoc(int ID_doc) {
         
+        //Récupération ID par exemplaire d'une référence commune
+        ArrayList exemplaire = new ArrayList();
+        exemplaire = (ArrayList) IdExemplaire(ID_doc);
+        for(int i=0;i<exemplaire.size();i++) {
+            String ID = exemplaire.get(i).toString();
+            int IDdoc = Integer.parseInt(ID.substring(1,ID.length()-1));
+          
         //Controle prêt en cours (hors prêts terminés)
-        
+        if(pret.compte_ByIDDOC(IDdoc)>0) {
+            String message = "Suppression impossible, un exemplaire est en cours de prêt !";
+            return message;
+        }
+  
         //Controle réservation
+        if(reservation.compte_ByIDDOC(IDdoc)>0) {
+            String message = "Suppression impossible, un exemplaire est en cours de réservation !";
+            return message;
+        }
         
-        //Controle consultation
+        //Controle suggestion
+        if(suggestion.compte_ByIDDOC(IDdoc)>0) {
+            String message = "Suppression impossible, un exemplaire est dans la liste de suggestion !";
+            return message;
+        }
         
+        //Suppression table consulattion
+        String sup_consult = null;
+        sup_consult = "DELETE FROM `consultation` WHERE `doc_consult` ='" + IDdoc + "'";
+        new Connect(sup_consult);
+        
+        //Suppression table document
+        String sup_doc = null;
+        sup_doc = "DELETE FROM `document` WHERE `id_doc` ='" + IDdoc + "'";
+        new Connect(sup_doc);
+
+        }
+        String message = "";
+        return message;
     }
     
-    public ArrayList compteExemplaire(int iddoc) {
+    public int compteExemplaire(int iddoc) {
         String requete = null;
         requete = "SELECT COUNT(*) as exemplaire FROM document WHERE titre_doc IN (SELECT titre_doc FROM `document` WHERE id_doc=" + iddoc + ")";
+        Connect donnees = new Connect(requete);
+        return donnees.renvoiInt();
+    }
+    
+    public ArrayList IdExemplaire(int iddoc) { // renvoi un tableau des id de chaque exemplaire d'une référence
+        String requete = null;
+        requete = "SELECT id_doc FROM document WHERE titre_doc IN (SELECT titre_doc FROM `document` WHERE id_doc=" + iddoc + ")";
         Connect donnees = new Connect(requete);
         return donnees.renvoi();
     }

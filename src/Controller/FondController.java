@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import View.Fond_new;
 /**
  *
  * @author vince
@@ -157,16 +158,19 @@ public class FondController {
         document.enregistreDoc(nbexemplaire, notice, site, classification, control,page,type,titre,sstitre,dateP,lieuP,editeur,mention,ISBN,lang,niveau,sommaire,resume,url, fichier,image,dateA,periodique,collection,formation,promotion,ISSN,numero,entreprise,tuteur,duree);
     }
     
+    public static void modifieDoc(int iddoc, String notice, int site, String classification, int control,int page,int type,String titre,String sstitre,String dateP,String lieuP,int editeur,String mention,String ISBN,int lang,int niveau,String sommaire,String resume,String url,boolean fichier,boolean image,String dateA,int periodique,int collection,int formation,int promotion,String ISSN,String numero,String entreprise,String tuteur,String duree) {
+        document document = new document();
+        document.modifieDoc(iddoc, notice, site, classification, control,page,type,titre,sstitre,dateP,lieuP,editeur,mention,ISBN,lang,niveau,sommaire,resume,url, fichier,image,dateA,periodique,collection,formation,promotion,ISSN,numero,entreprise,tuteur,duree);
+    }
+    
     public static void enregistreCompDoc(int lastID,ArrayList listauteur,ArrayList listmtclf) {
         document document = new document();
         document.enregistreCompDoc(lastID,listauteur,listmtclf);
-      
     }
     
-    public static void supprimeDoc(int ID_doc) {
+    public static String supprimeDoc(int ID_doc) {
         document document = new document();
-        document.supprimeDoc(ID_doc);
-      
+        return document.supprimeDoc(ID_doc);
     }
     
     public static ArrayList chercheDoc(int type,String notice,String terme,int mtclf,int auteur,int site,String ISBN,String ISSN,String control,boolean fichier) {
@@ -189,11 +193,26 @@ public class FondController {
        return chercheByIddoc.cherche_ByIddociddoc(iddoc);
     }
     
-    public static ArrayList compteExempbyId(int iddoc) {
+    public static int compteExempbyId(int iddoc) {
         document cptex = new document();
         return cptex.compteExemplaire(iddoc);
     }
         
+    public static int compteSuggestionById(int iddoc) {
+        suggestion sugg = new suggestion();
+        return sugg.compte_ByIDDOC(iddoc);
+    }
+    
+    public static void ActionSuggestion(int action,int iddoc) { // pour ajouter supprimer référence de la liste de suggestion
+        if(action==1) {
+            suggestion suggestion = new suggestion();
+            suggestion.affecter_sug(iddoc);
+        } else {
+            suggestion suggestion = new suggestion();
+            suggestion.supprimer_sug(iddoc);
+        }
+    }
+    
     
     public static int lastIndex() {
         document document = new document();
