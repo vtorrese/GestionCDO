@@ -826,7 +826,25 @@ public class Fond_consult extends javax.swing.JPanel {
               //On envoie la première partie de la modifi (hors auteurs et mtclf)
              FondController.modifieDoc(iddoc,notice,site,classification,control,page,type,titre,sstitre,dateP,lieuP,editeur,mention,ISBN,lang,niveau,sommaire,resume,url,fichier,image,dateA,periodique,collection,formation,promotion,ISSN,numero,entreprise,tuteur,duree);
              
-             //modification table auteurs et mot-clefs //////////////////////////////
+             //modification table auteurs et mot-clefs //////////////////////////////             
+             
+                // Ajout des auteurs et des mots clés
+                                   ArrayList listauteur = new ArrayList();
+                                   ArrayList listmtclf = new ArrayList();
+                                     for(int i=0;i<formulaire_fond.list_auteur.getRowCount();i++) {
+                                            if(!formulaire_fond.list_auteur.getValueAt(i, 0).equals("")) {
+                                                listauteur.add(formulaire_fond.list_auteur.getValueAt(i, 0));
+                                            }       
+                                         }
+                                     for(int i=0;i<formulaire_fond.list_mtclf.getRowCount();i++) {
+                                            if(!formulaire_fond.list_mtclf.getValueAt(i, 0).equals("")) {
+                                                listmtclf.add(formulaire_fond.list_mtclf.getValueAt(i, 0));
+                                            }       
+                                         }
+                                     
+                                     FondController.enregistreCompDoc(iddoc,listauteur,listmtclf);
+                                     
+                                    
              
         }
         }

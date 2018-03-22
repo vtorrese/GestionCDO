@@ -113,8 +113,7 @@ public class MaFenetre implements EventListener {
                         desktop.add(panneau);
                         panneau.setVisible(true);
                         }
-                });
-                
+                });             
 
                 ajouter.addActionListener((ActionEvent e) -> {
                     JInternalFrame[] tab = desktop.getAllFrames();
@@ -151,19 +150,25 @@ public class MaFenetre implements EventListener {
                    Pret panneau = new Pret("Prêts","Etat des prêts");
                    desktop.add(panneau);
                    panneau.setVisible(true);
-                });
+                });*/
                 
                 categorie.addActionListener((ActionEvent e) -> {
-                   Parametres panneau = new Parametres("Paramètres","Configuration des catégories");
+                    JInternalFrame[] tab = desktop.getAllFrames();
+                     if(Arrays.toString(tab).indexOf("Catégories")==-1){
+                   Parametre panneau = new Parametre("Parametre","Catégories");
                    desktop.add(panneau);
                    panneau.setVisible(true);
+                     }
                 });
                 
                 regle.addActionListener((ActionEvent e) -> {
-                   Parametres panneau = new Parametres("Paramètres","Configuration des règles");
+                    JInternalFrame[] tab = desktop.getAllFrames();
+                    if(Arrays.toString(tab).indexOf("Règles")==-1){
+                   Parametre panneau = new Parametre("Parametre","Règles");
                    desktop.add(panneau);
                    panneau.setVisible(true);
-                });*/
+                    }
+                });
             
                 JScrollPane scroll=new JScrollPane(desktop);
                 scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);

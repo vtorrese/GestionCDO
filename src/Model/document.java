@@ -476,7 +476,17 @@ public class document {
         }
     
     public void enregistreCompDoc(int lastID,ArrayList listauteur,ArrayList listmtclf) {
+        
+        
+        //faire un delete avant sur l'id doc
+            String requetedep = null;
+                requetedep = "DELETE FROM doc_auteur WHERE doc_docauteur = '" + lastID + "'";
+                new Connect(requetedep);
             
+            String requetex = null;
+                requetex = "DELETE FROM doc_motclef WHERE doc_docmotclef = '" + lastID + "'";
+                new Connect(requetex);
+        
         for(int i=0;i<listauteur.size();i++) {
             String requete = null;
             requete = "INSERT INTO doc_auteur (doc_docauteur,auteur_docauteur) VALUES (" + lastID + ",'" + listauteur.get(i).toString() + "')";
@@ -489,6 +499,7 @@ public class document {
             new Connect(requete);
         }
     } 
+    
     public ArrayList cherche_doc(int type,String notice,String terme,int mtclf,int auteur,int site,String ISBN,String ISSN,int control,boolean fichier) {
     
     String requete = null;
@@ -582,6 +593,17 @@ public class document {
             String message = "Suppression impossible, un exemplaire est dans la liste de suggestion !";
             return message;
         }
+        
+        //Suppression table doc_auteur
+        String sup_auteur = null;
+        sup_auteur = "DELETE FROM doc_auteur WHERE doc_docauteur = '" + IDdoc + "'";
+        new Connect(sup_auteur);
+        
+        //Suppresion table doc_mtclf
+        
+        String sup_mtclf = null;
+        sup_mtclf = "DELETE FROM doc_motclef WHERE doc_docmotclef = '" + IDdoc + "'";
+        new Connect(sup_mtclf);
         
         //Suppression table consulattion
         String sup_consult = null;
