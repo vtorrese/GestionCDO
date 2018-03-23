@@ -30,6 +30,18 @@ public class FondController {
         if(!name.isEmpty()) {
             switch (table)
             {
+            case "site":
+                /*Action*/;
+                site site = new site();
+                if(site.enregistreRet(name).contains("ok")) {
+                    JOptionPane.showMessageDialog(frame,"Nouvel élément bien enregistré !");
+                formulaire_fond.localisation_doc.addItem(name);
+                formulaire_fond.SiteMap.put(site.lastID(), name);
+                formulaire_fond.localisation_doc.setSelectedItem(name);
+                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
+                break;
+                
+                
             case "editeur":
                 /*Action*/;
                 editeur editeur = new editeur();
@@ -37,7 +49,7 @@ public class FondController {
                 formulaire_fond.editeur_doc.addItem(name);
                 formulaire_fond.EditeurMap.put(editeur.lastID(), name);
                 formulaire_fond.editeur_doc.setSelectedItem(name);
-                }
+                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
                 break; 
                 
            case "langue":
@@ -47,7 +59,7 @@ public class FondController {
                 formulaire_fond.lang_doc.addItem(name);
                 formulaire_fond.LangMap.put(langue.lastID(), name);
                 formulaire_fond.lang_doc.setSelectedItem(name);
-                }
+                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
                 break; 
                 
             case "niveau":
@@ -57,7 +69,7 @@ public class FondController {
                 formulaire_fond.niveau_doc.addItem(name);
                 formulaire_fond.NiveauMap.put(niveau.lastID(), name);
                 formulaire_fond.niveau_doc.setSelectedItem(name);
-                }
+                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
                 break;   
              
             case "mtclf":
@@ -67,7 +79,7 @@ public class FondController {
                 formulaire_fond.mtclf_doc.addItem(name);
                 formulaire_fond.MtclfMap.put(mtclf.lastID(), name);
                 formulaire_fond.mtclf_doc.setSelectedItem(name);
-                }
+                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
                 break;     
                 
             case "periodique":
@@ -77,7 +89,7 @@ public class FondController {
                 formulaire_fond.period_doc.addItem(name);
                 formulaire_fond.PeriodMap.put(periodique.lastID(), name);
                 formulaire_fond.period_doc.setSelectedItem(name);
-                }
+                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
                 break;  
                 
             case "collection":
@@ -87,7 +99,7 @@ public class FondController {
                 formulaire_fond.coll_doc.addItem(name);
                 formulaire_fond.CollMap.put(collection.lastID(), name);
                 formulaire_fond.coll_doc.setSelectedItem(name);
-                }
+                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
                 break;  
                 
             case "formation":
@@ -97,7 +109,7 @@ public class FondController {
                 formulaire_fond.form_doc.addItem(name);
                 formulaire_fond.FormationMap.put(formation.lastID(), name);
                 formulaire_fond.form_doc.setSelectedItem(name);
-                }
+                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
                 break; 
                 
             case "promotion":
@@ -107,7 +119,7 @@ public class FondController {
                 formulaire_fond.promo_doc.addItem(name);
                 formulaire_fond.PromotionMap.put(promotion.lastID(), name);
                 formulaire_fond.promo_doc.setSelectedItem(name);
-                }
+                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
                 break; 
                 
                 
@@ -148,7 +160,7 @@ public class FondController {
                         formulaire_fond.auteur_doc.addItem(ident);
                         formulaire_fond.AuteurMap.put(promotion.lastID(), ident);
                         formulaire_fond.auteur_doc.setSelectedItem(ident);
-                        }
+                        } 
                 }               
             }
     }

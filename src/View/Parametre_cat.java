@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.FondController;
 import java.util.ArrayList;
 
 /**
@@ -29,19 +30,211 @@ public class Parametre_cat extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        Btn_site = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        Btn_type = new javax.swing.JButton();
+        Btn_editeur = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        Btn_period = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        Btn_coll = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        Btn_lang = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        Btn_niveau = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        Btn_auteur = new javax.swing.JButton();
+        Btn_mtclf = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        Btn_formation = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        Btn_promotion = new javax.swing.JButton();
+
+        jLabel1.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel1.setText("Site");
+
+        Btn_site.setText("+");
+        Btn_site.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_siteActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel2.setText("Type de document");
+
+        Btn_type.setText("+");
+
+        Btn_editeur.setText("+");
+        Btn_editeur.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_editeurActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel3.setText("Editeur");
+
+        Btn_period.setText("+");
+
+        jLabel4.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel4.setText("Périodique");
+
+        Btn_coll.setText("+");
+
+        jLabel5.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel5.setText("Collection");
+
+        Btn_lang.setText("+");
+
+        jLabel6.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel6.setText("Langue");
+
+        jLabel7.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel7.setText("Niveau");
+
+        Btn_niveau.setText("+");
+
+        jLabel8.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel8.setText("Auteurs");
+
+        Btn_auteur.setText("+");
+
+        Btn_mtclf.setText("+");
+
+        jLabel9.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel9.setText("Mot-Clef");
+
+        jLabel10.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel10.setText("Formation");
+
+        Btn_formation.setText("+");
+
+        jLabel11.setFont(new java.awt.Font("Rockwell", 1, 10)); // NOI18N
+        jLabel11.setText("Promotion");
+
+        Btn_promotion.setText("+");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 794, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Btn_site, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn_type, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn_editeur, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn_period, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn_coll, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn_lang, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn_niveau, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn_auteur, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn_mtclf, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn_formation, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(Btn_promotion, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(Btn_site))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(Btn_type))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(Btn_editeur))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(Btn_period))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(Btn_coll))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(Btn_lang))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(Btn_niveau))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(Btn_auteur))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(Btn_mtclf))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(Btn_formation))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(Btn_promotion))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void Btn_siteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_siteActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_Btn_siteActionPerformed
+
+    private void Btn_editeurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_editeurActionPerformed
+        // TODO add your handling code here:
+ 
+    }//GEN-LAST:event_Btn_editeurActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Btn_auteur;
+    private javax.swing.JButton Btn_coll;
+    private javax.swing.JButton Btn_editeur;
+    private javax.swing.JButton Btn_formation;
+    private javax.swing.JButton Btn_lang;
+    private javax.swing.JButton Btn_mtclf;
+    private javax.swing.JButton Btn_niveau;
+    private javax.swing.JButton Btn_period;
+    private javax.swing.JButton Btn_promotion;
+    private javax.swing.JButton Btn_site;
+    private javax.swing.JButton Btn_type;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 }

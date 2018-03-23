@@ -155,7 +155,7 @@ public class MaFenetre implements EventListener {
                 categorie.addActionListener((ActionEvent e) -> {
                     JInternalFrame[] tab = desktop.getAllFrames();
                      if(Arrays.toString(tab).indexOf("Catégories")==-1){
-                   Parametre panneau = new Parametre("Parametre","Catégories");
+                   View.Parametre panneau = new View.Parametre("Parametre","Catégories",donnees);
                    desktop.add(panneau);
                    panneau.setVisible(true);
                      }
@@ -164,7 +164,7 @@ public class MaFenetre implements EventListener {
                 regle.addActionListener((ActionEvent e) -> {
                     JInternalFrame[] tab = desktop.getAllFrames();
                     if(Arrays.toString(tab).indexOf("Règles")==-1){
-                   Parametre panneau = new Parametre("Parametre","Règles");
+                   View.Parametre panneau = new View.Parametre("Parametre","Règles",donnees);
                    desktop.add(panneau);
                    panneau.setVisible(true);
                     }
