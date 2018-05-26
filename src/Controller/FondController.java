@@ -21,120 +21,130 @@ public class FondController {
     public FondController() {
         
     }
-    
+    //VERSION AVEC BUG SUR ANNULER
     public static void ajoutCategory(String table) {
         JFrame frame = new JFrame();
-        frame.setTitle(table);
-        String name = JOptionPane.showInputDialog(frame, table);
-        
-        if(!name.isEmpty()) {
-            switch (table)
-            {
-            case "site":
-                /*Action*/;
-                site site = new site();
-                if(site.enregistreRet(name).contains("ok")) {
-                    JOptionPane.showMessageDialog(frame,"Nouvel élément bien enregistré !");
-                formulaire_fond.localisation_doc.addItem(name);
-                formulaire_fond.SiteMap.put(site.lastID(), name);
-                formulaire_fond.localisation_doc.setSelectedItem(name);
-                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
-                break;
-                
-                
-            case "editeur":
-                /*Action*/;
-                editeur editeur = new editeur();
-                if(editeur.enregistreRet(name).contains("ok")) {
-                formulaire_fond.editeur_doc.addItem(name);
-                formulaire_fond.EditeurMap.put(editeur.lastID(), name);
-                formulaire_fond.editeur_doc.setSelectedItem(name);
-                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
-                break; 
-                
-           case "langue":
-                /*Action*/;
-                langue langue = new langue();
-                if(langue.enregistreRet(name).contains("ok")) {
-                formulaire_fond.lang_doc.addItem(name);
-                formulaire_fond.LangMap.put(langue.lastID(), name);
-                formulaire_fond.lang_doc.setSelectedItem(name);
-                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
-                break; 
-                
-            case "niveau":
-                /*Action*/;
-                niveau niveau = new niveau();
-                if(niveau.enregistreRet(name).contains("ok")) {
-                formulaire_fond.niveau_doc.addItem(name);
-                formulaire_fond.NiveauMap.put(niveau.lastID(), name);
-                formulaire_fond.niveau_doc.setSelectedItem(name);
-                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
-                break;   
-             
-            case "mtclf":
-                /*Action*/;
-                mtclf mtclf = new mtclf();
-                if(mtclf.enregistreRet(name).contains("ok")) {
-                formulaire_fond.mtclf_doc.addItem(name);
-                formulaire_fond.MtclfMap.put(mtclf.lastID(), name);
-                formulaire_fond.mtclf_doc.setSelectedItem(name);
-                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
-                break;     
-                
-            case "periodique":
-                /*Action*/;
-                periodique periodique = new periodique();
-                if(periodique.enregistreRet(name).contains("ok")) {
-                formulaire_fond.period_doc.addItem(name);
-                formulaire_fond.PeriodMap.put(periodique.lastID(), name);
-                formulaire_fond.period_doc.setSelectedItem(name);
-                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
-                break;  
-                
-            case "collection":
-                /*Action*/;
-                collection collection = new collection();
-                if(collection.enregistreRet(name).contains("ok")) {
-                formulaire_fond.coll_doc.addItem(name);
-                formulaire_fond.CollMap.put(collection.lastID(), name);
-                formulaire_fond.coll_doc.setSelectedItem(name);
-                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
-                break;  
-                
-            case "formation":
-                /*Action*/;
-                formation formation = new formation();
-                if(formation.enregistreRet(name).contains("ok")) {
-                formulaire_fond.form_doc.addItem(name);
-                formulaire_fond.FormationMap.put(formation.lastID(), name);
-                formulaire_fond.form_doc.setSelectedItem(name);
-                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
-                break; 
-                
-            case "promotion":
-                /*Action*/;
-                promotion promotion = new promotion();
-                if(promotion.enregistreRet(name).contains("ok")) {
-                formulaire_fond.promo_doc.addItem(name);
-                formulaire_fond.PromotionMap.put(promotion.lastID(), name);
-                formulaire_fond.promo_doc.setSelectedItem(name);
-                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
-                break; 
-                
-                
-            default:
-                /*Action*/;
-                frame.dispose();
-                
-            }
-        }
-        else
-        {
-            frame.dispose();
-           
-        }
-        
+        JTextField name = new JTextField();
+        Object[] message = {
+            "Libellé :", name
+            };
+        int option = JOptionPane.showConfirmDialog(frame, message, table, JOptionPane.OK_CANCEL_OPTION);
+                if (option == JOptionPane.OK_OPTION)
+                {
+                    if(name.getText().isEmpty()) {
+                            JOptionPane.showMessageDialog(frame,"Libellé invalide !");
+                        } 
+                        else
+                        {
+                            switch (table)
+                            {
+                            case "site":
+                                /*Action*/;
+                                site site = new site();
+                                if(site.enregistreRet(name.getText()).contains("ok")) {
+                                    JOptionPane.showMessageDialog(frame,"Nouvel élément bien enregistré !");
+                                formulaire_fond.localisation_doc.addItem(name.getText());
+                                formulaire_fond.SiteMap.put(site.lastID(), name.getText());
+                                formulaire_fond.localisation_doc.setSelectedItem(name.getText());
+                                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
+                                break;
+
+
+                            case "editeur":
+                                /*Action*/;
+                                editeur editeur = new editeur();
+                                if(editeur.enregistreRet(name.getText()).contains("ok")) {
+                                formulaire_fond.editeur_doc.addItem(name.getText());
+                                formulaire_fond.EditeurMap.put(editeur.lastID(), name.getText());
+                                formulaire_fond.editeur_doc.setSelectedItem(name);
+                                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
+                                break; 
+
+                           case "langue":
+                                /*Action*/;
+                                langue langue = new langue();
+                                if(langue.enregistreRet(name.getText()).contains("ok")) {
+                                formulaire_fond.lang_doc.addItem(name.getText());
+                                formulaire_fond.LangMap.put(langue.lastID(), name.getText());
+                                formulaire_fond.lang_doc.setSelectedItem(name);
+                                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
+                                break; 
+
+                            case "niveau":
+                                /*Action*/;
+                                niveau niveau = new niveau();
+                                if(niveau.enregistreRet(name.getText()).contains("ok")) {
+                                formulaire_fond.niveau_doc.addItem(name.getText());
+                                formulaire_fond.NiveauMap.put(niveau.lastID(), name.getText());
+                                formulaire_fond.niveau_doc.setSelectedItem(name);
+                                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
+                                break;   
+
+                            case "mtclf":
+                                /*Action*/;
+                                mtclf mtclf = new mtclf();
+                                if(mtclf.enregistreRet(name.getText()).contains("ok")) {
+                                formulaire_fond.mtclf_doc.addItem(name.getText());
+                                formulaire_fond.MtclfMap.put(mtclf.lastID(), name.getText());
+                                formulaire_fond.mtclf_doc.setSelectedItem(name);
+                                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
+                                break;     
+
+                            case "periodique":
+                                /*Action*/;
+                                periodique periodique = new periodique();
+                                if(periodique.enregistreRet(name.getText()).contains("ok")) {
+                                formulaire_fond.period_doc.addItem(name.getText());
+                                formulaire_fond.PeriodMap.put(periodique.lastID(), name.getText());
+                                formulaire_fond.period_doc.setSelectedItem(name);
+                                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
+                                break;  
+
+                            case "collection":
+                                /*Action*/;
+                                collection collection = new collection();
+                                if(collection.enregistreRet(name.getText()).contains("ok")) {
+                                formulaire_fond.coll_doc.addItem(name.getText());
+                                formulaire_fond.CollMap.put(collection.lastID(), name.getText());
+                                formulaire_fond.coll_doc.setSelectedItem(name);
+                                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
+                                break;  
+
+                            case "formation":
+                                /*Action*/;
+                                formation formation = new formation();
+                                if(formation.enregistreRet(name.getText()).contains("ok")) {
+                                formulaire_fond.form_doc.addItem(name.getText());
+                                formulaire_fond.FormationMap.put(formation.lastID(), name.getText());
+                                formulaire_fond.form_doc.setSelectedItem(name);
+                                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
+                                break; 
+
+                            case "promotion":
+                                /*Action*/;
+                                promotion promotion = new promotion();
+                                if(promotion.enregistreRet(name.getText()).contains("ok")) {
+                                formulaire_fond.promo_doc.addItem(name.getText());
+                                formulaire_fond.PromotionMap.put(promotion.lastID(), name.getText());
+                                formulaire_fond.promo_doc.setSelectedItem(name);
+                                } else {JOptionPane.showMessageDialog(frame,"Enregistrement échoué !");}
+                                break; 
+
+
+                            default:
+                                /*Action*/;
+                                frame.dispose();
+
+                            } // switch
+
+                        }
+                } // Si on coche l'option OK
+            else
+                {
+                    frame.dispose();
+
+                }
+
     }
     
     public static void ajoutAuteur() {

@@ -26,9 +26,12 @@ public class formation {
     
     public String enregistreRet(String valeur) {
         String requete = null;
+        String entree = null;
         String message = null;
             if(controlDB(valeur)==false) {
-                requete = "INSERT INTO `formation`(`lib_formation`) VALUES ('" + valeur + "')";
+                entree = "(";
+                entree = entree + "\"" + valeur + "\")";
+                requete = "INSERT INTO `formation`(`lib_formation`) VALUES " + entree;
                 new Connect(requete);
                 message = "ok";
             } else {
@@ -40,7 +43,7 @@ public class formation {
     public static boolean controlDB(String valeur) {
         String requete = null;
         boolean retour = false;
-        requete = "SELECT COUNT(*) FROM `formation` WHERE lib_formation = '" + valeur + "'";
+        requete = "SELECT COUNT(*) FROM `formation` WHERE lib_formation = \"" + valeur + "\"";
         Connect donnees = new Connect(requete);
         if(donnees.renvoi().get(0).toString().contains("1")) {
             retour = true;

@@ -26,9 +26,12 @@ public class promotion {
     
         public String enregistreRet(String valeur) {
         String requete = null;
+        String entree = null;
         String message = null;
             if(controlDB(valeur)==false) {
-                requete = "INSERT INTO `promotion`(`lib_promotion`) VALUES ('" + valeur + "')";
+                 entree = "(";
+                entree = entree + "\"" + valeur + "\")";
+                requete = "INSERT INTO `promotion`(`lib_promotion`) VALUES " + entree;
                 new Connect(requete);
                 message = "ok";
             } else {
@@ -40,7 +43,7 @@ public class promotion {
     public static boolean controlDB(String valeur) {
         String requete = null;
         boolean retour = false;
-        requete = "SELECT COUNT(*) FROM `promotion` WHERE lib_promotion = '" + valeur + "'";
+        requete = "SELECT COUNT(*) FROM `promotion` WHERE lib_promotion = \"" + valeur + "\"";
         Connect donnees = new Connect(requete);
         if(donnees.renvoi().get(0).toString().contains("1")) {
             retour = true;

@@ -26,9 +26,12 @@ public class site {
     
         public String enregistreRet(String valeur) {
         String requete = null;
+          String entree = null;
         String message = null;
             if(controlDB(valeur)==false) {
-                requete = "INSERT INTO `site`(`lib_site`) VALUES ('" + valeur + "')";
+                entree = "(";
+                entree = entree + "\"" + valeur + "\")";
+                requete = "INSERT INTO `site`(`lib_site`) VALUES " + entree;
                 new Connect(requete);
                 message = "ok";
             } else {
@@ -40,7 +43,7 @@ public class site {
        public static boolean controlDB(String valeur) {
         String requete = null;
         boolean retour = false;
-        requete = "SELECT COUNT(*) FROM `site` WHERE lib_site = '" + valeur + "'";
+        requete = "SELECT COUNT(*) FROM `site` WHERE lib_site = \"" + valeur + "\"";
         Connect donnees = new Connect(requete);
         if(donnees.renvoi().get(0).toString().contains("1")) {
             retour = true;

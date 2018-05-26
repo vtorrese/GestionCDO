@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -27,9 +28,12 @@ public class editeur {
         
     public String enregistreRet(String valeur) {
         String requete = null;
+        String entree = null;
         String message = null;
             if(controlDB(valeur)==false) {
-                requete = "INSERT INTO `editeur`(`lib_edit`) VALUES ('" + valeur + "')";
+                entree = "(";
+                entree = entree + "\"" + valeur + "\")";
+                requete = "INSERT INTO `editeur`(`lib_edit`) VALUES " + entree;
                 new Connect(requete);
                 message = "ok";
             } else {
@@ -41,7 +45,7 @@ public class editeur {
     public static boolean controlDB(String valeur) {
         String requete = null;
         boolean retour = false;
-        requete = "SELECT COUNT(*) FROM `editeur` WHERE lib_edit = '" + valeur + "'";
+        requete = "SELECT COUNT(*) FROM `editeur` WHERE lib_edit = \"" + valeur + "\"";
         Connect donnees = new Connect(requete);
         if(donnees.renvoi().get(0).toString().contains("1")) {
             retour = true;

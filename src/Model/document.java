@@ -325,10 +325,11 @@ public class document {
                valeur = valeur + "'" + type + "',";
                
                table = table + "titre_doc,";
-               valeur = valeur + "'" + titre + "',";
+                valeur = valeur + "\"" + titre + "\",";
+               
                
                table = table + "sstitre_doc,";
-               valeur = valeur + "'" + sstitre + "',";
+               valeur = valeur + "\"" + sstitre + "\",";
                
                table = table + "dateP_doc,";
                valeur = valeur + "'" + dateP + "',";
@@ -352,10 +353,10 @@ public class document {
                valeur = valeur + "'" + niveau + "',";
                
                table = table + "somm_doc,";
-               valeur = valeur + "'" + sommaire + "',";
+               valeur = valeur + "\"" + sommaire + "\",";
 
                table = table + "resum_doc,";
-               valeur = valeur + "'" + resume + "',";
+               valeur = valeur + "\"" + resume + "\",";
 
                table = table + "url_doc,";
                valeur = valeur + "'" + url + "',";
@@ -398,7 +399,7 @@ public class document {
                valeur = valeur + "'" + numero + "',";
                
                table = table + "ent_doc,";
-               valeur = valeur + "'" + entreprise + "',";
+               valeur = valeur + "\"" + entreprise + "\",";
                
                table = table + "tuto_doc,";
                valeur = valeur + "'" + tuteur + "',";
@@ -424,9 +425,9 @@ public class document {
                 valeur = "`id_not`='" + notice + "', ";
                 valeur = valeur + "`class_doc`='" + classification + "', ";
                 valeur = valeur + "`type_doc`='" + type + "', ";
-                valeur = valeur + "`titre_doc`='" + titre + "', ";
-                valeur = valeur + "`sstitre_doc`='" + sstitre + "', ";
-                valeur = valeur + "`sstitre_doc`='" + sstitre + "', ";
+                valeur = valeur + "`titre_doc`=\"" + titre + "\", ";
+                valeur = valeur + "`sstitre_doc`=\"" + sstitre + "\", ";
+            
                
                 if(periodique>0) {
                     valeur = valeur + "`period_doc`='" + periodique + "', ";
@@ -445,7 +446,7 @@ public class document {
                     valeur = valeur + "`duree_doc`='" + duree + "', ";
                }
                
-               valeur = valeur + "`ent_doc`='" + entreprise + "', ";
+               valeur = valeur + "`ent_doc`=\"" + entreprise + "\", ";
                valeur = valeur + "`tuto_doc`='" + tuteur + "', ";
                valeur = valeur + "`edit_doc`='" + editeur + "', ";
                valeur = valeur + "`date_doc`='" + dateA + "', ";
@@ -458,8 +459,8 @@ public class document {
                valeur = valeur + "`dateP_doc`='" + dateP + "', ";
                valeur = valeur + "`niveau_doc`='" + niveau + "', ";
                valeur = valeur + "`page_doc`='" + page + "', ";
-               valeur = valeur + "`somm_doc`='" + sommaire + "', ";
-               valeur = valeur + "`resum_doc`='" + resume + "', ";
+               valeur = valeur + "`somm_doc`=\"" + sommaire + "\", ";
+               valeur = valeur + "`resum_doc`=\"" + resume + "\", ";
                int file = 0;
                if(fichier) {file = 1;}
                valeur = valeur + "`lien_doc`='" + file + "', ";
@@ -472,6 +473,7 @@ public class document {
                valeur = valeur + " WHERE id_doc='" + iddoc + "'";
                
                requete = requete + valeur;
+               System.out.println(requete);
                new Connect(requete);
         }
     
@@ -561,7 +563,7 @@ public class document {
     
     public ArrayList cherche_ById(int iddoc) {
         String requete = null;
-        requete = "SELECT id_doc, id_not, class_doc, type_doc, titre_doc, sstitre_doc, period_doc, form_doc, promo_doc, ent_doc, tuto_doc, edit_doc,  CONCAT(DAY(date_doc),' ',MONTH(date_doc),' ',YEAR(date_doc)) AS DateA, lieu_doc, mention_doc, coll_doc, num_doc, ISBN_doc, ISSN_doc, lang_doc, CONCAT(DAY(dateP_doc),' ',MONTH(dateP_doc),' ',YEAR(dateP_doc)) AS DateP, niveau_doc, page_doc, duree_doc, somm_doc, resum_doc, lien_doc, image_doc, url_doc, control_doc, localisation_doc FROM document WHERE id_doc ='" + iddoc + "'";
+        requete = "SELECT id_doc, id_not, class_doc, type_doc, titre_doc, sstitre_doc, period_doc, form_doc, promo_doc, ent_doc, tuto_doc, edit_doc,  CONCAT(DAY(date_doc),' ',MONTH(date_doc),' ',YEAR(date_doc)) AS DateA, lieu_doc, mention_doc, coll_doc, num_doc, ISBN_doc, ISSN_doc, lang_doc, CONCAT(DAY(dateP_doc),' ',MONTH(dateP_doc),' ',YEAR(dateP_doc)) AS DateP, niveau_doc, page_doc, duree_doc, somm_doc, resum_doc, lien_doc, image_doc, url_doc, control_doc, localisation_doc, coll_doc FROM document WHERE id_doc ='" + iddoc + "'";
         Connect donnees = new Connect(requete);    
         retour = donnees.renvoi();
         return retour; 

@@ -28,9 +28,12 @@ public class mtclf {
     
     public String enregistreRet(String valeur) {
         String requete = null;
+        String entree = null;
         String message = null;
             if(controlDB(valeur)==false) {
-                requete = "INSERT INTO `motclef`(`lib_motclef`) VALUES ('" + valeur + "')";
+                entree = "(";
+                entree = entree + "\"" + valeur + "\")";
+                requete = "INSERT INTO `motclef`(`lib_motclef`) VALUES " + entree;
                 new Connect(requete);
                 message = "ok";
             } else {
@@ -42,7 +45,7 @@ public class mtclf {
     public static boolean controlDB(String valeur) {
         String requete = null;
         boolean retour = false;
-        requete = "SELECT COUNT(*) FROM `motclef` WHERE lib_motclef = '" + valeur + "'";
+        requete = "SELECT COUNT(*) FROM `motclef` WHERE lib_motclef = \"" + valeur + "\"";
         Connect donnees = new Connect(requete);
         if(donnees.renvoi().get(0).toString().contains("1")) {
             retour = true;

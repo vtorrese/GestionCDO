@@ -597,6 +597,7 @@ public class Fond_consult extends javax.swing.JPanel {
                 titre_doc.setText(profildoc.get(4).toString());
                 sstitre_doc.setText(profildoc.get(5).toString());
                 period_doc.setSelectedItem(PeriodMap.get(profildoc.get(6).toString()));
+                coll_doc.setSelectedItem(CollMap.get(profildoc.get(31).toString()));
                 form_doc.setSelectedItem(FormationMap.get(profildoc.get(7).toString()));
                 promo_doc.setSelectedItem(PromotionMap.get(profildoc.get(8).toString()));
                 ent_doc.setText(profildoc.get(9).toString());

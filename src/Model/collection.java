@@ -28,9 +28,12 @@ public class collection {
     
     public String enregistreRet(String valeur) {
         String requete = null;
+        String entree = null;
         String message = null;
             if(controlDB(valeur)==false) {
-                requete = "INSERT INTO `collection`(`lib_collection`) VALUES ('" + valeur + "')";
+                entree = "(";
+                entree = entree + "\"" + valeur + "\")";               
+                requete = "INSERT INTO `collection`(`lib_collection`) VALUES " + entree;
                 new Connect(requete);
                 message = "ok";
             } else {
@@ -42,11 +45,11 @@ public class collection {
     public static boolean controlDB(String valeur) {
         String requete = null;
         boolean retour = false;
-        requete = "SELECT COUNT(*) FROM `collection` WHERE lib_collection = '" + valeur + "'";
+        requete = "SELECT COUNT(*) FROM `collection` WHERE lib_collection = \"" + valeur + "\"";
         Connect donnees = new Connect(requete);
         if(donnees.renvoi().get(0).toString().contains("1")) {
             retour = true;
-        }
+        } 
         return retour;
     }
     

@@ -19,11 +19,6 @@ import javax.swing.JTextField;
 import static view.Utilisateur_new.getKeyFromValue;
 
 
-
-
-
-
-
 /**
  *
  * @author vince

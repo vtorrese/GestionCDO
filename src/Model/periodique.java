@@ -28,9 +28,12 @@ public class periodique {
     
     public String enregistreRet(String valeur) {
         String requete = null;
+        String entree = null;
         String message = null;
             if(controlDB(valeur)==false) {
-                requete = "INSERT INTO `periodique`(`lib_periodique`) VALUES ('" + valeur + "')";
+                 entree = "(";
+                entree = entree + "\"" + valeur + "\")";
+                requete = "INSERT INTO `periodique`(`lib_periodique`) VALUES " + entree;
                 new Connect(requete);
                 message = "ok";
             } else {
@@ -42,7 +45,7 @@ public class periodique {
     public static boolean controlDB(String valeur) {
         String requete = null;
         boolean retour = false;
-        requete = "SELECT COUNT(*) FROM `periodique` WHERE lib_periodique = '" + valeur + "'";
+        requete = "SELECT COUNT(*) FROM `periodique` WHERE lib_periodique = \"" + valeur + "\"";
         Connect donnees = new Connect(requete);
         if(donnees.renvoi().get(0).toString().contains("1")) {
             retour = true;

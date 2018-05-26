@@ -140,12 +140,12 @@ public class utilisateur {
         String valeur = null;
         //System.out.println(status);
         if(status==2) {
-        valeur = "('" + nom + "','" + prenom + "','"  + mdp + "','"  + adresse + "','" + CP + "','" + ville + "','" + tel + "','" + mail + "','"  + status + "','"  + site + "','" + civil + "','" + promotion + "','" + formation + "')"; 
+        valeur = "(\"" + nom + "\",\"" + prenom + "\",'"  + mdp + "',\""  + adresse + "\",'" + CP + "',\"" + ville + "\",'" + tel + "','" + mail + "','"  + status + "','"  + site + "','" + civil + "','" + promotion + "','" + formation + "')"; 
         requete = "INSERT INTO `user`(`nom_user`, `prenom_user`, `mdp_user`, `adresse_user`, `CP_user`, `ville_user`, `phone_user`, `mail_user`, `status_user`, `site_user`, `civil_user`, `promo_user`, `form_user`) VALUES ";
         } 
         else
         {
-        valeur = "('" + nom + "','" + prenom + "','"  + mdp + "','"  + adresse + "','" + CP + "','" + ville + "','" + tel + "','" + mail + "','"  + status + "','"  + site + "','" + civil + "')"; 
+        valeur = "(\"" + nom + "\",\"" + prenom + "\",'"  + mdp + "',\""  + adresse + "\",'" + CP + "',\"" + ville + "\",'" + tel + "','" + mail + "','"  + status + "','"  + site + "','" + civil + "')"; 
         requete = "INSERT INTO `user`(`nom_user`, `prenom_user`, `mdp_user`, `adresse_user`, `CP_user`, `ville_user`, `phone_user`, `mail_user`, `status_user`, `site_user`, `civil_user`) VALUES ";  
         }
         
@@ -167,7 +167,7 @@ public class utilisateur {
         }
         
         if(status==0){req_status = req_status;} else {req_status = "status_user = '" + status + "'";controle = true;}
-        if(nom.isEmpty()){req_nom = req_nom;} else {req_nom = "nom_user LIKE ('%" + nom + "%')";if(controle==true) {req_nom = and.concat(req_nom);};controle = true;}
+        if(nom.isEmpty()){req_nom = req_nom;} else {req_nom = "nom_user LIKE (\"%" + nom + "%\")";if(controle==true) {req_nom = and.concat(req_nom);};controle = true;}
         if(formation==0){req_form = req_form;} else {req_form = "form_user = '" + formation + "'";if(controle==true) {req_form = and.concat(req_form);};controle = true;}
         if(promotion==0){req_promo = req_promo;} else {req_promo = "promo_user = '" + promotion + "'";if(controle==true) {req_promo = and.concat(req_promo);};controle = true;}
         requete = requete+=req_status+=req_nom+=req_form+=req_promo;
@@ -200,7 +200,7 @@ public class utilisateur {
     
     public void modifier_user(int ID, int status, String nom, String prenom, int site, int formation, int promotion, int civil, String adresse, String CP, String ville, String tel, String mail, String mdp) {
         String requete = null;
-        requete = "UPDATE `user` SET `nom_user`='" + nom + "',`prenom_user`='" + prenom + "',`adresse_user`='" + adresse + "',`CP_user`='" + CP + "',`ville_user`='" + ville + "',`phone_user`='" + tel + "',`mail_user`='" +  mail + "',`status_user`='" + status + "',`site_user`='" + site + "',`civil_user`='" + civil + "' ";
+        requete = "UPDATE `user` SET `nom_user`=\"" + nom + "\",`prenom_user`=\"" + prenom + "\",`adresse_user`=\"" + adresse + "\",`CP_user`='" + CP + "',`ville_user`=\"" + ville + "\",`phone_user`='" + tel + "',`mail_user`='" +  mail + "',`status_user`='" + status + "',`site_user`='" + site + "',`civil_user`='" + civil + "' ";
         if(!mdp.isEmpty()) {
             requete = requete + ", mdp_user ='" + mdp + "' ";
            
@@ -210,7 +210,7 @@ public class utilisateur {
         }
         
         requete = requete + " WHERE `id_user`='" + ID + "'";
-        //System.out.println(requete);
+       
         new Connect(requete);
     }
     

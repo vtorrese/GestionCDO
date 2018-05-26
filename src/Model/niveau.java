@@ -29,9 +29,12 @@ public class niveau {
     
     public String enregistreRet(String valeur) {
         String requete = null;
+        String entree = null;
         String message = null;
             if(controlDB(valeur)==false) {
-                requete = "INSERT INTO `niveau`(`lib_niveau`) VALUES ('" + valeur + "')";
+                entree = "(";
+                entree = entree + "\"" + valeur + "\")";
+                requete = "INSERT INTO `niveau`(`lib_niveau`) VALUES " + entree;
                 new Connect(requete);
                 message = "ok";
             } else {
@@ -43,7 +46,7 @@ public class niveau {
     public static boolean controlDB(String valeur) {
         String requete = null;
         boolean retour = false;
-        requete = "SELECT COUNT(*) FROM `niveau` WHERE lib_niveau = '" + valeur + "'";
+        requete = "SELECT COUNT(*) FROM `niveau` WHERE lib_niveau = \"" + valeur + "\"";
         Connect donnees = new Connect(requete);
         if(donnees.renvoi().get(0).toString().contains("1")) {
             retour = true;

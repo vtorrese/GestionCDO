@@ -28,9 +28,13 @@ public class auteur {
     
         public String enregistreRet(String nom, String prenom) {
         String requete = null;
+        String valeur = null;
         String message = null;
             if(controlDB(nom,prenom)==false) {
-                requete = "INSERT INTO `auteur`(`nom_auteur`,`prenom_auteur`) VALUES ('" + nom + "','" + prenom + "')";
+                valeur = "(";
+                valeur = valeur + "\"" + nom + "\",";
+                valeur = valeur + "\"" + prenom + "\")";
+                requete = "INSERT INTO `auteur`(`nom_auteur`,`prenom_auteur`) VALUES " + valeur;
                 new Connect(requete);
                 message = "ok";
             } else {
@@ -42,7 +46,7 @@ public class auteur {
     public static boolean controlDB(String nom, String prenom) {
         String requete = null;
         boolean retour = false;
-        requete = "SELECT COUNT(*) FROM `auteur` WHERE nom_auteur = '" + nom + "' AND prenom_auteur='" + prenom + "'";
+        requete = "SELECT COUNT(*) FROM `auteur` WHERE nom_auteur = \"" + nom + "\" AND prenom_auteur=\"" + prenom + "\"";
         Connect donnees = new Connect(requete);
         if(donnees.renvoi().get(0).toString().contains("1")) {
             retour = true;
